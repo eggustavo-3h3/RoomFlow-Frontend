@@ -1,0 +1,132 @@
+<div class="container">
+  <div class="imagem-fundo"></div>
+  <div class="container_caixa">
+    <form [formGroup]="formularioDeUsuario">
+      <div class="form-group caixa">
+        <h2>Criar uma conta</h2>
+        <input
+          type="text"
+          id="nome"
+          placeholder="Nome"
+          class="form-control col-md-3 mt-5"
+          [class.is-invalid]="
+            formularioDeUsuario.get('nome')?.errors &&
+            formularioDeUsuario.get('nome')?.touched
+          "
+          formControlName="nome"
+        />
+        <div
+          *ngIf="formularioDeUsuario.get('nome')?.hasError('required')"
+          class="invalid-feedback"
+        >
+          O campo nome é obrigatório
+        </div>
+        <div
+          *ngIf="formularioDeUsuario.get('nome')?.hasError('maxlength')"
+          class="invalid-feedback"
+        >
+          O campo nome não pode conter mais de 250 caracteres
+        </div>
+        <input
+          id="email"
+          type="email"
+          placeholder="E-mail"
+          class="form-control col-md-3 mt-3"
+          [class.is-invalid]="
+            formularioDeUsuario.get('email')?.errors &&
+            formularioDeUsuario.get('email')?.touched
+          "
+          formControlName="email"
+        />
+        <div
+          *ngIf="
+            formularioDeUsuario.get('email')?.hasError('required') &&
+            formularioDeUsuario.get('email')?.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo email é obrigatório
+        </div>
+        <div
+          *ngIf="
+            formularioDeUsuario.get('email')?.hasError('email') &&
+            formularioDeUsuario.get('email')?.touched
+          "
+          class="invalid-feedback"
+        >
+          Preencha no formato de email
+        </div>
+        <input
+          id="senha"
+          type="password"
+          placeholder="Senha"
+          class="form-control col-md-3 mt-3"
+          formControlName="senha"
+          [class.is-invalid]="
+            formularioDeUsuario.get('senha')?.errors &&
+            formularioDeUsuario.get('senha')?.touched
+          "
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            formularioDeUsuario.get('senha')?.hasError('required') &&
+            formularioDeUsuario.get('senha')?.touched
+          "
+        >
+          O campo senha é obrigatório
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            formularioDeUsuario.get('senha')?.hasError('minlength') &&
+            formularioDeUsuario.get('senha')?.touched
+          "
+        >
+          O senha precisa de no mínimo 6 caracteres
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            formularioDeUsuario.get('senha')?.hasError('maxlength') &&
+            formularioDeUsuario.get('senha')?.touched
+          "
+        >
+          O senha não pode conter mais de 50 caracteres
+        </div>
+        <div>
+          <h3 class="text-center mt-3">Perfil</h3>
+          <label>
+            <input
+              type="radio"
+              id="adm"
+              formControlName="perfil"
+              value="Administrador"
+            />
+            Administrador
+          </label>
+          <br />
+          <label>
+            <input
+              type="radio"
+              id="prof"
+              class="mb-4"
+              formControlName="perfil"
+              value="Professor"
+            />
+            Professor</label
+          >
+        </div>
+        <div class="text-center">
+          <button
+            [disabled]="!formularioDeUsuario.valid"
+            class="btn btn-primary col-md-4 p-2"
+            (click)="SubmitForm()"
+          >
+            Criar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

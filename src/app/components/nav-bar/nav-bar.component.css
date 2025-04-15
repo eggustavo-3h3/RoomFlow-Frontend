@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+.nav button i {
+  font-size: 2.4rem;  /* Ajuste o valor conforme necessário (em rem ou px) */
+}
+
+.nav img {
+  width: 74px; /* Ajuste o valor conforme necessário */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+.nav h1 {
+  font-size: 2.4rem;
+  margin-left: 10px;
+}
+
+.nav button {
+  background-color: transparent;
+  border: none;
+  color: #000000;
+}

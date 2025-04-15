@@ -1,0 +1,12 @@
+.contem {
+  height: 85%;
+  width: 100%;
+  background-color: #E3F2FD;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

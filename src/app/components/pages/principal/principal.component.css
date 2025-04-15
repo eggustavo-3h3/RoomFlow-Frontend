@@ -1,0 +1,92 @@
+.corpo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  align-items: center;
+  background-color: black;
+  padding: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* 10 colunas para a grid de cards */
+  grid-gap: 10px;
+  width: 75%;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
+  justify-items: center;
+  margin-top: 20px; 
+}
+
+
+.status {
+  grid-column: span 10; /* Faz com que a linha ocupe toda a largura da grid */
+  display: flex;
+  justify-content: space-evenly; 
+  margin-bottom: 20px; 
+}
+
+.status-item {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 10px 20px; 
+  border-radius: 10px;
+  text-align: center;
+  flex-grow: 1; 
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+}
+.status-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px; 
+  border-radius: 5px; 
+}
+
+.disponível {
+  background-color: rgb(40, 167, 69);
+}
+
+.reservado {
+  background-color: rgb(198, 40, 40);
+}
+
+.indisponível {
+  background-color: rgb(117, 117, 117);
+}
+.informacoes {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  background-color: white;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  border: 2px solid rgb(255, 255, 255);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.informacao-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.informacao-item .valor {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.informacao-item span {
+  font-weight: normal;
+  font-size: 20px;
+}

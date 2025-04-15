@@ -1,0 +1,64 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-form {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.full-width {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+
+.botao-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.botao-container button {
+  min-width: 100px !important;
+  max-width: 120px !important;
+  padding: 8px 0 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  border-radius: 6px;
+}
+
+.forgot {
+  text-align: center;
+  display: block;
+  margin-bottom: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: #2c62f7;
+}
+
+.imagem-fundo {
+  align-self: flex-end;
+  width: 50%;
+  height: 100%;
+  background-image: url(../../../../../public/icons/background.jpeg);
+  background-position: center;
+  background-size: cover;
+}

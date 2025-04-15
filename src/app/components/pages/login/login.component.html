@@ -1,0 +1,69 @@
+<div class="login-container">
+  <div class="login-form">
+    <h2>Informe seus dados</h2>
+    <form [formGroup]="formularioDeUsuario">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>E-mail</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="login"
+          placeholder="Ex. capivara@exemplo.com"
+        />
+        <mat-hint>Email é necessário para o login</mat-hint>
+        <mat-error
+          *ngIf="formularioDeUsuario.get('login')?.hasError('required')"
+        >
+          O Email é <strong>obrigatório</strong>
+        </mat-error>
+        <mat-error *ngIf="formularioDeUsuario.get('login')?.hasError('email')">
+          Por favor digite um email válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="senha"
+          placeholder="Senha"
+        />
+        <mat-hint>Senha é necessária para o login</mat-hint>
+        <mat-error
+          *ngIf="formularioDeUsuario.get('senha')?.hasError('required')"
+        >
+          A Senha é <strong>obrigatória</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="formularioDeUsuario.get('senha')?.hasError('minlength')"
+        >
+          A senha precisa ter no <strong>mínimo</strong> 3 caracteres!
+        </mat-error>
+        <mat-error
+          *ngIf="formularioDeUsuario.get('senha')?.hasError('maxlength')"
+        >
+          A senha pode ter no <strong>máximo</strong> 50 caracteres!
+        </mat-error>
+      </mat-form-field>
+
+      <div class="botao-container">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="formularioDeUsuario.invalid"
+          (click)="logar()"
+        >
+          Acessar
+        </button>
+      </div>
+
+      <a routerLink="/esqueci" class="forgot">Esqueceu a senha?</a>
+
+      <hr />
+      <p>Não tem cadastro? Cadastra-se <a routerLink="/cadastro">aqui</a></p>
+    </form>
+  </div>
+
+  <div class="imagem-fundo"></div>
+</div>
