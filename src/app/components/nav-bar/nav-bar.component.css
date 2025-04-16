@@ -24,3 +24,25 @@
   border: none;
   color: #000000;
 }
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+body {
+  padding-top: 64px; 
+}
+

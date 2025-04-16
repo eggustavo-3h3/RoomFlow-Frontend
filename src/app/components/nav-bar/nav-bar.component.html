@@ -1,67 +1,23 @@
-<nav class="nav">
-  <img src="icons/Padrão_processed.png" alt="" routerLink="/" />
+<mat-toolbar color="primary" class="mat-elevation-z4">
 
-  <h1>{{ textoNav }}</h1>
+  <img src="assets/icons/icone_azul.png" alt="Logo" style="height: 40px; margin-right: 16px;" routerLink="/" />
 
-  <button
-    class="btn btn-outline-primary"
-    type="button"
-    data-bs-toggle="offcanvas"
-    data-bs-target="#offcanvasNavbar"
-    aria-controls="offcanvasNavbar"
-    aria-label="Toggle navigation"
-  >
-    <i class="bi bi-person-circle"></i>
+
+  <span class="toolbar-title">{{ textoNav }}</span>
+
+  <span class="spacer"></span>
+
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+    <mat-icon>account_circle</mat-icon>
   </button>
-</nav>
+</mat-toolbar>
 
-<div
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  id="offcanvasNavbar"
-  aria-labelledby="offcanvasNavbarLabel"
->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page"
-          >Gerenciamento de usuário
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Alterar mapa</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/solicitacoes">Solicitações</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/esqueci">Alterar senha</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Dropdown
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item">Action</a></li>
-          <li><a class="dropdown-item">Another action</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item">Something else here</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
+
+<mat-menu #menu="matMenu">
+  <a mat-menu-item>Gerenciamento de usuário</a>
+  <a mat-menu-item>Alterar mapa</a>
+  <a mat-menu-item routerLink="/solicitacoes">Solicitações</a>
+  <a mat-menu-item routerLink="/esqueci">Alterar senha</a>
+</mat-menu>
+
