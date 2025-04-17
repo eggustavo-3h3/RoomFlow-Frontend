@@ -1,1 +1,43 @@
-<p>esqueci-a-senha works!</p>
+<app-nav-bar [textoNav]="'Alterar senha'"></app-nav-bar>
+<div class="login-container">
+    <div class="login-form">
+      <h2>Recuperação de Senha</h2>
+      <form [formGroup]="formularioDeRecuperacao">
+        
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>E-mail</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="email"
+            placeholder="Ex. nome@exemplo.com"
+          />
+          <mat-hint>Email associado à conta</mat-hint>
+          <mat-error *ngIf="formularioDeRecuperacao.get('email')?.hasError('required')">
+            O Email é <strong>obrigatório</strong>
+          </mat-error>
+          <mat-error *ngIf="formularioDeRecuperacao.get('email')?.hasError('email')">
+            Por favor digite um email válido
+          </mat-error>
+        </mat-form-field>
+  
+        <div class="botao-container">
+          <button
+            mat-flat-button
+            color="primary"
+            [disabled]="formularioDeRecuperacao.invalid"
+            (click)="recuperarSenha()"
+          >
+            Enviar Link de Recuperação
+          </button>
+        </div>
+  
+        <p>
+          Lembrou a senha? <a routerLink="/login">Faça login</a> 
+        </p>
+      </form>
+    </div>
+  
+    <div class="imagem-fundo"></div>
+  </div>
+  

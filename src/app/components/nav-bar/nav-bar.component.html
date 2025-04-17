@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
 
-  <img src="assets/icons/icone_azul.png" alt="Logo" style="height: 40px; margin-right: 16px;" routerLink="/" />
+  <img src="icons/icone_azul.png" alt="Logo" style="height: 40px; margin-right: 16px;" routerLink="/" />
 
 
   <span class="toolbar-title">{{ textoNav }}</span>
@@ -8,16 +8,15 @@
   <span class="spacer"></span>
 
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
 
 
 <mat-menu #menu="matMenu">
-  <a mat-menu-item>Gerenciamento de usuário</a>
+  <a mat-menu-item routerLink="/principal">Mapa</a>
   <a mat-menu-item>Alterar mapa</a>
   <a mat-menu-item routerLink="/solicitacoes">Solicitações</a>
   <a mat-menu-item routerLink="/esqueci">Alterar senha</a>
 </mat-menu>
-

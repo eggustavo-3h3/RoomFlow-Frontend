@@ -6,11 +6,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, MatExpansionModule,  MatToolbarModule, MatListModule, MatSidenavModule, MatIconModule, MatMenuModule],
+  imports: [RouterLink, RouterModule, MatExpansionModule,  MatToolbarModule, MatListModule, MatSidenavModule, MatIconModule, MatMenuModule],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
