@@ -1,25 +1,29 @@
 <app-nav-bar [textoNav]="'Painel de Monitoramento'"></app-nav-bar>
 
 <div class="corpo">
-  <div class="grid">
-
-    <div class="status">
-      <div class="status-item">
-        <span class="status-icon disponível"></span> Disponível
+  <mat-card>
+    <mat-card-header>
+      <div class="status">
+        <div class="status-item">
+          <span class="status-icon disponível"></span> Disponível
+        </div>
+        <div class="status-item">
+          <span class="status-icon reservado"></span> Reservado
+        </div>
+        <div class="status-item">
+          <span class="status-icon indisponível"></span> Indisponível
+        </div>
       </div>
-      <div class="status-item">
-        <span class="status-icon reservado"></span> Reservado
-      </div>
-      <div class="status-item">
-        <span class="status-icon indisponível"></span> Indisponível
-      </div>
-    </div>
+    </mat-card-header>
 
-    <div *ngFor="let sala of salas; let i = index">
-      <app-cards-sala [sala]="sala" [numSala]="i + 1"></app-cards-sala>
-    </div>
-  </div>
-
+    <mat-card-content>
+      <div class="cards-container">
+        <div *ngFor="let sala of salas; let i = index">
+          <app-cards-sala [sala]="sala" [numSala]="i + 1"></app-cards-sala>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
   <div class="informacoes">
     <div class="informacao-item">

@@ -21,6 +21,13 @@
   margin-top: 20px; 
 }
 
+.cards-container {
+  display: flex;
+  flex-wrap: wrap; /* permite quebrar linha */
+  gap: 16px; /* espaço entre os cards */
+  justify-content: flex-start; /* alinha os cards à esquerda */
+}
+
 
 .status {
   grid-column: span 10; /* Faz com que a linha ocupe toda a largura da grid */

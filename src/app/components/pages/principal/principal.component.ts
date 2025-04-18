@@ -5,13 +5,14 @@ import { SalaService } from '../../../services/sala.service';
 import { CardsSalaComponent } from "./cards-sala/cards-sala.component";
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
+import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 
 @Component({
     selector: 'app-principal',
     standalone: true,
     templateUrl: './principal.component.html',
     styleUrl: './principal.component.css',
-    imports: [CardsSalaComponent, NavBarComponent, CommonModule]
+    imports: [CardsSalaComponent, NavBarComponent, CommonModule, AngularMaterialModule]
 })
 export class PrincipalComponent implements OnInit {
 
