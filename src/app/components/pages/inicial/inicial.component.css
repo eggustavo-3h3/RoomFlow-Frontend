@@ -3,6 +3,7 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
+  background-color: rgb(248, 248, 248);
 }
 
 .container_titulo {
@@ -18,7 +19,7 @@
   display: inline;
   margin: 1em;
   transition: 0.3s ease;
-  transform: translateX(-120px);
+  transform: translateX(-110px);
   background-color: rgb(255, 255, 255);
   font-size: 15px;
   letter-spacing: 1px;
@@ -71,13 +72,14 @@
 .container_content > h1 {
   font-size: 4em;
   margin-bottom: 40px;
-  transform: translateX(28px);
+  transform: translateX(35px);
 }
 
 .container_content > h2 {
   letter-spacing: 3px;
   margin-bottom: 40px;
   font-weight: 400;
+  transform: translateX(4px);
 }
 
 button {
@@ -86,7 +88,7 @@ button {
   border: 1px solid #ffffff;
   padding: 12px 80px;
   margin: 1em;
-  transform: translateX(35px);
+  transform: translateX(46px);
   background-color: rgb(255, 255, 255);
   font-size: 15px;
   letter-spacing: 1px;
