@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CardsSalaComponent {  
   @Input({ required: true }) sala: ISala = {} as ISala;
+  @Input({ required: true }) numSala!: number;
 
   exibirCard: boolean = false;
 

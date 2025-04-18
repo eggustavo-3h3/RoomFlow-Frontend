@@ -15,8 +15,8 @@
       </div>
     </div>
 
-    <div *ngFor="let sala of salas">
-      <app-cards-sala [sala]="sala"></app-cards-sala>
+    <div *ngFor="let sala of salas; let i = index">
+      <app-cards-sala [sala]="sala" [numSala]="i + 1"></app-cards-sala>
     </div>
   </div>
 
