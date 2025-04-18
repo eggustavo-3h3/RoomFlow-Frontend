@@ -1,44 +1,81 @@
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgb(226, 242, 253);
-  }
-  
-  .login-form {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.login-form {
+  padding: 90px;
+  margin-left: 180px;
+  width: 100%;
+  max-width: 450px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+
   h2 {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    color: #333;
   }
-  
-  .full-width {
-    width: 100%;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .full-width {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .botao-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+
+      button {
+        width: 100%;
+        max-width: 250px;
+        border-radius: 6px;
+      }
+    }
+
+    .forgot {
+      text-align: center;
+      display: block;
+      margin: 20px 0 10px;
+      color: #1976d2;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    p {
+      text-align: center;
+
+      a {
+        color: #1976d2;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
-  
-  .botao-container {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .imagem-fundo {
-    display: none; /* Remover fundo se não necessário */
-  }
-  
-  a {
-    color: #3f51b5;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+}
+
+.imagem-fundo {
+  align-self: flex-end;
+  width: 60%;
+  height: 100%;
+  background-image: url(../../../../../public/icons/background.jpeg);
+  background-position: center;
+  background-size: cover;
+}

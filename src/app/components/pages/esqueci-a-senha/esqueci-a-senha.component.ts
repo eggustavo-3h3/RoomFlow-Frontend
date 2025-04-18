@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 @Component({
     selector: 'app-esqueci-a-senha',
     standalone: true,
-    templateUrl: './esqueci-a-senha.component.html',
+    templateUrl:'./esqueci-a-senha.component.html',
     styleUrl: './esqueci-a-senha.component.css',
     imports: [NavBarComponent,
         MatFormFieldModule,
@@ -21,22 +21,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class EsqueciASenhaComponent {
     formularioDeRecuperacao: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    // Criando o formulário com validação
-    this.formularioDeRecuperacao = this.fb.group({
-      email: ['', [Validators.required, Validators.email]] // Validação para o e-mail
-    });
-  }
-
-  // Método chamado quando o botão "Enviar Link de Recuperação" é clicado
-  recuperarSenha() {
-    if (this.formularioDeRecuperacao.valid) {
-      const email = this.formularioDeRecuperacao.value.email;
-      console.log('Solicitação de recuperação enviada para:', email);
-
-    
-    } else {
-      console.log('Formulário inválido');
+    constructor(private fb: FormBuilder) {
+      this.formularioDeRecuperacao = this.fb.group({
+        email: ['', [Validators.required, Validators.email]]
+      });
     }
-  }
+  
+    enviarLinkRecuperacao() {
+      if (this.formularioDeRecuperacao.valid) {
+        const email = this.formularioDeRecuperacao.value.email;
+        console.log('Enviar link para:', email);
+        // Aqui você chama o serviço que envia o e-mail de recuperação
+      }
+    }
 }

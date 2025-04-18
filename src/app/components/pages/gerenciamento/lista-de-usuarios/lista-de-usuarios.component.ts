@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ListaDeUsuariosComponent {
 
-  displayedColumns: string[] = ['id','login', 'nome', 'perfil','acoes'];
+  displayedColumns: string[] = ['login', 'nome', 'perfil','acoes'];
 
 
   @Input() usersList: IUsuario[] = [];

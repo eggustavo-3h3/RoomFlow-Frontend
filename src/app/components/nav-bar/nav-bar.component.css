@@ -11,9 +11,10 @@ mat-toolbar {
 }
 
 .toolbar-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
@@ -47,7 +48,7 @@ body {
 }
 
 .toolbar-title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
 }
 .account-button {
@@ -76,3 +77,16 @@ body {
 .account-button:focus {
   outline: none;
 }
+.perfil-link {
+  margin-right: 26px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 26px;
+  align-self: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+  &:hover {
+    text-decoration: underline;
+  }
