@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'principal', component: PrincipalComponent },
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
-    { path: 'solicitacoes', component: GerenciamentoComponent},
+    { path: 'gerenciamentoUsuarios', component: GerenciamentoComponent},
     { path: 'alterar-senha', component: AlterarSenhaComponent}
   
 ];

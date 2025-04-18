@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IUsuario } from '../../../../Interfaces/Usuario.interface';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,9 +17,17 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class ListaDeUsuariosComponent {
 
-  displayedColumns: string[] = ['login', 'nome', 'perfil','acoes'];
+  displayedColumns: string[] = ['login', 'nome', 'perfil', 'acoes'];
+  
+  
 
 
   @Input() usersList: IUsuario[] = [];
+
+  @Output() userDelete = new EventEmitter<IUsuario>();
+
+  onUserDelete(user: IUsuario) {
+    this.userDelete.emit(user);
+  }
 
 }
