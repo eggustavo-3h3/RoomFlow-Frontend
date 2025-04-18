@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class GerenciamentoComponent implements OnInit {
 
-   snackBar = inject(MatSnackBar);
+  snackBar = inject(MatSnackBar);
 
   constructor(private readonly _usuarioService: UsuarioService) { }
 
@@ -35,7 +35,7 @@ export class GerenciamentoComponent implements OnInit {
       }
     })
   }
-  
+
   removerUsuario(usuarioParaRemover: IUsuario) {
     if (usuarioParaRemover && usuarioParaRemover.id) {
       this._usuarioService.removerUsuario(usuarioParaRemover.id).subscribe({
@@ -51,6 +51,10 @@ export class GerenciamentoComponent implements OnInit {
           });
         }
       })
+    } else {
+      this.snackBar.open('Não foi possível encontrar um usuário', 'Fechar', {
+        duration: 5000,
+      });
     }
   }
 }

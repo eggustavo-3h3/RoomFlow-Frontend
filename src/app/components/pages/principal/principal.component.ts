@@ -37,7 +37,6 @@ export class PrincipalComponent implements OnInit {
     this._salaService.getSalas().subscribe({
       next: lista => {
         this.salas = lista;
-        console.log('Dados das salas recebidos:', this.salas);
       },
       error: erro => {
           console.log(erro.message);

@@ -3,6 +3,7 @@ import { IUsuario } from '../../../../Interfaces/Usuario.interface';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { PerfilPipe } from '../../../../Pipes/perfil.pipe';
 
 @Component({
   selector: 'app-lista-de-usuarios',
@@ -10,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatTableModule, 
     MatTableModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    PerfilPipe
   ],
   templateUrl: './lista-de-usuarios.component.html',
   styleUrl: './lista-de-usuarios.component.css'

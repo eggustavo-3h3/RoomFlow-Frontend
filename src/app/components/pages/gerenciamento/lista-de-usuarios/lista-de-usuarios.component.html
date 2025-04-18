@@ -14,7 +14,7 @@
 
     <ng-container matColumnDef="perfil">
       <th mat-header-cell *matHeaderCellDef>Perfil</th>
-      <td mat-cell *matCellDef="let user">{{ user.perfil }}</td>
+      <td mat-cell *matCellDef="let user">{{ user.perfil | perfil }}</td>
     </ng-container>
 
     <ng-container matColumnDef="acoes">
