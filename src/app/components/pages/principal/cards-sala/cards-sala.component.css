@@ -5,7 +5,7 @@
   text-align: center;
   border-radius: 10px;
   padding: 4px;
-  font-size: 24px; /* Diminui a fonte para caber melhor */
+  font-size: 24px;
   cursor: pointer;
   color: white;
   font-weight: 500;
@@ -19,7 +19,7 @@
 
 .overlay {
   position: fixed;
-  inset: 0; /* shorthand para top, left, bottom, right = 0 */
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -27,8 +27,6 @@
   z-index: 1000;
 }
 
-
-/* Estilo do card modal */
 .modal-card {
   background: white;
   padding: 20px;
@@ -36,7 +34,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   width: 90%;
-  max-width: 300px; /* mantém o tamanho máximo sem quebrar em telas pequenas */
+  max-width: 300px;
   box-sizing: border-box;
 }
 
@@ -47,14 +45,12 @@
   margin-bottom: 10px;
 }
 
-/* Estilizando o texto */
 .card-text {
   font-size: 1rem;
   color: #555;
   margin-bottom: 8px;
 }
 
-/* Estilizando o botão */
 .btn-primary {
   background-color: #007bff;
   color: white;

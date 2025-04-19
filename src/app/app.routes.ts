@@ -6,6 +6,7 @@ import { EsqueciASenhaComponent } from './components/pages/esqueci-a-senha/esque
 import { CadastroComponent } from './components/pages/cadastro/cadastro.component';
 import { GerenciamentoComponent } from './components/pages/gerenciamento/gerenciamento.component';
 import { AlterarSenhaComponent } from './components/pages/alterar-senha/alterar-senha.component';
+import { AlterarMapaComponent } from './components/pages/alterar-mapa/alterar-mapa.component';
 
 export const routes: Routes = [
 
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
     { path: 'gerenciamentoUsuarios', component: GerenciamentoComponent},
-    { path: 'alterar-senha', component: AlterarSenhaComponent}
+    { path: 'alterar-senha', component: AlterarSenhaComponent},
+    { path: 'alterar-mapa' , component: AlterarMapaComponent},
   
 ];

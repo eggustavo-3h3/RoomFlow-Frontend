@@ -1,0 +1,39 @@
+<app-nav-bar [textoNav]="'alterar mapa'"></app-nav-bar>
+
+<div class="corpo">
+  <mat-card>
+    <mat-card-header class="header-botao">
+        <button mat-raised-button color="primary" class="botao-adicionar-sala">
+          Adicionar sala
+        </button>
+      </mat-card-header>
+
+    <mat-card-content>
+      <div class="cards-container">
+        <div *ngFor="let sala of salas; let i = index">
+          <app-cards-sala [sala]="sala" [numSala]="i + 1"></app-cards-sala>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="informacoes">
+    <div class="informacao-item">
+      <span class="valor">{{ salasDisponiveis }}</span>
+      <span>Disponíveis</span>
+    </div>
+    <div class="informacao-item">
+      <span class="valor">{{ salasReservadas }}</span>
+      <span>Reservadas</span>
+    </div>
+    <div class="informacao-item">
+      <span class="valor">{{ salasIndisponiveis }}</span>
+      <span>Indisponíveis</span>
+    </div>
+    <div class="informacao-item">
+      <span class="valor">{{ salas.length }}</span>
+      <span>Salas no Total</span>
+    </div>
+  </div>
+</div>
+
