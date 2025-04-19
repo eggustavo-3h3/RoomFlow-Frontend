@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
     standalone: true,
     templateUrl:'./esqueci-a-senha.component.html',
     styleUrl: './esqueci-a-senha.component.css',
-    imports: [NavBarComponent,
+    imports: [
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,

@@ -5,6 +5,10 @@ mat-toolbar {
   right: 0;
   z-index: 1000;
 }
+:host {
+  display: block;
+  margin-bottom: 60px; /* ou o valor que achar melhor */
+}
 
 .spacer {
   flex: 1;
@@ -89,4 +93,9 @@ body {
 
   &:hover {
     text-decoration: underline;
+  }
+
+  .usuario-info {
+    color: white;
+    font-weight: 500;
   }

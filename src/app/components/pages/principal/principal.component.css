@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 91%;
+  min-height: 100vh; /* ocupa a tela toda */
+  box-sizing: border-box; /* importante para incluir padding no cálculo do tamanho */
   align-items: center;
   background-color: rgb(145, 166, 189);
   padding: 40px;
+  overflow-x: hidden; /* evita rolagem horizontal */
 }
 
 .grid {
@@ -67,8 +69,10 @@
 }
 .informacoes {
   display: flex;
+  flex-wrap: wrap; /* permite quebrar se não couber */
   justify-content: space-evenly;
-  width: 50%;
+  width: 90%; /* reduz de 50% para 90% para evitar quebra em telas pequenas */
+  max-width: 800px;
   background-color: white;
   padding: 15px;
   border-radius: 15px 15px 0 0;
@@ -78,7 +82,9 @@
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
+
 
 .informacao-item {
   display: flex;

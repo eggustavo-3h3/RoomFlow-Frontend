@@ -1,3 +1,53 @@
-.body{
-background-color: rgb(145, 166, 189);
-}
+/* CSS para a página de alterar senha */
+
+.grid-alterar-senha {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Estilizando os campos do Angular Material */
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    align-self: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 200px) {
+    .grid-alterar-senha {
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    .card-title {
+      font-size: 20px;
+    }
+  }
+  

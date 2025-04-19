@@ -1,38 +1,45 @@
 .card {
-  margin: 4px 2px;
+  margin: 4px;
   height: 70px;
   width: 70px;
   text-align: center;
   border-radius: 10px;
-  padding: 5px 10px;
-  font-size: 32px;
+  padding: 4px;
+  font-size: 24px; /* Diminui a fonte para caber melhor */
   cursor: pointer;
   color: white;
   font-weight: 500;
-}
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Efeito de escurecer o fundo */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Para ficar sobre tudo */
+  box-sizing: border-box;
+  border: none;
+  outline: none;
 }
+
+.overlay {
+  position: fixed;
+  inset: 0; /* shorthand para top, left, bottom, right = 0 */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 
 /* Estilo do card modal */
 .modal-card {
   background: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-  width: 300px;
-  z-index: 1001;
+  width: 90%;
+  max-width: 300px; /* mantém o tamanho máximo sem quebrar em telas pequenas */
+  box-sizing: border-box;
 }
+
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -62,15 +69,4 @@
 .btn-primary:hover {
   background-color: #0056b3;
 }
-
-
-/* .card {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
