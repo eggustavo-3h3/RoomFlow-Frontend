@@ -1,40 +1,32 @@
-<div class="container">
-  <div class="users-list">
-    <table mat-table [dataSource]="usersList" class="mat-table">
-      <!-- Colunas da Tabela -->
+<div class="users-list">
+  <table mat-table [dataSource]="usersList" class="mat-table">
+    <!-- Colunas da Tabela -->
 
-      <ng-container matColumnDef="login">
-        <th mat-header-cell *matHeaderCellDef> Login </th>
-        <td mat-cell *matCellDef="let user"> {{ user.login }} </td>
-      </ng-container>
+    <ng-container matColumnDef="login">
+      <th mat-header-cell *matHeaderCellDef>Login</th>
+      <td mat-cell *matCellDef="let user">{{ user.login }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let user"> {{ user.nome }} </td>
-      </ng-container>
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let user">{{ user.nome }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="perfil">
-        <th mat-header-cell *matHeaderCellDef> Perfil </th>
-        <td mat-cell *matCellDef="let user"> {{ user.perfil }} </td>
-      </ng-container>
+    <ng-container matColumnDef="perfil">
+      <th mat-header-cell *matHeaderCellDef>Perfil</th>
+      <td mat-cell *matCellDef="let user">{{ user.perfil | perfil }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef> Ações </th>
-        <td mat-cell *matCellDef="let user">
-          <button mat-icon-button color="warn" aria-label="Deletar">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button color="primary" aria-label="Aceitar">
-            <mat-icon>check_circle</mat-icon>
-          </button>
-          <button mat-icon-button color="accent" aria-label="Resetar">
-            <mat-icon>restart_alt</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-icon-button color="warn" aria-label="Deletar" (click)="onUserDelete(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>

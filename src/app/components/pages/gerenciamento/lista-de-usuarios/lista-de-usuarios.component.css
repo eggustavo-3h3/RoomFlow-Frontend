@@ -1,60 +1,12 @@
-body, html {
-  height: 100%; 
-  margin: 0; 
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40vh; /* Ocupa 100% da altura da tela */
-}
-
 .users-list {
   display: grid;
   grid-template-columns: repeat(1, 1fr); /* 1 coluna */
   grid-gap: 10px;
-  width: 75%;
   border: 2px solid rgb(255, 255, 255); /* Borda branca */
   background-color: white; /* Fundo branco */
   border-radius: 15px;
   padding: 15px;
   justify-items: center;
-  margin-top: 0px;
-  overflow-x: auto; /* Para rolagem horizontal, se necessário */
+  overflow-x: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-}
-
-.mat-table {
-  width: 100%;
-  background-color: white; 
-}
-
-.mat-header-row, .mat-row {
-  background-color: white; 
-}
-
-.mat-header-cell, .mat-cell {
-  text-align: center; 
-  padding: 10px 15px;
-  background-color: white; 
-  border: 1px solid #ddd; 
-}
-
-.mat-header-cell {
-  font-weight: bold;
-  background-color: white !important; /* Forçar o fundo branco */
-  border-bottom: 2px solid #ddd; /* Borda mais espessa no cabeçalho */
-}
-
-.mat-row:nth-child(odd) {
-  background-color: white; /* Garante que as linhas ímpares também sejam brancas */
-}
-
-.mat-icon-button {
-  padding: 6px; /* Botões mais compactos */
-}
-
-.mat-cell {
-  border-bottom: 1px solid #ddd; /* Borda sutil entre as células */
 }

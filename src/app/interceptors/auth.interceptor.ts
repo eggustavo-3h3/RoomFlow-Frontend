@@ -16,10 +16,6 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   
     return next(clonedRequest).pipe(
       catchError((error) => {
-        snackBar.open('Ops, houve um erro', 'Fechar', {
-          duration: 5000,
-        });
-        
         return throwError(() => error);
       })
     );

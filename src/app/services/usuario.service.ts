@@ -10,9 +10,13 @@ export class UsuarioService {
 
   constructor(private readonly http: HttpClient) { }
 
-   private url = 'https://roomflow-api.tccnapratica.com.br/usuario/listar';
+   private url = 'https://roomflow-api.tccnapratica.com.br/usuario';
 
   getUsers() : Observable<IUsuario[]> {
-    return this.http.get<IUsuario[]>(this.url);
+    return this.http.get<IUsuario[]>(this.url + '/listar');
+  }
+
+  removerUsuario(id: number) : Observable<IUsuario> {
+    return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }
 }

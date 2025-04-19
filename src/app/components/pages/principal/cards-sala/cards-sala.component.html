@@ -1,23 +1,21 @@
 <!-- Botão no lugar do card -->
 <div>
-  <button
-    [ngStyle]="{ 'background-color': corDoCard() }"
-    class="card"
-    (click)="toggleCard()"
-  >
-    {{ numSala }}
-  </button>
-</div>
-
-<!-- Modal ao clicar no botão -->
-<div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
-  <div class="modal-card" (click)="$event.stopPropagation()">
-    <h5 class="card-title">{{ sala }}</h5>
-    <p class="card-text">Professor: Aroldo</p>
-    <p class="card-text">Disciplina: Sei lá, bixo</p>
-    <p class="card-text">Turma: 3H3</p>
-    <button class="btn-primary" (click)="toggleCard()">Fechar</button>
+    <div
+      [ngStyle]="{'background-color': corDoCard()}" 
+      class="card" 
+      (click)="toggleCard()"
+    > 
+      {{ numSala }}
+    </div>
   </div>
-</div>
-
+  
+  <div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <h5 class="card-title"> {{ sala }}</h5>
+      <p class="card-text">Professor: Aroldo</p>
+      <p class="card-text">Disciplina: sei lá bixo</p>
+      <p class="card-text">Turma: 3h3</p>
+      <button class="btn btn-primary" (click)="toggleCard()">Fechar</button>
+    </div>
+  </div>
   

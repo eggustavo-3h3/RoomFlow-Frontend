@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Status } from '../../../Enums/Status.enum';
 import { ISala } from '../../../Interfaces/Sala.interface';
 import { SalaService } from '../../../services/sala.service';
@@ -19,10 +19,19 @@ export class PrincipalComponent implements OnInit {
   salas: ISala[] = [];
 
   constructor(private readonly _salaService:  SalaService) {}
+   
+ 
 
   ngOnInit(): void {
-      this.getSalas();
+    this.getSalas();
+    
   }
+
+  salasDisponiveis = this.salas.filter((salas) => salas.status === Status.Disponivel).length;
+
+  salasReservadas = this.salas.filter((salas) => salas.status === Status.Reservada).length;
+
+  salasIndisponiveis = this.salas.filter((salas) => salas.status === Status.Indisponivel).length;
 
   getSalas() {
     this._salaService.getSalas().subscribe({
@@ -35,12 +44,4 @@ export class PrincipalComponent implements OnInit {
     });
   }
   
-
-  salasDisponiveis = this.salas.filter((salas) => salas.status === Status.Disponivel).length;
-
-  salasReservadas = this.salas.filter((salas) => salas.status === Status.Reservada).length;
-
-  salasIndisponiveis = this.salas.filter((salas) => salas.status === Status.Indisponivel).length;
-
-
 }

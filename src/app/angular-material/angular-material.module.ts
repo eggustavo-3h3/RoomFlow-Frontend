@@ -23,7 +23,7 @@ import { MatCardModule } from "@angular/material/card";
     MatSidenavModule,
     MatIconModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
   ],
   exports: [
     MatTableModule,
@@ -36,7 +36,7 @@ import { MatCardModule } from "@angular/material/card";
     MatSidenavModule,
     MatIconModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
   ],
   
   providers: [],

@@ -1,4 +1,4 @@
 export enum Perfil {
-  Professor = 0,
-  Administrador = 1
+  Administrador = 1,
+  Professor = 2,
 }

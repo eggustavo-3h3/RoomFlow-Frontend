@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISala } from '../Interfaces/Sala.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('token');
+    return !!localStorage.getItem('token');
   }
 
   getToken() {
