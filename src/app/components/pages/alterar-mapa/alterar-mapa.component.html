@@ -1,17 +1,22 @@
-<app-nav-bar [textoNav]="'alterar mapa'"></app-nav-bar>
-
+<app-nav-bar [textoNav]="'Alterar mapa'"></app-nav-bar>
 <div class="corpo">
   <mat-card>
     <mat-card-header class="header-botao">
-        <button mat-raised-button color="primary" class="botao-adicionar-sala">
-          Adicionar sala
-        </button>
-      </mat-card-header>
+      <button mat-raised-button color="primary" (click)="toggleModal()">
+        Adicionar sala
+      </button>
+    </mat-card-header>
 
     <mat-card-content>
       <div class="cards-container">
         <div *ngFor="let sala of salas; let i = index">
-          <app-cards-sala [sala]="sala" [numSala]="i + 1"></app-cards-sala>
+          <app-cards-sala
+            [sala]="sala"
+            [numSala]="i + 1"
+            [mostrarExcluirBotao]="true"
+            (removerSala)="removerSala($event)"
+          >
+          </app-cards-sala>
         </div>
       </div>
     </mat-card-content>
@@ -37,3 +42,53 @@
   </div>
 </div>
 
+<div class="overlay" *ngIf="exibirmodal" (click)="toggleModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <p class="card-title">Adicionar sala</p>
+    <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Descrição da sala</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="descricao"
+          placeholder="adiciona a descrição da sala"
+        />
+        <mat-error
+          *ngIf="formularioDeSalas.get('descricao')?.hasError('required')"
+        >
+          A Descrição é <strong>obrigatória</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="formularioDeSalas.get('descricao')?.hasError('maxlength')"
+        >
+          Máximo de caracteres ultrapassado
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Status da Sala</mat-label>
+        <mat-select formControlName="status">
+          <mat-option
+            *ngFor="let option of statusOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="formularioDeSalas.get('status')?.hasError('required')"
+        >
+          O status é <strong>obrigatório</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <button mat-flat-button color="primary" (click)="cadastrarSalas()">
+      Adicionar
+    </button>
+    <button mat-raised-button color="accent" (click)="toggleModal()">
+      Fechar
+    </button>
+  </div>
+</div>

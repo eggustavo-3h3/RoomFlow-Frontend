@@ -15,6 +15,7 @@
       <p class="card-text">Disciplina: sei lá bixo</p>
       <p class="card-text">Turma: 3h3</p>
       <button class="btn btn-primary" (click)="toggleCard()">Fechar</button>
+      <button class="btn btn-primary" *ngIf="mostrarExcluirBotao" (click)="onRemoverSala()">Remover sala</button>
     </div>
   </div>
   

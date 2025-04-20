@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Status } from '../../../../Enums/Status.enum';
 import { ISala } from '../../../../Interfaces/Sala.interface';
 import { CommonModule, NgIf } from '@angular/common';
@@ -12,8 +12,10 @@ import { CommonModule, NgIf } from '@angular/common';
   styleUrl: './cards-sala.component.css'
 })
 export class CardsSalaComponent {  
+  @Input() mostrarExcluirBotao: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
   @Input({ required: true }) numSala!: number;
+  @Output() removerSala = new EventEmitter<number>();
 
   exibirCard: boolean = false;
 
@@ -31,6 +33,10 @@ export class CardsSalaComponent {
     } else {
       return 'rgb(198, 40, 40)';
     }
+  }
+
+  onRemoverSala() {
+    this.removerSala.emit(this.sala.id!);
   }
 
 }
