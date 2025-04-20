@@ -10,6 +10,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatCardModule } from "@angular/material/card";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { MatCardModule } from "@angular/material/card";
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatTableModule,
@@ -37,6 +39,7 @@ import { MatCardModule } from "@angular/material/card";
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatProgressSpinnerModule
   ],
   
   providers: [],
