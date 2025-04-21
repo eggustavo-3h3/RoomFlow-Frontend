@@ -52,27 +52,12 @@
   font-weight: normal;
   font-size: 20px;
 }
-
 .header-botao {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 16px;
 }
-
-.botao-adicionar-sala {
-  background-color: #1976d2;
-  color: white;
-  font-size: 18px;
-  padding: 8px 24px;
-  border-radius: 10px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-
 .botao-remover-sala {
   background-color: #d21919;
   color: white;
@@ -85,7 +70,6 @@
   outline: none;
   box-shadow: none;
 }
-
 .botao-adicionar-sala:hover {
   background-color: #115293;
 }
@@ -120,4 +104,9 @@
 
 .full-width {
   width: 100%;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent;
+  border-bottom: 1px solid black;
+  border-radius: 0;
 }

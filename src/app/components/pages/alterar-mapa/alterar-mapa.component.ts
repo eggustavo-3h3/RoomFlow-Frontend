@@ -22,7 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule
-],
+  ],
   templateUrl: './alterar-mapa.component.html',
   styleUrl: './alterar-mapa.component.css'
 })
@@ -43,6 +43,9 @@ export class AlterarMapaComponent implements OnInit {
 
   mostrarExcluirBotao: boolean = false;
 
+  salasDisponiveis = 0;
+  salasReservadas = 0;
+  salasIndisponiveis = 0;
 
   constructor(
     private readonly _salaService: SalaService,
@@ -52,30 +55,31 @@ export class AlterarMapaComponent implements OnInit {
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
       descricao: ['', [Validators.required, Validators.maxLength(20)]],
-      status: [null, Validators.required]
+      status: [null, Validators.required],
+      tipo: ['', [Validators.required, Validators.maxLength(30)]] // novo campo
     });
   }
-
 
   ngOnInit(): void {
     this.getSalas();
     this.iniciaForm();
   }
 
-  salasDisponiveis = this.salas.filter((salas) => salas.status === Status.Disponivel).length;
-
-  salasReservadas = this.salas.filter((salas) => salas.status === Status.Reservada).length;
-
-  salasIndisponiveis = this.salas.filter((salas) => salas.status === Status.Indisponivel).length;
-
   toggleModal() {
     this.exibirmodal = !this.exibirmodal;
+  }
+
+  atualizarContagens() {
+    this.salasDisponiveis = this.salas.filter(s => s.status === Status.Disponivel).length;
+    this.salasReservadas = this.salas.filter(s => s.status === Status.Reservada).length;
+    this.salasIndisponiveis = this.salas.filter(s => s.status === Status.Indisponivel).length;
   }
 
   getSalas() {
     this._salaService.getSalas().subscribe({
       next: lista => {
         this.salas = lista;
+        this.atualizarContagens();
       },
       error: erro => {
         console.log(erro.message);
@@ -92,6 +96,7 @@ export class AlterarMapaComponent implements OnInit {
     const novaSala: ISala = {
       descricao: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
+      tipo: this.formularioDeSalas.value.tipo
     };
 
     this._salaService.cadastrarSala(novaSala).subscribe({

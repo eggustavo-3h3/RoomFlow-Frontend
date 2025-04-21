@@ -21,6 +21,7 @@
       </div>
     </mat-card-content>
   </mat-card>
+  
 
   <div class="informacoes">
     <div class="informacao-item">
@@ -47,7 +48,7 @@
     <p class="card-title">Adicionar sala</p>
     <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Descrição da sala</mat-label>
+        <mat-label>Infome o número da sala</mat-label>
         <input
           type="text"
           matInput
@@ -63,6 +64,21 @@
           *ngIf="formularioDeSalas.get('descricao')?.hasError('maxlength')"
         >
           Máximo de caracteres ultrapassado
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo da Sala</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="tipo"
+          placeholder="ex: Laboratório, Sala de Reunião, etc."
+        />
+        <mat-error
+          *ngIf="formularioDeSalas.get('tipo')?.hasError('required')"
+        >
+          O tipo é <strong>obrigatório</strong>
         </mat-error>
       </mat-form-field>
 

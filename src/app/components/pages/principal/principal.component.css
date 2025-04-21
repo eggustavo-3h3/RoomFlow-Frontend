@@ -25,17 +25,28 @@
 
 .cards-container {
   display: flex;
-  flex-wrap: wrap; /* permite quebrar linha */
-  gap: 16px; /* espaço entre os cards */
-  justify-content: flex-start; /* alinha os cards à esquerda */
+  flex-wrap: wrap;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 16px;
+  justify-content: flex-start;
+  justify-items: center;
+}
+
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
 }
 
 
 .status {
   grid-column: span 10; /* Faz com que a linha ocupe toda a largura da grid */
   display: flex;
-  justify-content: space-evenly; 
-  margin-bottom: 20px; 
+  justify-content: center;
+  align-items: center;
+  gap: 30px; /* espaço entre os status-items */
+  flex-wrap: wrap; /* para responsividade */
+  margin-bottom: 20px;
 }
 
 .status-item {

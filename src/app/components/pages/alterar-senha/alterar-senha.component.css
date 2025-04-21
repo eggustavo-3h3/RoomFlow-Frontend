@@ -1,16 +1,18 @@
 /* CSS para a página de alterar senha */
 
 .grid-alterar-senha {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+  max-width: 400px;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
   
   .card-title {
     font-size: 24px;
@@ -37,6 +39,12 @@
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0.5px;
+    background-color: rgb(1, 75, 173);
+    color: #5f2727;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #dedede;
+    
   }
   
   /* Responsividade */

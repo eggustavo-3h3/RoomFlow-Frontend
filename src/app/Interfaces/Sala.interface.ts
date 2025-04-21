@@ -4,4 +4,5 @@ export interface ISala {
     id?: number;
     descricao: string;
     status: Status;
+    tipo: string;
 }
