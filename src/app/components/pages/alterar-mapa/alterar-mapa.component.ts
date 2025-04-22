@@ -54,7 +54,7 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.required, Validators.maxLength(20)]],
+      numero: [null, [Validators.required, Validators.maxLength(3)]],
       status: [null, Validators.required],
       tipo: ['', [Validators.required, Validators.maxLength(30)]] // novo campo
     });
@@ -66,7 +66,9 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   toggleModal() {
+    this.formularioDeSalas.reset();
     this.exibirmodal = !this.exibirmodal;
+    
   }
 
   atualizarContagens() {
@@ -94,7 +96,7 @@ export class AlterarMapaComponent implements OnInit {
     }
 
     const novaSala: ISala = {
-      descricao: this.formularioDeSalas.value.descricao,
+      numero: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
       tipo: this.formularioDeSalas.value.tipo
     };
