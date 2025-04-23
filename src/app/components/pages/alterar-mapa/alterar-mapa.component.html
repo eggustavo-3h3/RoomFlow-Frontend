@@ -52,16 +52,16 @@
         <input
           type="text"
           matInput
-          formControlName="descricao"
-          placeholder="adiciona a descrição da sala"
+          formControlName="numero"
+          placeholder="adicione o número da sala"
         />
         <mat-error
-          *ngIf="formularioDeSalas.get('descricao')?.hasError('required')"
+          *ngIf="formularioDeSalas.get('numero')?.hasError('required')"
         >
-          A Descrição é <strong>obrigatória</strong>
+          O número é <strong>obrigatório</strong>
         </mat-error>
         <mat-error
-          *ngIf="formularioDeSalas.get('descricao')?.hasError('maxlength')"
+          *ngIf="formularioDeSalas.get('numero')?.hasError('maxlength')"
         >
           Máximo de caracteres ultrapassado
         </mat-error>
