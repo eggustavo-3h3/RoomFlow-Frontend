@@ -10,7 +10,7 @@
     <span>{{ usuario.cargo }}</span>
   </div>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
+  <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
@@ -21,8 +21,8 @@
   </div>
   <mat-divider></mat-divider>
   <a mat-menu-item routerLink="/principal">Mapa</a>
-  <a mat-menu-item routerLink="/alterar-mapa">Alterar mapa</a>
-  <a mat-menu-item routerLink="/gerenciamentoUsuarios">Gerenciamento de Usuários</a>
+  <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
+  <a mat-menu-item routerLink="/gerenciamentoUsuarios" *ngIf="ehAdm">Gerenciamento de Usuários</a>
   <a mat-menu-item routerLink="/alterar-senha">Alterar senha</a>
   <a color="primary" mat-menu-item (click)="sairDaConta()">Sair</a>
 </mat-menu>

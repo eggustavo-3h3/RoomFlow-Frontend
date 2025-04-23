@@ -7,6 +7,8 @@ import { CadastroComponent } from './components/pages/cadastro/cadastro.componen
 import { GerenciamentoComponent } from './components/pages/gerenciamento/gerenciamento.component';
 import { AlterarSenhaComponent } from './components/pages/alterar-senha/alterar-senha.component';
 import { AlterarMapaComponent } from './components/pages/alterar-mapa/alterar-mapa.component';
+import { perfilGuard } from './guards/perfil.guard';
+import { Perfil } from './Enums/Perfil.enum';
 
 export const routes: Routes = [
 
@@ -15,8 +17,20 @@ export const routes: Routes = [
     { path: 'principal', component: PrincipalComponent },
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
-    { path: 'gerenciamentoUsuarios', component: GerenciamentoComponent},
-    { path: 'alterar-senha', component: AlterarSenhaComponent},
-    { path: 'alterar-mapa' , component: AlterarMapaComponent},
+
+    {
+        path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'alterar-senha', component: AlterarSenhaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador, Perfil.Professor])]
+    },
+    {
+        path: 'alterar-mapa', component: AlterarMapaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+     },
+    
+    { path: '**', redirectTo: '', pathMatch: 'full' }
   
 ];
