@@ -26,6 +26,8 @@ export class NavBarComponent implements OnInit {
   ehAdm: boolean = false;
   usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
 
+  
+
   constructor(private readonly authService: AuthService,
     private readonly router: Router
   ) { }

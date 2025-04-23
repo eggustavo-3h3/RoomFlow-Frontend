@@ -11,9 +11,9 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cards-sala',
   standalone: true,
-  imports:[
-    CommonModule, 
-    NgIf, 
+  imports: [
+    CommonModule,
+    NgIf,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -25,15 +25,16 @@ import { FormsModule } from '@angular/forms';
 })
 export class CardsSalaComponent {
   @Input() mostrarExcluirBotao: boolean = false;
+  @Input() botaoReservarSala: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
   @Input({ required: true }) numSala!: number;
   @Output() removerSala = new EventEmitter<number>();
 
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
-materia: any;
-disciplina: any;
-turma: any;
+  materia: any;
+  disciplina: any;
+  turma: any;
 
   toggleCard() {
     if (this.sala) {
@@ -43,6 +44,8 @@ turma: any;
 
   toggleReservaCard() {
     this.mostrarReservaCard = !this.mostrarReservaCard;
+    this.materia = '';
+    this.turma = '';
   }
   closeReservaCard() {
     this.mostrarReservaCard = false; // Fecha o card de reserva sem afetar o card principal

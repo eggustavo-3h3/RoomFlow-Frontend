@@ -10,9 +10,8 @@
           formControlName="login"
           placeholder="Ex. email@etec.sp.gov.br"
         />
-        <mat-hint>Email é necessário para o login</mat-hint>
         <mat-error
-          *ngIf="formularioDeUsuario.get('login')?.hasError('required')"
+          *ngIf="formularioDeUsuario.get('login')?.hasError('required')  && formularioDeUsuario.get('login')?.dirty"
         >
           O Email é <strong>obrigatório</strong>
         </mat-error>
@@ -29,9 +28,8 @@
           formControlName="senha"
           placeholder="Senha"
         />
-        <mat-hint>Senha é necessária para o login</mat-hint>
         <mat-error
-          *ngIf="formularioDeUsuario.get('senha')?.hasError('required')"
+          *ngIf="formularioDeUsuario.get('senha')?.hasError('required')&& formularioDeUsuario.get('senha')?.dirty"
         >
           A Senha é <strong>obrigatória</strong>
         </mat-error>

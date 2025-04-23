@@ -4,10 +4,14 @@ mat-toolbar {
   left: 0;
   right: 0;
   z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 :host {
   display: block;
-  margin-bottom: 60px; /* ou o valor que achar melhor */
+  margin-bottom: 60px;
 }
 
 .spacer {
@@ -18,55 +22,42 @@ mat-toolbar {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-  padding-top: 64px; 
-}
-.custom-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-
-.toolbar-title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-weight: bold;
-  font-size: 24px;
 }
 
-.toolbar-section {
-  display: flex;
-  align-items: center;
-}
-.sidenav-container {
-  height: 100vh;
+
+.perfil-link {
+  margin-right: 26px;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 26px;
+  align-self: center;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.perfil-link:hover {
+  text-decoration: underline;
 }
 
-.toolbar-title {
-  font-size: 28px;
-  font-weight: bold;
+.usuario-info {
+  color: rgb(0, 74, 173);
+  font-weight: 500;
 }
+
 .account-button {
-  background: none;        
-  border: none; 
+  background: none;
+  border: none;
   padding: 0;
-  color: inherit;         
-  display: flex;          
-  justify-content: center; 
-  align-items: center;     
-  height: 80px;           
-  width: 100px;            
-  border-radius: 50%;     
-  transition: background 0.3s ease; 
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
 }
 
 .account-button mat-icon {
@@ -81,21 +72,56 @@ body {
 .account-button:focus {
   outline: none;
 }
-.perfil-link {
-  margin-right: 26px;
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 26px;
-  align-self: center;
-  font-family: 'Segoe UI', sans-serif;
+
+.menu-button {
+  display: none; 
 }
 
-  &:hover {
-    text-decoration: underline;
+@media (max-width: 768px) {
+  .perfil-link {
+    display: none;
+  }
+
+  .toolbar-title {
+    font-size: 20px;
   }
 
   .usuario-info {
-    color: white;
-    font-weight: 500;
+    display: none; 
   }
+
+  .account-button {
+    display: flex; 
+  }
+
+
+@media (max-width: 480px) {
+  .toolbar-title {
+    font-size: 18px;
+  }
+}
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .toolbar-title {
+    font-size: 22px; 
+  }
+
+  .perfil-link {
+    font-size: 22px;
+  }
+
+  .usuario-info {
+    display: none; 
+  }
+
+  .account-button {
+    width: 70px;
+    height: 70px;
+  }
+
+  .menu-button {
+    display: block;
+    color: black;
+  }
+}
