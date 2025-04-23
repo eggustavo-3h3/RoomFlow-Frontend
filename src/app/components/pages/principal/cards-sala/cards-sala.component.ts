@@ -2,27 +2,50 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Status } from '../../../../Enums/Status.enum';
 import { ISala } from '../../../../Interfaces/Sala.interface';
 import { CommonModule, NgIf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-cards-sala',
   standalone: true,
-  imports:[CommonModule, NgIf],
+  imports:[
+    CommonModule, 
+    NgIf, 
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    FormsModule,
+  ],
+
   templateUrl: './cards-sala.component.html',
   styleUrl: './cards-sala.component.css'
 })
-export class CardsSalaComponent {  
+export class CardsSalaComponent {
   @Input() mostrarExcluirBotao: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
   @Input({ required: true }) numSala!: number;
   @Output() removerSala = new EventEmitter<number>();
 
   exibirCard: boolean = false;
+  mostrarReservaCard: boolean = false;
+materia: any;
+disciplina: any;
+turma: any;
 
   toggleCard() {
-    if(this.sala) {
+    if (this.sala) {
       this.exibirCard = !this.exibirCard;
-    } 
+    }
+  }
+
+  toggleReservaCard() {
+    this.mostrarReservaCard = !this.mostrarReservaCard;
+  }
+  closeReservaCard() {
+    this.mostrarReservaCard = false; // Fecha o card de reserva sem afetar o card principal
   }
 
   corDoCard(): string {
@@ -38,5 +61,4 @@ export class CardsSalaComponent {
   onRemoverSala() {
     this.removerSala.emit(this.sala.id!);
   }
-
 }

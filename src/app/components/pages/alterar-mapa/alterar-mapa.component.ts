@@ -27,6 +27,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './alterar-mapa.component.css'
 })
 export class AlterarMapaComponent implements OnInit {
+numSala: any;
+confirmarReserva() {
+throw new Error('Method not implemented.');
+}
 
   salas: ISala[] = [];
   exibirmodal: boolean = false;
@@ -46,6 +50,7 @@ export class AlterarMapaComponent implements OnInit {
   salasDisponiveis = 0;
   salasReservadas = 0;
   salasIndisponiveis = 0;
+exibirCard: any;
 
   constructor(
     private readonly _salaService: SalaService,

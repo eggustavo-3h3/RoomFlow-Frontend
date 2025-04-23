@@ -51,18 +51,113 @@
   margin-bottom: 8px;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  color: white;
+.fechar-button {
+  background-color: #007bff !important;
+  color: white !important;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
+  box-shadow: none;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+.fechar-button:hover {
+  background-color: #0056b3 !important;
+}
+
+.removerSala-button{
+  background-color: rgb(198, 40, 40) !important;
+  color: white !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  box-shadow: none;
+}
+
+.removerSala-button:hover {
+  background-color: rgb(125, 27, 27) !important;
+}
+
+.reservarSala-button {
+  background-color: rgb(40, 167, 69) !important; /* verde tipo Bootstrap */
+  color: white !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  box-shadow: none;
+}
+
+.reservarSala-button:hover {
+  background-color: #1e7e34 !important;
+}
+.ml-2 {
+  margin-left: 8px;
+}
+
+.reserva-card {
+  position: absolute;
+  top: 285px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px); /* Aplica o desfoque no conteúdo de trás */
+  width: 30%; /* Ajuste conforme necessário */
+}
+
+/* Esse é o efeito de embaçamento para a área ao redor do card */
+body {
+  overflow: hidden; /* Impede o deslocamento da tela ao ativar o efeito */
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(61, 61, 61, 0.4); /* Fundo escuro e semitransparente */
+  backdrop-filter: blur(4px); /* Aplica o desfoque no conteúdo de trás */
+  z-index: 9998; /* Fica atrás do card */
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.num-sala {
+  display: block;
+  margin-top: 5px;
+}
+.linha-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.linha-simples {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  background: transparent;
+  padding: 4px 6px;
+  width: 180px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.linha-simples:focus {
+  border-bottom: 2px solid #3f51b5; /* azul do Angular Material */
 }
 
