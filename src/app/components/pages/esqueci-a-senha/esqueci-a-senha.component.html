@@ -12,10 +12,10 @@
           placeholder="Ex. email@etec.sp.gov.br"
         />
         <mat-hint>Informe o e-mail cadastrado</mat-hint>
-        <mat-error *ngIf="formularioDeRecuperacao.get('email')?.hasError('required')">
+        <mat-error *ngIf="formularioDeRecuperacao.controls['email'].hasError('required')">
           O Email é <strong>obrigatório</strong>
         </mat-error>
-        <mat-error *ngIf="formularioDeRecuperacao.get('email')?.hasError('email')">
+        <mat-error *ngIf="formularioDeRecuperacao.controls['email'].hasError('email')">
           Por favor, digite um e-mail válido
         </mat-error>
       </mat-form-field>

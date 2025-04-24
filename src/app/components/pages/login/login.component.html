@@ -11,11 +11,11 @@
           placeholder="Ex. email@etec.sp.gov.br"
         />
         <mat-error
-          *ngIf="formularioDeUsuario.get('login')?.hasError('required')  && formularioDeUsuario.get('login')?.dirty"
+          *ngIf="formularioDeUsuario.controls['login'].hasError('required')  && formularioDeUsuario.controls['login'].dirty"
         >
           O Email é <strong>obrigatório</strong>
         </mat-error>
-        <mat-error *ngIf="formularioDeUsuario.get('login')?.hasError('email')">
+        <mat-error *ngIf="formularioDeUsuario.controls['login'].hasError('email')">
           Por favor digite um email válido
         </mat-error>
       </mat-form-field>
@@ -29,17 +29,17 @@
           placeholder="Senha"
         />
         <mat-error
-          *ngIf="formularioDeUsuario.get('senha')?.hasError('required')&& formularioDeUsuario.get('senha')?.dirty"
+          *ngIf="formularioDeUsuario.controls['senha'].hasError('required')&& formularioDeUsuario.controls['senha'].dirty"
         >
           A Senha é <strong>obrigatória</strong>
         </mat-error>
         <mat-error
-          *ngIf="formularioDeUsuario.get('senha')?.hasError('minlength')"
+          *ngIf="formularioDeUsuario.controls['senha'].hasError('minlength')"
         >
           A senha precisa ter no <strong>mínimo</strong> 3 caracteres!
         </mat-error>
         <mat-error
-          *ngIf="formularioDeUsuario.get('senha')?.hasError('maxlength')"
+          *ngIf="formularioDeUsuario.controls['senha'].hasError('maxlength')"
         >
           A senha pode ter no <strong>máximo</strong> 50 caracteres!
         </mat-error>

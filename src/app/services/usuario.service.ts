@@ -23,5 +23,4 @@ export class UsuarioService {
     return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }
 
-  
 }

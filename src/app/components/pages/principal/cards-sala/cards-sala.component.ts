@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Status } from '../../../../Enums/Status.enum';
 import { ISala } from '../../../../Interfaces/Sala.interface';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { IUsuario } from '../../../../Interfaces/Usuario.interface';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
+import { AuthService } from '../../../../services/auth.service';
 
 
 @Component({
@@ -19,25 +20,47 @@ import { IUsuario } from '../../../../Interfaces/Usuario.interface';
     MatCardModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
+    AngularMaterialModule
   ],
 
   templateUrl: './cards-sala.component.html',
   styleUrl: './cards-sala.component.css'
 })
-export class CardsSalaComponent {
+export class CardsSalaComponent implements OnInit {
+
   @Input() mostrarExcluirBotao: boolean = false;
   @Input() botaoReservarSala: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
   @Input({ required: true }) numSala!: number;
   @Output() removerSala = new EventEmitter<number>();
+  formulario: FormGroup = new FormGroup({});
+  nomeDoProfessor: string = '';
 
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
-  materia: any;
-  disciplina: any;
-  turma: any;
-  Sala: {    numero: string, status: Status, tipo: string;}
-  usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
+
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService
+  ) { }
+  
+  iniciaForm() {
+    this.formulario = this.formBuilder.group({
+      materia: [null, [Validators.required]],
+      turma: [null, [Validators.required]]
+    });
+  }
+
+  ngOnInit() {
+    this.iniciaForm();
+
+    const nome = this.authService.getNomeDoUsuarioLogado();
+
+    if (nome) {
+      this.nomeDoProfessor = nome;
+    }
+  }
 
   toggleCard() {
     if (this.sala) {
@@ -47,19 +70,13 @@ export class CardsSalaComponent {
 
   toggleReservaCard() {
     this.mostrarReservaCard = !this.mostrarReservaCard;
-    this.materia = '';
-    this.turma = '';
+    this.formulario.reset();
   }
   closeReservaCard() {
     this.mostrarReservaCard = false;
   }
 
   confirmarReserva() {
-    
-    console.log('Reserva confirmada para a sala:', this.numSala);
-    console.log('Matéria:', this.materia.nome);
-    console.log('Turma:', this.turma.descricao);
-
     this.closeReservaCard();
   }
 

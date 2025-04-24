@@ -48,7 +48,7 @@
     <p class="card-title">Adicionar sala</p>
     <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Infome o número da sala</mat-label>
+        <mat-label>Informe o número da sala</mat-label>
         <input
           type="text"
           matInput
@@ -56,12 +56,12 @@
           placeholder="adicione o número da sala"
         />
         <mat-error
-          *ngIf="formularioDeSalas.get('numero')?.hasError('required')"
+          *ngIf="formularioDeSalas.controls['numero'].hasError('required')"
         >
           O número é <strong>obrigatório</strong>
         </mat-error>
         <mat-error
-          *ngIf="formularioDeSalas.get('numero')?.hasError('maxlength')"
+          *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')"
         >
           Máximo de caracteres ultrapassado
         </mat-error>
@@ -76,7 +76,7 @@
           placeholder="ex: Laboratório, Sala de Reunião, etc."
         />
         <mat-error
-          *ngIf="formularioDeSalas.get('tipo')?.hasError('required')"
+          *ngIf="formularioDeSalas.controls['tipo'].hasError('required')"
         >
           O tipo é <strong>obrigatório</strong>
         </mat-error>
@@ -93,7 +93,7 @@
           </mat-option>
         </mat-select>
         <mat-error
-          *ngIf="formularioDeSalas.get('status')?.hasError('required')"
+          *ngIf="formularioDeSalas.controls['status'].hasError('required')"
         >
           O status é <strong>obrigatório</strong>
         </mat-error>

@@ -8,7 +8,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Senha atual</mat-label>
       <input matInput type="password" formControlName="senhaAtual" required />
-      <mat-error *ngIf="form.get('senhaAtual')?.hasError('required')">
+      <mat-error *ngIf="form.controls['senhaAtual'].hasError('required')">
         Campo obrigatório
       </mat-error>
     </mat-form-field>
@@ -17,7 +17,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Nova senha</mat-label>
       <input matInput type="password" formControlName="novaSenha" required />
-      <mat-error *ngIf="form.get('novaSenha')?.hasError('required')">
+      <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
         Campo obrigatório
       </mat-error>
     </mat-form-field>
@@ -26,7 +26,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Confirmar nova senha</mat-label>
       <input matInput type="password" formControlName="confirmarSenha" required />
-      <mat-error *ngIf="form.get('confirmarSenha')?.hasError('required')">
+      <mat-error *ngIf="form.controls['confirmarSenha'].hasError('required')">
         Campo obrigatório
       </mat-error>
       <mat-error *ngIf="form.hasError('senhasDiferentes')">
