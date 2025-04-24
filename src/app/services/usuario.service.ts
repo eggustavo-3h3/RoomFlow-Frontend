@@ -7,6 +7,9 @@ import { IUsuario } from '../Interfaces/Usuario.interface';
   providedIn: 'root'
 })
 export class UsuarioService {
+  getUsuario() {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private readonly http: HttpClient) { }
 
@@ -19,4 +22,6 @@ export class UsuarioService {
   removerUsuario(id: number) : Observable<IUsuario> {
     return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }
+
+  
 }

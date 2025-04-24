@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { IUsuario } from '../../../../Interfaces/Usuario.interface';
 
 
 @Component({
@@ -35,6 +36,8 @@ export class CardsSalaComponent {
   materia: any;
   disciplina: any;
   turma: any;
+  Sala: {    numero: string, status: Status, tipo: string;}
+  usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
 
   toggleCard() {
     if (this.sala) {
@@ -48,7 +51,16 @@ export class CardsSalaComponent {
     this.turma = '';
   }
   closeReservaCard() {
-    this.mostrarReservaCard = false; // Fecha o card de reserva sem afetar o card principal
+    this.mostrarReservaCard = false;
+  }
+
+  confirmarReserva() {
+    
+    console.log('Reserva confirmada para a sala:', this.numSala);
+    console.log('Matéria:', this.materia.nome);
+    console.log('Turma:', this.turma.descricao);
+
+    this.closeReservaCard();
   }
 
   corDoCard(): string {

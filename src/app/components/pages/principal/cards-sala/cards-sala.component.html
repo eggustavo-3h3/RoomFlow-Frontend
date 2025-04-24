@@ -11,7 +11,7 @@
   <div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
     <div class="modal-card" (click)="$event.stopPropagation()">
       <h5 class="card-title"> {{ sala }}</h5>
-      <p><strong>Tipo:</strong> {{ sala.tipo }}</p>
+      <p><strong>Tipo: </strong> {{ sala.tipo }}</p>
       <p class="card-text">Professor: Aroldo</p>
       <p class="card-text">Disciplina: sei lá bixo</p>
       <p class="card-text">Turma: 3h3</p>
@@ -34,22 +34,26 @@
     Reserva de Sala
     <span class="num-sala">Sala {{ numSala }}</span>
   </mat-card-title>
-  <p><strong>Professor:</strong></p>
+  <p><strong>Professor: </strong> {{usuario.nome}}</p>
   
   <div class="linha-input">
-    <label for="materia"><strong>Matéria:</strong></label>
-    <input id="materia" type="text" [(ngModel)]="materia" placeholder=" " class="linha-simples" />
+    <label for="materia"><strong>Matéria: </strong></label>
+    <input id="materia" type="text" [(ngModel)]="materia.nome" placeholder="Digite o nome da matéria " class="linha-simples" />
   </div>
 
   <div class="linha-input">
-    <label for="turma"><strong>Turma:</strong></label>
-    <input id="turma" type="text" [(ngModel)]="turma" placeholder=" " class="linha-simples" />
+    <label for="turma"><strong>Turma: </strong></label>
+    <input id="turma" type="text" [(ngModel)]="turma.descricao" placeholder="Digite o nome da turma " class="linha-simples" />
   </div>
 
   <mat-card-content>
     <p>Você está prestes a reservar a sala {{ numSala }}.</p>
     <button mat-raised-button class="fechar-button" (click)="closeReservaCard()">
       Fechar
+    </button>
+
+    <button mat-raised-button class="button-reservar ml-2" (click)="confirmarReserva()">
+      Confirmar Reserva
     </button>
   </mat-card-content>
 </mat-card>

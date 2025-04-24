@@ -63,6 +63,18 @@
   box-shadow: none;
 }
 
+.button-reservar{
+  background-color: rgb(40, 167, 69) !important;
+  color: white !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  box-shadow: none;
+}
+
 .fechar-button:hover {
   background-color: #0056b3 !important;
 }
@@ -84,7 +96,7 @@
 }
 
 .reservarSala-button {
-  background-color: rgb(40, 167, 69) !important; /* verde tipo Bootstrap */
+  background-color: rgb(40, 167, 69) !important;
   color: white !important;
   border: none;
   padding: 8px 16px;
@@ -112,13 +124,12 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
   border-radius: 8px;
-  backdrop-filter: blur(8px); /* Aplica o desfoque no conteúdo de trás */
-  width: 30%; /* Ajuste conforme necessário */
+  backdrop-filter: blur(8px);
+  width: 30%;
 }
 
-/* Esse é o efeito de embaçamento para a área ao redor do card */
 body {
-  overflow: hidden; /* Impede o deslocamento da tela ao ativar o efeito */
+  overflow: hidden; 
 }
 .overlay {
   position: fixed;
@@ -126,9 +137,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(61, 61, 61, 0.4); /* Fundo escuro e semitransparente */
-  backdrop-filter: blur(4px); /* Aplica o desfoque no conteúdo de trás */
-  z-index: 9998; /* Fica atrás do card */
+  background: rgba(61, 61, 61, 0.4); 
+  backdrop-filter: blur(4px);
+  z-index: 9998;
 }
 
 .card-title {
@@ -138,12 +149,14 @@ body {
 .num-sala {
   display: block;
   margin-top: 5px;
+  
 }
 .linha-input {
-  display: flex;
+  display: block;
   align-items: center;
   gap: 8px;
   margin: 10px 0;
+  font-size: 18px
 }
 
 .linha-simples {
@@ -152,12 +165,11 @@ body {
   outline: none;
   background: transparent;
   padding: 4px 6px;
-  width: 180px;
-  font-size: 1rem;
+  width: 200px;
+  font-size: 18px;
   transition: border-color 0.3s;
 }
 
 .linha-simples:focus {
-  border-bottom: 2px solid #3f51b5; /* azul do Angular Material */
+  border-bottom: 2px solid #3f51b5; 
 }
-
