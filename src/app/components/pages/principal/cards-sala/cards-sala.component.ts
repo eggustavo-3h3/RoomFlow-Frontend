@@ -21,7 +21,7 @@ import { AuthService } from '../../../../services/auth.service';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
   ],
 
   templateUrl: './cards-sala.component.html',

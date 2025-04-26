@@ -6,6 +6,11 @@ import { AngularMaterialModule } from '../../angular-material/angular-material.m
 import { CommonModule } from '@angular/common';
 import { IUsuario } from '../../Interfaces/Usuario.interface';
 import { Perfil } from '../../Enums/Perfil.enum';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -16,6 +21,11 @@ import { Perfil } from '../../Enums/Perfil.enum';
     RouterModule,
     AngularMaterialModule,
     CommonModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatIconModule
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
@@ -27,10 +37,14 @@ export class NavBarComponent implements OnInit {
   usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
 
   
+  abrirCalendario(data: string) {
+    console.log('Data selecionada:', data);
+  }
 
   constructor(private readonly authService: AuthService,
     private readonly router: Router
   ) { }
+  
 
   ngOnInit(): void {
     const token = this.authService.getToken();

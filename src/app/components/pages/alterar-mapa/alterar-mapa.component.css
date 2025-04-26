@@ -11,10 +11,11 @@
 }
 
 .cards-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); 
   gap: 16px;
-  justify-content: flex-start;
+  justify-items: center;
+  width: 100%;
 }
 
 .informacoes {

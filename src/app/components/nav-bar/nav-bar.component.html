@@ -12,11 +12,23 @@
     <span>{{ usuario.cargo }}</span>
   </div>
 
+<!-- filtro / calendario-->
+  <button mat-icon-button (click)="picker.open()" style="margin-right: -10px;">
+    <span class="material-icons">calendar_month</span>
+  </button>
+
   <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>
   </button>
-
 </mat-toolbar>
+
+<input
+  matInput
+  [matDatepicker]="picker"
+  hidden
+  #calendarInput
+/>
+<mat-datepicker #picker (closed)="abrirCalendario(calendarInput.value)"></mat-datepicker>
 
 <mat-menu #menu="matMenu">
   <div *ngIf="usuario" style="padding: 8px 16px; font-size: 14px;">
@@ -28,5 +40,5 @@
   <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
   <a mat-menu-item routerLink="/gerenciamentoUsuarios" *ngIf="ehAdm">Gerenciamento de Usuários</a>
   <a mat-menu-item routerLink="/alterar-senha">Alterar senha</a>
-  <a color="primary" mat-menu-item (click)="sairDaConta()">Sair</a>
+  <a mat-menu-item class="sair-link" (click)="sairDaConta()">Sair</a>
 </mat-menu>

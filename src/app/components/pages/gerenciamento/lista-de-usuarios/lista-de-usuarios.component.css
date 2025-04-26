@@ -43,3 +43,7 @@ button[mat-icon-button] {
   margin: 0 auto;
   display: block;
 }
+
+button[mat-icon-button].mat-warn mat-icon {
+  color: rgb(198, 40, 40);
+}

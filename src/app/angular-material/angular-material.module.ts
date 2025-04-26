@@ -12,6 +12,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatMenuModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   exports: [
     MatTableModule,

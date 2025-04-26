@@ -151,25 +151,20 @@ body {
   margin-top: 5px;
   
 }
-.linha-input {
-  display: block;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-  font-size: 18px
+mat-form-field {
+  width: 60%;
+  --mdc-filled-text-field-container-color: transparent;
+  --mdc-outlined-text-field-container-color: transparent;
+  --mdc-filled-text-field-focus-active-indicator-color: #1976d2;
+  --mdc-outlined-text-field-outline-color: transparent;
+  --mdc-outlined-text-field-focus-outline-color: #1976d2;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
 }
 
-.linha-simples {
-  border: none;
-  border-bottom: 1px solid #ccc;
-  outline: none;
+input.mat-input-element {
   background: transparent;
-  padding: 4px 6px;
-  width: 200px;
-  font-size: 18px;
-  transition: border-color 0.3s;
-}
-
-.linha-simples:focus {
-  border-bottom: 2px solid #3f51b5; 
+  border: none;
+  outline: none;
+  font-size: 16px;
 }
