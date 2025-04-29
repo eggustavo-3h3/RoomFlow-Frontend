@@ -23,11 +23,22 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Senha</mat-label>
         <input
-          type="password"
+          [type]="passwordApears ? 'password' : 'text'"
           matInput
           formControlName="senha"
           placeholder="Senha"
         />
+        <button
+            mat-icon-button
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            type="button"
+            tabindex="-1"
+          >
+            <mat-icon>
+              visibility
+            </mat-icon>
+          </button>
         <mat-error
           *ngIf="formularioDeUsuario.controls['senha'].hasError('required')&& formularioDeUsuario.controls['senha'].dirty"
         >

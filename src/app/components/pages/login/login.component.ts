@@ -22,6 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
 
   formularioDeUsuario: FormGroup = new FormGroup({});
+  passwordApears = true;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -39,6 +40,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaForm();
+  }
+
+  togglePasswordVisibility() {
+    this.passwordApears = !this.passwordApears;
   }
 
   logar() {
