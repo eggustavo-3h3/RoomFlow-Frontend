@@ -39,6 +39,7 @@ export class CardsSalaComponent implements OnInit {
 
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
+  isProfessor: boolean = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -60,6 +61,7 @@ export class CardsSalaComponent implements OnInit {
     if (nome) {
       this.nomeDoProfessor = nome;
     }
+    this.isProfessor = this.authService.usuarioEhProfessor();
   }
 
   toggleCard() {
