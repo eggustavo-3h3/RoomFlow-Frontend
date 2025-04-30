@@ -1,12 +1,31 @@
 <div class="container principal">
-  <div class="imagem-fundo"></div>
-  <div class="container_caixa">
-    <div class="container_content">
-      <h1 class="container_titulo">RoomFlow</h1>
-      <h2>Gerenciamento de Espaços</h2>
-      <button routerLink="/login" class="container_botao">Login</button>
-      <button routerLink="/cadastro" class="container_botao">Cadastre-se</button>
-      <br>
-      <button routerLink="/principal" class="container_abaixo">Mapa</button>
+  <div class="imagem-fundo" *ngIf="!isMobile"></div>
+
+  <div class="container_caixa" [ngClass]="{ 'modo-mobile': isMobile }">
+    <ng-container *ngIf="isMobile; else layoutDesktop">
+      <div class="container_card_mobile">
+        <mat-card class="mobile-card">
+          <div class="imagem-topo-card"></div>
+          <div class="card-content">
+            <h1 class="container_titulo">RoomFlow</h1>
+            <h2>Gerenciamento de Espaços</h2>
+            <button routerLink="/login" mat-button class="container_botao">Login</button>
+            <button routerLink="/cadastro" mat-button class="container_botao">Cadastre-se</button>
+            <button routerLink="/principal" mat-button class="container_botao">Mapa</button>
+          </div>
+        </mat-card>
+      </div>
+    </ng-container>
+
+    <ng-template #layoutDesktop>
+      <div class="container_content">
+        <h1 class="container_titulo">RoomFlow</h1>
+        <h2>Gerenciamento de Espaços</h2>
+        <button routerLink="/login" class="container_botao">Login</button>
+        <button routerLink="/cadastro" class="container_botao">Cadastre-se</button>
+        <br />
+        <button routerLink="/principal" class="container_abaixo">Mapa</button>
+      </div>
+    </ng-template>
   </div>
 </div>
