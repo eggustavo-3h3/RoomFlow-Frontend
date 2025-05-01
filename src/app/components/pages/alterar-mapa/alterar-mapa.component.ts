@@ -10,6 +10,7 @@ import { PrincipalComponent } from '../principal/principal.component';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TipoSala } from '../../../Enums/TipoSala.enum';
 
 @Component({
   selector: 'app-alterar-mapa',
@@ -45,6 +46,12 @@ throw new Error('Method not implemented.');
     { label: 'Indisponível', value: Status.Indisponivel },
   ];
 
+  tipoOptions = [
+    { label: 'Lab. Informatica', value: TipoSala.LabInformatica },
+    { label: 'Lab. Quimica', value: TipoSala.LabQuimica },
+    { label: 'Sala Comum', value: TipoSala.SalaComum },
+  ]
+
   mostrarExcluirBotao: boolean = false;
 
   salasDisponiveis = 0;
@@ -59,9 +66,9 @@ exibirCard: any;
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      numero: [null, [Validators.required, Validators.maxLength(3)]],
+      descricao: [null, [Validators.required, Validators.maxLength(3)]],
       status: [null, Validators.required],
-      tipo: ['', [Validators.required, Validators.maxLength(30)]] // novo campo
+      tipo: ['', [Validators.required]]
     });
   }
 
@@ -101,9 +108,9 @@ exibirCard: any;
     }
 
     const novaSala: ISala = {
-      numero: this.formularioDeSalas.value.descricao,
+      descricao: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
-      tipo: this.formularioDeSalas.value.tipo
+      tipoSala: this.formularioDeSalas.value.tipo
     };
 
     this._salaService.cadastrarSala(novaSala).subscribe({

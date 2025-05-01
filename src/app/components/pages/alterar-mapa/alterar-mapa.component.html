@@ -56,29 +56,31 @@
           placeholder="adicione o número da sala"
         />
         <mat-error
-          *ngIf="formularioDeSalas.controls['numero'].hasError('required')"
+          *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
         >
           O número é <strong>obrigatório</strong>
         </mat-error>
         <mat-error
-          *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')"
+          *ngIf="formularioDeSalas.controls['descricao'].hasError('maxlength')"
         >
           Máximo de caracteres ultrapassado
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Tipo da Sala</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="tipo"
-          placeholder="ex: Laboratório, Sala de Reunião, etc."
-        />
+        <mat-label>Tipo de Sala</mat-label>
+        <mat-select formControlName="tipo">
+          <mat-option
+            *ngFor="let tipo of tipoOptions"
+            [value]="tipo.value"
+          >
+            {{ tipo.label }}
+          </mat-option>
+        </mat-select>
         <mat-error
           *ngIf="formularioDeSalas.controls['tipo'].hasError('required')"
         >
-          O tipo é <strong>obrigatório</strong>
+          O Tipo de sala é <strong>obrigatório</strong>
         </mat-error>
       </mat-form-field>
 
