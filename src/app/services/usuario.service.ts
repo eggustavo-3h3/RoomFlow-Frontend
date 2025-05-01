@@ -7,9 +7,6 @@ import { IUsuario } from '../Interfaces/Usuario.interface';
   providedIn: 'root'
 })
 export class UsuarioService {
-  getUsuario() {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private readonly http: HttpClient) { }
 
