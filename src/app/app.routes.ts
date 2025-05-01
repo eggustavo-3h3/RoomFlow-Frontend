@@ -9,6 +9,7 @@ import { AlterarSenhaComponent } from './components/pages/alterar-senha/alterar-
 import { AlterarMapaComponent } from './components/pages/alterar-mapa/alterar-mapa.component';
 import { perfilGuard } from './guards/perfil.guard';
 import { Perfil } from './Enums/Perfil.enum';
+import { SolicitacaoComponent } from './components/pages/solicitacao/solicitacao.component';
 
 export const routes: Routes = [
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'principal', component: PrincipalComponent },
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
+    { path: 'solicitacao', component: SolicitacaoComponent},
 
     {
         path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
