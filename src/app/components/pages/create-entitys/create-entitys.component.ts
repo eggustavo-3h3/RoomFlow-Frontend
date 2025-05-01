@@ -1,6 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
+import { ICurso } from '../../../Interfaces/Curso.interface';
+import { ITurma } from '../../../Interfaces/Turma.interface';
+import { IDisciplina } from '../../../Interfaces/Disciplina.interface';
+import { TurmaService } from '../../../services/turma.service';
+import { CursoService } from '../../../services/curso.service';
+import { DisciplinaService } from '../../../services/disciplina.service';
 
 @Component({
   selector: 'app-create-entitys',
@@ -9,30 +15,61 @@ import { CommonModule } from '@angular/common';
   templateUrl: './create-entitys.component.html',
   styleUrl: './create-entitys.component.css'
 })
-export class CreateEntitysComponent {
+export class CreateEntitysComponent implements OnInit {
 
-  @Input() cursosList: any[] = [];
-  @Input() turmasList: any[] = [];
-  @Input() disciplinasList: any[] = [];
+  cursosList: ICurso[] = [];
+  turmasList: ITurma[] = [];
+  disciplinasList: IDisciplina[] = [];
 
-  @Output() cursoDelete = new EventEmitter<any>();
-  @Output() turmaDelete = new EventEmitter<any>();
-  @Output() disciplinaDelete = new EventEmitter<any>();
+  turmaService = inject(TurmaService);
+  cursoService = inject(CursoService);
+  disciplinaService = inject(DisciplinaService);
 
   displayedColumnsCursos = ['nome', 'periodo', 'acoes'];
   displayedColumnsTurmas = ['descricao', 'curso', 'acoes'];
   displayedColumnsDisciplinas = ['nome', 'descricao', 'acoes'];
 
-  onCursoDelete(curso: any) {
-    this.cursoDelete.emit(curso);
+  ngOnInit(): void {
+    this.getCursos();
+    this.getTurmas();
+    this.getDisciplinas();
   }
 
-  onTurmaDelete(turma: any) {
-    this.turmaDelete.emit(turma);
-  }
+  getCursos() {
+    this.cursoService.getCursos().subscribe({
+      next: (cursos) => {
+        this.cursosList = cursos;
+      },
+      error: (error) => {
+        console.log('Não foi possível carregar cursos:', error);
+      }
+    })
+  };
 
-  onDisciplinaDelete(disciplina: any) {
-    this.disciplinaDelete.emit(disciplina);
-  }
+  getTurmas() {
+    this.turmaService.getTurmas().subscribe({
+      next: (turma) => {
+        this.turmasList = turma;
+      },
+      error: (error) => {
+        console.log('Não foi possível carregar turmas:', error);
+      }
+    })
+  };
 
+  getDisciplinas() {
+    this.disciplinaService.getDisciplinas().subscribe({
+      next: (disciplina) => {
+        this.disciplinasList = disciplina;
+      },
+      error: (error) => {
+        console.log('Não foi possível carregar disciplinas:', error);
+      }
+    })
+  };
 }
+  
+
+
+
+
