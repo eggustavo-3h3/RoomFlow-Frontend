@@ -2,16 +2,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
-import { IUsuario } from '../../Interfaces/Usuario.interface';
-import { Perfil } from '../../Enums/Perfil.enum';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatDialog } from '@angular/material/dialog';
+import { CalendarioDialogComponent } from './calendario-dialog/calendario-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,32 +21,52 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     RouterLink,
     RouterModule,
-    AngularMaterialModule,
     CommonModule,
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatDialogModule,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+aplicarFiltro() {
+throw new Error('Method not implemented.');
+}
+abrirBloco() {
+throw new Error('Method not implemented.');
+}
+abrirCalendario() {
+throw new Error('Method not implemented.');
+}
   @Input() textoNav: string = '';
   estaLogado: boolean = false;
   ehAdm: boolean = false;
   usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
 
-  
-  abrirCalendario(data: string) {
-    console.log('Data selecionada:', data);
+  constructor(
+    public dialog: MatDialog,               
+    private readonly authService: AuthService,  
+    private readonly router: Router 
+  ) {}
+
+
+  openCalendarioDialog() {
+    const dialogRef = this.dialog.open(CalendarioDialogComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('O dialog foi fechado');
+    });
   }
 
-  constructor(private readonly authService: AuthService,
-    private readonly router: Router
-  ) { }
-  
 
   ngOnInit(): void {
     const token = this.authService.getToken();
@@ -68,6 +90,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+
   getPerfilUsuario(perfil: string): string {
     switch (perfil) {
       case 'Administrador':
@@ -79,7 +102,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  
+
   sairDaConta() {
     this.authService.removerToken();
     this.router.navigate(['/']);

@@ -1,15 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { CalendarioDialogComponent } from './components/nav-bar/calendario-dialog/calendario-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MatDialogModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        CalendarioDialogComponent
       ],
     }).compileComponents();
   });

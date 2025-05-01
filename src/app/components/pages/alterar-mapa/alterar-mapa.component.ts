@@ -11,6 +11,7 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TipoSala } from '../../../Enums/TipoSala.enum';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-alterar-mapa',
@@ -22,10 +23,19 @@ import { TipoSala } from '../../../Enums/TipoSala.enum';
     CommonModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   templateUrl: './alterar-mapa.component.html',
-  styleUrl: './alterar-mapa.component.css'
+  styleUrl: './alterar-mapa.component.css',
+  animations: [ // Coloque aqui a animação corretamente
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ] 
 })
 export class AlterarMapaComponent implements OnInit {
 numSala: any;
@@ -110,7 +120,8 @@ exibirCard: any;
     const novaSala: ISala = {
       descricao: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
-      tipoSala: this.formularioDeSalas.value.tipo
+      tipoSala: this.formularioDeSalas.value.tipo,
+      tipo: undefined
     };
 
     this._salaService.cadastrarSala(novaSala).subscribe({

@@ -39,7 +39,7 @@ export class CardsSalaComponent implements OnInit {
 
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
-  isProfessor: boolean = false;
+  isProfessor: boolean = true;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -55,13 +55,21 @@ export class CardsSalaComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaForm();
-
+  
     const nome = this.authService.getNomeDoUsuarioLogado();
-
     if (nome) {
       this.nomeDoProfessor = nome;
     }
-    this.isProfessor = this.authService.usuarioEhProfessor();
+  
+    const token = this.authService.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Payload do token:', payload);
+    }
+  
+    //this.isProfessor = this.authService.usuarioEhProfessor();
+    //console.log('isProfessor:', this.isProfessor);
+    
   }
 
   toggleCard() {

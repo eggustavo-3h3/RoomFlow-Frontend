@@ -128,3 +128,11 @@ mat-toolbar {
 .sair-link {
   color: rgb(198, 40, 40) !important;
 }
+
+.perfil-link {
+  text-decoration: none;
+}
+
+.perfil-link:hover {
+  text-decoration: none;
+}

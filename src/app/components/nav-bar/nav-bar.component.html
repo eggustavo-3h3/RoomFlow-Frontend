@@ -13,22 +13,23 @@
   </div>
 
 <!-- filtro / calendario-->
-  <button mat-icon-button (click)="picker.open()" style="margin-right: -10px;">
-    <span class="material-icons">calendar_month</span>
-  </button>
+<!-- Ícone do calendário que abre o menu -->
+<button mat-icon-button [matMenuTriggerFor]="calendarMenu" style="margin-right: -10px;">
+  <mat-icon>calendar_month</mat-icon>
+</button>
+
+<!-- Menu flutuante -->
+<mat-menu #calendarMenu="matMenu">
+  <button mat-menu-item (click)="abrirCalendario()">Abrir Calendário</button>
+  <button mat-menu-item (click)="abrirBloco()">Bloco</button>
+  <button mat-menu-item (click)="aplicarFiltro()">Filtrar</button>
+</mat-menu>
+
 
   <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>
   </button>
 </mat-toolbar>
-
-<input
-  matInput
-  [matDatepicker]="picker"
-  hidden
-  #calendarInput
-/>
-<mat-datepicker #picker (closed)="abrirCalendario(calendarInput.value)"></mat-datepicker>
 
 <mat-menu #menu="matMenu">
   <div *ngIf="usuario" style="padding: 8px 16px; font-size: 14px;">

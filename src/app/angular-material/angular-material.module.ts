@@ -31,7 +31,7 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
     MatProgressSpinnerModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatTableModule,

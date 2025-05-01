@@ -60,6 +60,10 @@
   align-items: center;
   padding: 16px;
 }
+.custom-button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
 .botao-remover-sala {
   background-color: #d21919;
   color: white;
@@ -72,10 +76,36 @@
   outline: none;
   box-shadow: none;
 }
-.botao-adicionar-sala:hover {
-  background-color: #115293;
+.custom-button {
+  padding: 4px 10px;         
+  font-size: 16px;          
+  border-radius: 8px;         
+  background-color: #1e60e5 !important;
+  color: white !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
-
+.botao-adicionar {
+  padding: 4px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #1e60e5 !important;
+  color: white !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.botao-fechar {
+  padding: 4px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #e51e28 !important;
+  color: white !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+.botoes-modal {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
 .overlay {
   position: fixed;
   inset: 0;
@@ -87,6 +117,7 @@
 }
 
 .modal-card {
+  animation: fadeInUp 0.3s ease;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -95,6 +126,16 @@
   width: 90%;
   max-width: 300px;
   box-sizing: border-box;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-title {
