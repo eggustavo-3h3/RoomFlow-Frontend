@@ -1,0 +1,87 @@
+
+mat-dialog-content {
+    padding: 24px;
+    background-color: transparent;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  mat-card.demo-inline-calendar-card {
+    background-color: transparent !important; /* Transparente */
+    box-shadow: none !important;  /* Retire a sombra */
+  }
+  
+  /* Alterar o título para ser mais leve */
+  h2[mat-dialog-title] {
+    font-weight: normal;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  
+  /* Alterar o botão de filtrar */
+  button[mat-raised-button] {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 100px;
+    align-self: center;
+  }
+  
+  /* Tamanho do calendário */
+  mat-calendar {
+    font-size: 14px; /* Altere o tamanho da fonte do calendário */
+    max-width: 100% !important; /* Impede que o calendário ultrapasse o limite */
+  }
+  
+  /* Tornar o conteúdo responsivo */
+  @media (max-width: 480px) {
+    mat-dialog-content {
+      padding: 16px;
+    }
+  
+    h2[mat-dialog-title] {
+      font-size: 16px;
+    }
+  }
+  button[mat-icon-button] {
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Remove qualquer borda padrão */
+    padding: 8px; /* Adiciona um pouco de preenchimento ao redor do ícone */
+    color: #757575; /* Cor do ícone */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    border-radius: 50%; /* Torna o botão redondo */
+    transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  }
+  
+  /* Alterando o ícone para cor diferente ao passar o mouse */
+  button[mat-icon-button]:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Fundo levemente cinza quando passar o mouse */
+    transform: scale(1.1); /* Aumenta ligeiramente o botão ao passar o mouse */
+  }
+  
+  /* Tamanho do ícone */
+  button[mat-icon-button] mat-icon {
+    font-size: 24px; /* Tamanho do ícone */
+    color: #333; /* Cor do ícone */
+  }
+  
+  /* Caso queira um estilo mais destacado quando o botão estiver desabilitado */
+  button[mat-icon-button]:disabled {
+    color: #b0b0b0; /* Cor do ícone desativado */
+    background-color: transparent; /* Fundo transparente quando desabilitado */
+    cursor: not-allowed; /* Cursor de "não permitido" */
+  }
+  
+  /* Ajuste para mobile, caso necessário */
+  @media (max-width: 480px) {
+    button[mat-icon-button] {
+      padding: 6px; /* Menos preenchimento em telas menores */
+    }
+    
+    button[mat-icon-button] mat-icon {
+      font-size: 20px; /* Ícone menor em dispositivos móveis */
+    }
+  }
+  

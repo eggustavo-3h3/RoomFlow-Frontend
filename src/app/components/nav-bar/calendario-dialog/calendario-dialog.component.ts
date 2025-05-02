@@ -32,7 +32,8 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatCardModule,
   ],
-  templateUrl: './calendario-dialog.component.html'
+  templateUrl: './calendario-dialog.component.html',
+  styleUrls: ['./calendario-dialog.component.css'],
 })
 export class CalendarioDialogComponent {
   dataSelecionada: Date | null = null;

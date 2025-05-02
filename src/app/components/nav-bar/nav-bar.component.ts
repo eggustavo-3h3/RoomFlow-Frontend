@@ -42,8 +42,7 @@ throw new Error('Method not implemented.');
 
 abrirCalendario() {
   this.dialog.open(CalendarioDialogComponent, {
-    width: '400px',
-    // qualquer outra config necessária
+    width: '450px',
   });
 }
   @Input() textoNav: string = '';
