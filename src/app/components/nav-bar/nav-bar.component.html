@@ -13,18 +13,7 @@
   </div>
 
 <!-- filtro / calendario-->
-<!-- Ícone do calendário que abre o menu -->
-<button mat-icon-button [matMenuTriggerFor]="calendarMenu" style="margin-right: -10px;">
-  <mat-icon>calendar_month</mat-icon>
-</button>
-
-<!-- Menu flutuante -->
-<mat-menu #calendarMenu="matMenu">
-  <button mat-menu-item (click)="abrirCalendario()">Abrir Calendário</button>
-  <button mat-menu-item (click)="abrirBloco()">Bloco</button>
-  <button mat-menu-item (click)="aplicarFiltro()">Filtrar</button>
-</mat-menu>
-
+<mat-icon (click)="abrirCalendario()" style="cursor: pointer;">calendar_month</mat-icon>
 
   <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>

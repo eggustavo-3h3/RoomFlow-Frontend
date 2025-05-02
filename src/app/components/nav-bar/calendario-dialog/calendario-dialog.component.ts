@@ -1,38 +1,72 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, LOCALE_ID, ViewEncapsulation } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-calendario-dialog',
   standalone: true,
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+  ],
   encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
-    MatMenuModule,
     MatButtonModule,
+    MatRadioModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatMenuModule,
+    MatIconModule,
+    MatCardModule,
   ],
-  template: `
-    <h2 mat-dialog-title>Escolha uma ação</h2>
-    <mat-dialog-content style="display: flex; flex-direction: column; gap: 10px;">
-      <button mat-raised-button color="primary" (click)="abrirCalendario()">Abrir Calendário</button>
-      <button mat-raised-button color="accent" (click)="abrirBloco()">Bloco</button>
-      <button mat-raised-button color="warn" (click)="aplicarFiltro()">Filtrar</button>
-    </mat-dialog-content>
-  `
+  templateUrl: './calendario-dialog.component.html'
 })
 export class CalendarioDialogComponent {
-  constructor(public dialogRef: MatDialogRef<CalendarioDialogComponent>) {}
+  dataSelecionada: Date | null = null;
+  blocoSelecionado: string = 'bloco1';
+  selected: Date | null = null;
 
-  abrirCalendario() {
-    console.log('Abrindo calendário...');
+  onDateChange(event: any) {
+    this.dataSelecionada = event.value;
+    console.log('Data selecionada:', this.dataSelecionada);
   }
-  
+
+  constructor(
+    public dialogRef: MatDialogRef<CalendarioDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
   abrirBloco() {
-    console.log('Abrindo bloco...');
+    if (this.blocoSelecionado === 'bloco1') {
+      console.log('Abrindo Bloco 1...');
+    } else if (this.blocoSelecionado === 'bloco2') {
+      console.log('Abrindo Bloco 2...');
+    } else {
+      console.warn('Nenhum bloco selecionado');
+    }
   }
-  
+
   aplicarFiltro() {
+   
     console.log('Aplicando filtro...');
+    console.log('Data selecionada:', this.dataSelecionada);
+    console.log('Bloco selecionado:', this.blocoSelecionado);
+  }
+
+  isDataSelecionada(): boolean {
+    return this.dataSelecionada !== null;
   }
 }

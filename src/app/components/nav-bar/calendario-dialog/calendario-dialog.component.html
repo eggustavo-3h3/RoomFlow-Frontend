@@ -1,6 +1,16 @@
-<h1 mat-dialog-title>Opções</h1>
-<mat-menu #calendarMenu="matMenu">
-    <button mat-menu-item (click)="abrirCalendario()">Abrir Calendário</button>
-    <button mat-menu-item (click)="abrirBloco()">Bloco</button>
-    <button mat-menu-item (click)="aplicarFiltro()">Filtrar</button>
-  </mat-menu>
+<h2 mat-dialog-title>Selecione o dia desejado</h2>
+<mat-dialog-content style="display: flex; flex-direction: column; gap: 20;">
+
+  <mat-card class="demo-inline-calendar-card" style="background-color: transparent; box-shadow: none;">
+    <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
+  </mat-card>
+
+  <h2 style="font-weight: normal;">Escolha o bloco</h2>
+  <mat-radio-group [(ngModel)]="blocoSelecionado" (change)="abrirBloco()" [disabled]="!isDataSelecionada()">
+    <mat-radio-button value="bloco1">Bloco 1</mat-radio-button>
+    <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
+  </mat-radio-group>
+
+  <button mat-raised-button color="warn" (click)="aplicarFiltro()" [disabled]="!isDataSelecionada()">Filtrar</button>
+  
+</mat-dialog-content>

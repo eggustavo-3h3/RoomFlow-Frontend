@@ -14,7 +14,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 
+registerLocaleData(localePt);
 @NgModule({
   imports: [
     MatTableModule,
@@ -50,7 +55,8 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
     MatDialogModule
   ],
   
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },],
 })
 
 export class AngularMaterialModule { }

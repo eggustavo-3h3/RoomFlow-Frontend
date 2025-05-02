@@ -142,9 +142,4 @@ mat-toolbar {
     margin-left: 8px;
     flex-basis: auto;
   }
-
-  button[mat-icon-button][matMenuTriggerFor="calendarMenu"] {
-    margin-right: 8px;
-    flex-basis: auto;
-  }
 }

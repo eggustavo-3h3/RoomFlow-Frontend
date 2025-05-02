@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarioDialogComponent } from './calendario-dialog/calendario-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule, MatMenuPanel } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -39,11 +39,12 @@ export class NavBarComponent implements OnInit {
 aplicarFiltro() {
 throw new Error('Method not implemented.');
 }
-abrirBloco() {
-throw new Error('Method not implemented.');
-}
+
 abrirCalendario() {
-throw new Error('Method not implemented.');
+  this.dialog.open(CalendarioDialogComponent, {
+    width: '400px',
+    // qualquer outra config necessária
+  });
 }
   @Input() textoNav: string = '';
   estaLogado: boolean = false;
@@ -66,7 +67,6 @@ throw new Error('Method not implemented.');
       console.log('O dialog foi fechado');
     });
   }
-
 
   ngOnInit(): void {
     const token = this.authService.getToken();
