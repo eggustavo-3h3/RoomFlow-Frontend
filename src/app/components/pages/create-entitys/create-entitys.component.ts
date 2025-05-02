@@ -74,9 +74,12 @@ export class CreateEntitysComponent implements OnInit {
   openDialogCurso() {
     this.router.navigate(['formCurso']);
   }
+
+  openDialogDisciplina() {
+    this.router.navigate(['formDisciplina']);
+  }
+
+  openDialogTurma() {
+    this.router.navigate(['formTurma']);
+  }
 }
-  
-
-
-
-

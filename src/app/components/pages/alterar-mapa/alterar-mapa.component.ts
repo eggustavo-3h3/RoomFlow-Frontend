@@ -28,20 +28,20 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ],
   templateUrl: './alterar-mapa.component.html',
   styleUrl: './alterar-mapa.component.css',
-  animations: [ 
+  animations: [
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10px)' }),
         animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ])
-  ] 
+  ]
 })
 export class AlterarMapaComponent implements OnInit {
-numSala: any;
-confirmarReserva() {
-throw new Error('Method not implemented.');
-}
+  numSala: any;
+  confirmarReserva() {
+    throw new Error('Method not implemented.');
+  }
 
   salas: ISala[] = [];
   exibirmodal: boolean = false;
@@ -67,7 +67,7 @@ throw new Error('Method not implemented.');
   salasDisponiveis = 0;
   salasReservadas = 0;
   salasIndisponiveis = 0;
-exibirCard: any;
+  exibirCard: any;
 
   constructor(
     private readonly _salaService: SalaService,
@@ -90,7 +90,7 @@ exibirCard: any;
   toggleModal() {
     this.formularioDeSalas.reset();
     this.exibirmodal = !this.exibirmodal;
-    
+
   }
 
   atualizarContagens() {

@@ -1,0 +1,46 @@
+<p>form-disciplina works!</p>
+<app-nav-bar></app-nav-bar>
+<form [formGroup]="formTurma" class="form-container">
+  <h2 class="form-title">Cadastrar Turma</h2>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Descrição da Turma</mat-label>
+      <input
+        matInput
+        formControlName="descricao"
+        placeholder="Digite a descrição da turma"
+      />
+      <mat-error *ngIf="formTurma.get('descricao')?.hasError('required')">
+        Descrição da turma é obrigatória
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="curso">
+        <mat-option value="" disabled>Selecione um curso</mat-option>
+        <mat-option *ngFor="let curso of cursos" [value]="curso.id">
+          {{ curso.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formTurma.get('curso')?.hasError('required')">
+        Curso é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      class="submit-button"
+      (click)="cadastrar()"
+    >
+      Cadastrar
+    </button>
+  </div>
+</form>

@@ -12,6 +12,8 @@ import { Perfil } from './Enums/Perfil.enum';
 import { SolicitacaoComponent } from './components/pages/solicitacao/solicitacao.component';
 import { CreateEntitysComponent } from './components/pages/create-entitys/create-entitys.component';
 import { FormCursoComponent } from './components/form-curso/form-curso.component';
+import { FormDisciplinaComponent } from './components/form-disciplina/form-disciplina.component';
+import { FormTurmaComponent } from './components/form-turma/form-turma.component';
 
 export const routes: Routes = [
 
@@ -23,6 +25,8 @@ export const routes: Routes = [
     { path: 'solicitacao', component: SolicitacaoComponent },
     { path: 'create', component: CreateEntitysComponent },
     { path: 'formCurso', component: FormCursoComponent },
+    { path: 'formDisciplina', component: FormDisciplinaComponent },
+    { path: 'formTurma', component: FormTurmaComponent },
 
     {
         path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,

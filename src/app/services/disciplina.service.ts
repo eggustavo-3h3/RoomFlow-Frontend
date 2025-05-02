@@ -18,6 +18,10 @@ export class DisciplinaService {
     return this.http.get<IDisciplina[]>(this.url + '/listar');
   }
 
+  adicionarDisciplina(disciplina: IDisciplina) : Observable<IDisciplina> {
+    return this.http.post<IDisciplina>(this.url + '/adicionar', disciplina);
+  }
+
   removerDisciplina(id: number) : Observable<IDisciplina> {
     return this.http.delete<IDisciplina>(this.url + '/remover/' + id);
   }

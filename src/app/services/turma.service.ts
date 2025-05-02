@@ -17,6 +17,10 @@ export class TurmaService {
     return this.http.get<ITurma[]>(this.url + '/listar');
   }
 
+  adicionarTurma(turma: ITurma) : Observable<ITurma> {
+    return this.http.post<ITurma>(this.url + '/adicionar', turma);
+  }
+
   removerTurma(id: number) : Observable<ITurma> {
     return this.http.delete<ITurma>(this.url + '/remover/' + id);
   }

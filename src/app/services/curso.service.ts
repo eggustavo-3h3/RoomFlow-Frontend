@@ -16,8 +16,11 @@ export class CursoService {
     return this.http.get<ICurso[]>(this.url + '/listar');
   }
 
+  adicionarCurso(curso: ICurso) : Observable<ICurso> {
+    return this.http.post<ICurso>(this.url + '/adicionar', curso);
+  }
+
   removerCurso(id: number) : Observable<ICurso> {
     return this.http.delete<ICurso>(this.url + '/remover/' + id);
   }
-
 }

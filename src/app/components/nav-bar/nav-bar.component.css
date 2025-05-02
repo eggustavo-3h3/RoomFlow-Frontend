@@ -74,10 +74,15 @@ mat-toolbar {
 }
 
 .menu-button {
-  display: none; 
+  display: none;
 }
 
 @media (max-width: 768px) {
+
+  .mat-toolbar {
+    width: 100%;
+  }
+
   .perfil-link {
     display: none;
   }
@@ -87,52 +92,59 @@ mat-toolbar {
   }
 
   .usuario-info {
-    display: none; 
+    display: none;
   }
 
   .account-button {
-    display: flex; 
+    display: flex;
   }
 
 
-@media (max-width: 480px) {
-  .toolbar-title {
-    font-size: 18px;
+  @media (max-width: 480px) {
+    .toolbar-title {
+      font-size: 18px;
+    }
   }
-}
 }
 
 @media (min-width: 768px) and (max-width: 1100px) {
+
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
   .toolbar-title {
-    font-size: 22px; 
+    font-size: 22px;
+    flex-grow: 1;
+    text-align: center;
   }
 
   .perfil-link {
     font-size: 22px;
+    margin-right: 16px;
+    flex-basis: auto;
+  }
+
+  .spacer {
+    display: none;
   }
 
   .usuario-info {
-    display: none; 
+    display: none;
   }
 
   .account-button {
-    width: 70px;
-    height: 70px;
+    width: auto;
+    height: auto;
+    margin-left: 8px;
+    flex-basis: auto;
   }
 
-  .menu-button {
-    display: block;
-    color: black;
+  button[mat-icon-button][matMenuTriggerFor="calendarMenu"] {
+    margin-right: 8px;
+    flex-basis: auto;
   }
-}
-.sair-link {
-  color: rgb(198, 40, 40) !important;
-}
-
-.perfil-link {
-  text-decoration: none;
-}
-
-.perfil-link:hover {
-  text-decoration: none;
 }

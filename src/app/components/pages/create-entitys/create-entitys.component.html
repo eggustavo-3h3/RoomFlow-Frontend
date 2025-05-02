@@ -3,10 +3,10 @@
   <button mat-raised-button  class="demo-button" (click)="openDialogCurso()">
     Adicionar Curso
   </button>
-  <button mat-raised-button  class="demo-button">
+  <button mat-raised-button  class="demo-button" [disabled]="cursosList.length === 0" (click)="openDialogTurma()">
     Adicionar Turma
   </button>
-  <button mat-raised-button  class="demo-button">
+  <button mat-raised-button  class="demo-button" [disabled]="cursosList.length === 0" (click)="openDialogDisciplina()">
     Adicionar Disciplina
   </button>
 </div>
