@@ -1,0 +1,46 @@
+<app-nav-bar></app-nav-bar>
+<form [formGroup]="formCurso" class="form-container">
+  <h2 class="form-title">Cadastrar Curso</h2>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nome do Curso</mat-label>
+      <input
+        matInput
+        formControlName="nome"
+        placeholder="Digite o nome do curso"
+      />
+      <mat-error *ngIf="formCurso.get('nome')?.hasError('required')">
+        Nome do curso é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Periodo</mat-label>
+      <mat-select formControlName="periodo">
+        <mat-option value="" disabled>Selecione um periodo</mat-option>
+        <mat-option *ngFor="let periodo of periodos" [value]="periodo">
+          {{ periodo | periodo }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formCurso.get('periodo')?.hasError('required')">
+        Periodo é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="button-container">
+    <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      class="submit-button"
+      [disabled]="formCurso.invalid"
+      (click)="cadastrar()"
+    >
+      Cadastrar
+    </button>
+  </div>
+</form>

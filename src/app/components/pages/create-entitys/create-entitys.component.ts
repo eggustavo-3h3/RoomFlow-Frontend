@@ -7,6 +7,7 @@ import { IDisciplina } from '../../../Interfaces/Disciplina.interface';
 import { TurmaService } from '../../../services/turma.service';
 import { CursoService } from '../../../services/curso.service';
 import { DisciplinaService } from '../../../services/disciplina.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-entitys',
@@ -28,6 +29,8 @@ export class CreateEntitysComponent implements OnInit {
   displayedColumnsCursos = ['nome', 'periodo', 'acoes'];
   displayedColumnsTurmas = ['descricao', 'curso', 'acoes'];
   displayedColumnsDisciplinas = ['nome', 'descricao', 'acoes'];
+
+  constructor(private readonly router: Router) { }
 
   ngOnInit(): void {
     this.getCursos();
@@ -67,6 +70,10 @@ export class CreateEntitysComponent implements OnInit {
       }
     })
   };
+
+  openDialogCurso() {
+    this.router.navigate(['formCurso']);
+  }
 }
   
 
