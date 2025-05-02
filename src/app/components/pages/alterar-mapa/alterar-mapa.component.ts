@@ -28,7 +28,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ],
   templateUrl: './alterar-mapa.component.html',
   styleUrl: './alterar-mapa.component.css',
-  animations: [ // Coloque aqui a animação corretamente
+  animations: [ 
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10px)' }),
