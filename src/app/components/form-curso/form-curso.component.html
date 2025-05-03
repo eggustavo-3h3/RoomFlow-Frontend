@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <form [formGroup]="formCurso" class="form-container">
-  <h2 class="form-title">Cadastrar Curso</h2>
+  <h2 class="form-title">{{ editando? 'Editar Curso' : 'Cadastrar Curso'}}</h2>
 
   <div class="form-row">
     <mat-form-field appearance="fill" class="form-field">
@@ -39,7 +39,7 @@
       class="submit-button"
       (click)="cadastrar()"
     >
-      Cadastrar
+    {{ editando? 'Salvar' : 'Cadastrar'}}
     </button>
   </div>
 </form>

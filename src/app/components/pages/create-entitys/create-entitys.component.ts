@@ -18,6 +18,9 @@ import { Router } from '@angular/router';
 })
 export class CreateEntitysComponent implements OnInit {
 
+  cursoSelected: ICurso | null = null;
+  turmaSelected: ITurma | null = null;
+  disciplinaSelected: IDisciplina | null = null;
   cursosList: ICurso[] = [];
   turmasList: ITurma[] = [];
   disciplinasList: IDisciplina[] = [];
@@ -82,4 +85,21 @@ export class CreateEntitysComponent implements OnInit {
   openDialogTurma() {
     this.router.navigate(['formTurma']);
   }
+
+  selecionarCurso(curso: ICurso) {
+    this.cursoSelected = curso;
+    this.router.navigate(['/formCurso', { curso: JSON.stringify(curso) }]);
+  }
+
+  selecionarTurma(turma: ITurma) {
+    this.turmaSelected = turma;
+    this.router.navigate(['/formTurma', { turma: JSON.stringify(turma) }]);
+  }
+
+  selecionarDisciplina(disciplina: IDisciplina) {
+    this.disciplinaSelected = disciplina;
+    this.router.navigate(['/formTurma', { turma: JSON.stringify(disciplina) }]);
+  }
+
+
 }

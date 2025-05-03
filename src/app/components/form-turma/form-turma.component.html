@@ -1,7 +1,7 @@
 <p>form-disciplina works!</p>
 <app-nav-bar></app-nav-bar>
 <form [formGroup]="formTurma" class="form-container">
-  <h2 class="form-title">Cadastrar Turma</h2>
+  <h2 class="form-title">{{ editando ? 'Editar Turma' : 'Cadastrar Turma' }}</h2>
 
   <div class="form-row">
     <mat-form-field appearance="fill" class="form-field">
@@ -40,7 +40,7 @@
       class="submit-button"
       (click)="cadastrar()"
     >
-      Cadastrar
+    {{ editando ? 'Salvar' : 'Cadastrar' }}
     </button>
   </div>
 </form>

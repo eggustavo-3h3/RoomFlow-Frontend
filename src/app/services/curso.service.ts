@@ -10,17 +10,25 @@ export class CursoService {
 
   constructor(private readonly http: HttpClient) { }
 
-   private url = 'https://roomflow-api.tccnapratica.com.br/curso';
+  private url = 'https://roomflow-api.tccnapratica.com.br/curso';
 
-  getCursos() : Observable<ICurso[]> {
+  getCursos(): Observable<ICurso[]> {
     return this.http.get<ICurso[]>(this.url + '/listar');
   }
 
-  adicionarCurso(curso: ICurso) : Observable<ICurso> {
+  getCursoById(id: number): Observable<ICurso> {
+    return this.http.get<ICurso>(this.url + '/listar/' + id);
+  }
+
+  atualizarCurso(curso: ICurso): Observable<ICurso> {
+    return this.http.put<ICurso>(this.url + '/atualizar', curso);
+  }
+
+  adicionarCurso(curso: ICurso): Observable<ICurso> {
     return this.http.post<ICurso>(this.url + '/adicionar', curso);
   }
 
-  removerCurso(id: number) : Observable<ICurso> {
+  removerCurso(id: number): Observable<ICurso> {
     return this.http.delete<ICurso>(this.url + '/remover/' + id);
   }
 }
