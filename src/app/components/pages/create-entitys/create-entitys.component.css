@@ -4,3 +4,20 @@
   margin-bottom: 40px;
   margin-top: 40px;
 }
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh; /* ocupa a tela toda */
+  box-sizing: border-box; /* importante para incluir padding no cálculo do tamanho */
+  align-items: center;
+  background-color: rgb(145, 166, 189);
+  padding: 40px;
+  overflow-x: hidden; /* evita rolagem horizontal */
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+}

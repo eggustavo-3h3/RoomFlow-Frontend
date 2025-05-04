@@ -8,11 +8,12 @@ import { TurmaService } from '../../../services/turma.service';
 import { CursoService } from '../../../services/curso.service';
 import { DisciplinaService } from '../../../services/disciplina.service';
 import { Router } from '@angular/router';
+import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-create-entitys',
   standalone: true,
-  imports: [AngularMaterialModule, CommonModule],
+  imports: [AngularMaterialModule, CommonModule, NavBarComponent],
   templateUrl: './create-entitys.component.html',
   styleUrl: './create-entitys.component.css'
 })
