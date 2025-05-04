@@ -20,8 +20,8 @@ import { PerfilPipe } from "../../../Pipes/perfil.pipe";
 export class SolicitacaoComponent implements OnInit {
 // falta chamar na api
   solicitacoes = [
-    { id: 1, login: 'prof.joao', nome: 'João Silva', perfil: 'professor' },
-    { id: 2, login: 'admin.maria', nome: 'Maria Souza', perfil: 'administrador' }
+    { id: 1, login: 'prof.joao@gmail.com', nome: 'João Silva', perfil: 2 },
+    { id: 2, login: 'admin.maria@gmail.com', nome: 'Maria Souza', perfil: 1 }
   ];
 
   displayedColumns: string[] = ['nome','login', 'perfil', 'acoes'];
