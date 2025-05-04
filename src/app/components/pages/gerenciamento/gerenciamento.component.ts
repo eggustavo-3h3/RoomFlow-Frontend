@@ -6,13 +6,14 @@ import { ListaDeUsuariosComponent } from "./lista-de-usuarios/lista-de-usuarios.
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 
 @Component({
   selector: 'app-gerenciamento',
   standalone: true,
   templateUrl: './gerenciamento.component.html',
   styleUrl: './gerenciamento.component.css',
-  imports: [NavBarComponent, ListaDeUsuariosComponent]
+  imports: [NavBarComponent, ListaDeUsuariosComponent, AngularMaterialModule]
 })
 export class GerenciamentoComponent implements OnInit {
 

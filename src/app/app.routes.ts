@@ -29,8 +29,8 @@ export const routes: Routes = [
     { path: 'formTurma', component: FormTurmaComponent },
 
     {
-        path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
-        canActivate: [perfilGuard([Perfil.Administrador])]
+         path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
+         canActivate: [perfilGuard([Perfil.Administrador])]
     },
     {
         path: 'alterar-senha', component: AlterarSenhaComponent,

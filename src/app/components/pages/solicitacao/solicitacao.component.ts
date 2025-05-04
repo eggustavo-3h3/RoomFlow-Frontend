@@ -3,7 +3,7 @@ import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { PerfilPipe } from "../../../Pipes/perfil.pipe";
-//import { MatTooltipModule } from '@angular/material/tooltip';
+import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 
 @Component({
   selector: 'app-solicitacao',
@@ -12,7 +12,7 @@ import { PerfilPipe } from "../../../Pipes/perfil.pipe";
     MatIconModule,
     MatTableModule, 
     PerfilPipe,
-    //MatTooltipModule
+    AngularMaterialModule,
     ],
   templateUrl: './solicitacao.component.html',
   styleUrl: './solicitacao.component.css'

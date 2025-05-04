@@ -1,53 +1,66 @@
+.demo-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: rgb(145, 166, 189);
+  padding: 40px;
+  overflow-x: hidden;
+}
+
+
 .solicitacoes-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 10px;
-    border: 2px solid rgb(255, 255, 255);
-    background-color: white;
-    border-radius: 15px;
-    padding: 15px;
-    justify-items: center;
-    overflow-x: auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 1800px;
-    margin: auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 10px;
+  border: 2px solid rgb(255, 255, 255);
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
+  justify-items: center;
+  overflow-x: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1800px;
+  margin: auto;
 }
 
 table.mat-table {
-    width: 100%;
-    background-color: white;
-    border-collapse: collapse;
-    box-shadow: none;
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 14px;
-  }
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+  box-shadow: none;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 14px;
+}
 
-  .mat-header-cell,
-  .mat-cell {
-    text-align: center;
-    padding: 8px 10px;
-    border-bottom: none !important;
-    font-size: 14px;
-    color: #333;
-  }
-  .acoes-header {
-    text-align: center !important;
-  }
-  
-  .acoes-cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-  }
-  
-  .icone-verde {
-    color: #4CAF50 !important;
-  }
-  
-  .icone-vermelho {
-    color: #F44336 !important;
-  }
+.mat-header-cell,
+.mat-cell {
+  text-align: center;
+  padding: 8px 10px;
+  border-bottom: none !important;
+  font-size: 14px;
+  color: #333;
+}
+
+.acoes-header {
+  text-align: center !important;
+}
+
+.icone-verde {
+  color: #4CAF50 !important;
+}
+
+.icone-vermelho {
+  color: #F44336 !important;
+}

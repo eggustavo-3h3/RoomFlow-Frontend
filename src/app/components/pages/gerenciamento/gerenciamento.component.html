@@ -1,5 +1,12 @@
 <app-nav-bar [textoNav]="'Gerenciamento de Usuarios'"></app-nav-bar>
 
-<div class="contem">
-  <app-lista-de-usuarios [usersList]="usuarios" (userDelete)="removerUsuario($event)"></app-lista-de-usuarios>
+<div class="corpo">
+  <mat-card>
+    <mat-card-content>
+        <app-lista-de-usuarios
+          [usersList]="usuarios"
+          (userDelete)="removerUsuario($event)"
+        ></app-lista-de-usuarios>
+    </mat-card-content>
+  </mat-card>
 </div>

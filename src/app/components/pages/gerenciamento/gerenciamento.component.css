@@ -1,9 +1,12 @@
-.contem {
-  padding-top: 60px;
-  position: relative;
-  height: 100vh;
+
+.corpo {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  align-items: center;
   background-color: rgb(145, 166, 189);
+  padding: 40px;
+  overflow-x: hidden;
 }
-
-

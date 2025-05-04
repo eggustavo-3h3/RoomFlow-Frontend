@@ -1,40 +1,47 @@
 <app-nav-bar [textoNav]="'Solicitações de Cadastro'"></app-nav-bar>
 
-<div class="solicitacoes-container">
-  <table mat-table [dataSource]="solicitacoes" class="mat-elevation-z8">
+<div class="corpo">
+  <mat-card>
 
-    <!-- Nome -->
-    <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef>Nome</th>
-         <td mat-cell *matCellDef="let user">{{ user.nome }}</td>
-    </ng-container>
-    
-    <!-- Login -->
-    <ng-container matColumnDef="login">
-        <th mat-header-cell *matHeaderCellDef>Login</th>
-        <td mat-cell *matCellDef="let user">{{ user.login }}</td>
-      </ng-container>
-  
-      <!-- Perfil Solicitado -->
-      <ng-container matColumnDef="perfil">
-        <th mat-header-cell *matHeaderCellDef>Perfil Solicitado</th>
-        <td mat-cell *matCellDef="let user">{{ user.perfil | perfil }}</td>
-      </ng-container>
-  
-      <!-- Ações -->
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef class="acoes-header">Ações</th>
-        <td mat-cell *matCellDef="let user" class="acoes-cell">
-          <button mat-icon-button matTooltip="Aceitar" (click)="aceitarSolicitacao(user)">
-            <mat-icon class="icone-verde">check_circle</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Rejeitar" (click)="rejeitarSolicitacao(user)">
-            <mat-icon class="icone-vermelho">cancel</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
+    <mat-card-content>
+      <div class="solicitacoes-container">
+        <table mat-table [dataSource]="solicitacoes" class="mat-table">
+          
+          <!-- Nome -->
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let user">{{ user.nome }}</td>
+          </ng-container>
+          
+          <!-- Login -->
+          <ng-container matColumnDef="login">
+            <th mat-header-cell *matHeaderCellDef>Login</th>
+            <td mat-cell *matCellDef="let user">{{ user.login }}</td>
+          </ng-container>
+        
+          <!-- Perfil Solicitado -->
+          <ng-container matColumnDef="perfil">
+            <th mat-header-cell *matHeaderCellDef>Perfil Solicitado</th>
+            <td mat-cell *matCellDef="let user">{{ user.perfil | perfil }}</td>
+          </ng-container>
+        
+          <!-- Ações -->
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef class="acoes-header">Ações</th>
+            <td mat-cell *matCellDef="let user" class="acoes-cell">
+              <button mat-icon-button matTooltip="Aceitar" (click)="aceitarSolicitacao(user)">
+                <mat-icon class="icone-verde">check_circle</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Rejeitar" (click)="rejeitarSolicitacao(user)">
+                <mat-icon class="icone-vermelho">cancel</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
