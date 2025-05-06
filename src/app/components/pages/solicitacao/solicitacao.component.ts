@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { PerfilPipe } from "../../../Pipes/perfil.pipe";
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
+import { UsuarioService } from '../../../services/usuario.service';
+import { IUsuario } from '../../../Interfaces/Usuario.interface';
 
 @Component({
   selector: 'app-solicitacao',
@@ -19,25 +21,47 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 })
 export class SolicitacaoComponent implements OnInit {
 // falta chamar na api
-  solicitacoes = [
-    { id: 1, login: 'prof.joao@gmail.com', nome: 'João Silva', perfil: 2 },
-    { id: 2, login: 'admin.maria@gmail.com', nome: 'Maria Souza', perfil: 1 }
-  ];
+solicitacoes: IUsuario[] = [];
 
   displayedColumns: string[] = ['nome','login', 'perfil', 'acoes'];
 
-  constructor() {}
+  constructor(private usuarioService: UsuarioService) {}
 
-  ngOnInit(): void {}
-
-  aceitarSolicitacao(user: any) {
-    console.log('Solicitação aceita:', user);
-    // Aqui você pode chamar o serviço para aprovar a solicitação
+  ngOnInit(): void {
+    this.usuarioService.getUsers().subscribe({
+      next: (usuarios) => {
+        this.solicitacoes = usuarios.filter(user => user.status === 'pendente'); // confirmar se tem no BD
+      },
+      error: (err) => {
+        console.error('Erro ao buscar solicitações:', err);
+      }
+    });
   }
 
-  rejeitarSolicitacao(user: any) {
-    console.log('Solicitação rejeitada:', user);
-    // Aqui você pode chamar o serviço para recusar a solicitação
+  aceitarSolicitacao(user: IUsuario) {
+    this.usuarioService.aprovarUsuario(user.id).subscribe({
+      next: () => {
+        this.removerDaLista(user);
+      },
+      error: (err) => {
+        console.error('Erro ao aprovar usuário:', err);
+      }
+    });
+  }
+  
+  rejeitarSolicitacao(user: IUsuario) {
+    this.usuarioService.rejeitarUsuario(user.id).subscribe({
+      next: () => {
+        this.removerDaLista(user);
+      },
+      error: (err) => {
+        console.error('Erro ao rejeitar usuário:', err);
+      }
+    });
+  }
+  
+  removerDaLista(user: IUsuario) {
+    this.solicitacoes = this.solicitacoes.filter(u => u.id !== user.id);
   }
 }
 

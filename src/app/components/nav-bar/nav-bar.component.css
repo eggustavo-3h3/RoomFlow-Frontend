@@ -7,6 +7,7 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 :host {
@@ -142,4 +143,11 @@ mat-toolbar {
     margin-left: 8px;
     flex-basis: auto;
   }
+}
+.usuario-info .label {
+  color: rgb(0, 74, 173); 
+}
+
+.usuario-info .info {
+  color: black; 
 }

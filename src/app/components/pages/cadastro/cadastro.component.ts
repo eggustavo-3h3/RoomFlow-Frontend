@@ -24,6 +24,7 @@ export class CadastroComponent implements OnInit {
   usuarios: IUsuario[] = [];
 
   formularioDeUsuario: FormGroup = new FormGroup({});
+  usuarioService: any;
 
   constructor(private formbuilder: FormBuilder) { }
   
@@ -43,9 +44,17 @@ export class CadastroComponent implements OnInit {
 
   SubmitForm() {
     if (this.formularioDeUsuario.valid) {
-      this.usuarios.push(this.formularioDeUsuario.value);
-      this.formularioDeUsuario.reset();
+      const novoUsuario = this.formularioDeUsuario.value;
+  
+      this.usuarioService.criarUsuario(novoUsuario).subscribe({
+        next: () => {
+          console.log('Usuário cadastrado com sucesso');
+          this.formularioDeUsuario.reset();
+        },
+        error: (err: any) => {
+          console.error('Erro ao cadastrar usuário:', err);
+        }
+      });
     }
   }
-
 }

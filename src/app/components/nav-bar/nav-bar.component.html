@@ -7,11 +7,6 @@
 
   <span class="spacer"></span>
 
-  <div *ngIf="usuario" class="usuario-info" style="margin-right: 10px;">
-    <span>{{ usuario.nome }}</span> |
-    <span>{{ usuario.cargo }}</span>
-  </div>
-
 <!-- filtro / calendario-->
 <mat-icon (click)="abrirCalendario()" style="cursor: pointer;">calendar_month</mat-icon>
 
@@ -21,10 +16,12 @@
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
-  <div *ngIf="usuario" style="padding: 8px 16px; font-size: 14px;">
-    {{ usuario.email }} |
-    {{usuario.cargo}}
+  <div *ngIf="usuario" class="usuario-info" style="padding: 8px 16px; font-size: 18px;">
+    <div><span class="label">Nome:  </span> <span class="info">{{usuario.nome}}</span></div>
+    <div><span class="label">Email: </span> <span class="info">{{usuario.email}}</span></div>
+    <div><span class="label">Cargo: </span> <span class="info">{{usuario.cargo}}</span></div>
   </div>
+
   <mat-divider></mat-divider>
   <a mat-menu-item routerLink="/principal">Mapa</a>
   <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
