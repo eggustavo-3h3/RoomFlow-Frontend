@@ -9,11 +9,12 @@ import { CursoService } from '../../../services/curso.service';
 import { DisciplinaService } from '../../../services/disciplina.service';
 import { Router } from '@angular/router';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
+import { PeriodoPipe } from "../../../Pipes/periodo.pipe";
 
 @Component({
   selector: 'app-create-entitys',
   standalone: true,
-  imports: [AngularMaterialModule, CommonModule, NavBarComponent],
+  imports: [AngularMaterialModule, CommonModule, NavBarComponent, PeriodoPipe],
   templateUrl: './create-entitys.component.html',
   styleUrl: './create-entitys.component.css'
 })
@@ -26,6 +27,10 @@ export class CreateEntitysComponent implements OnInit {
   turmasList: ITurma[] = [];
   disciplinasList: IDisciplina[] = [];
 
+  cursosFake: ICurso[] = [];
+  turmasFake: ITurma[] = [];
+  disciplinasFake: IDisciplina[] = [];
+
   turmaService = inject(TurmaService);
   cursoService = inject(CursoService);
   disciplinaService = inject(DisciplinaService);
@@ -37,9 +42,10 @@ export class CreateEntitysComponent implements OnInit {
   constructor(private readonly router: Router) { }
 
   ngOnInit(): void {
-    this.getCursos();
-    this.getTurmas();
-    this.getDisciplinas();
+    // this.getCursos();
+    // this.getTurmas();
+    // this.getDisciplinas();
+    this.getTudoFake();
   }
 
   getCursos() {
@@ -52,6 +58,14 @@ export class CreateEntitysComponent implements OnInit {
       }
     })
   };
+
+  getTudoFake() { 
+    this.cursosFake = this.cursoService.getCursosFake();
+    this.turmasFake = this.turmaService.getTurmasFake();
+    this.disciplinasFake = this.disciplinaService.getDisciplinasFake();
+    console.log(this.cursosFake, this.turmasFake, this.disciplinasFake);
+    
+  }
 
   getTurmas() {
     this.turmaService.getTurmas().subscribe({

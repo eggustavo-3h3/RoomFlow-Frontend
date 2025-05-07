@@ -3,11 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUsuario } from '../Interfaces/Usuario.interface';
 import { ITurma } from '../Interfaces/Turma.interface';
+import { turmasFake } from '../data/turma-fake';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TurmaService {
+
+  private readonly turmasFake: ITurma[] = turmasFake;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -16,6 +19,12 @@ export class TurmaService {
   getTurmas() : Observable<ITurma[]> {
     return this.http.get<ITurma[]>(this.url + '/listar');
   }
+
+  getTurmasFake() {
+    return this.turmasFake;
+  }
+
+
   getTurmaById(id: number): Observable<ITurma> {
     return this.http.get<ITurma>(this.url + '/listar/' + id);
   }

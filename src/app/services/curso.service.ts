@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICurso } from '../Interfaces/Curso.interface';
+import { cursosFake } from '../data/curso-fake';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
+
+  private readonly cursosFake: ICurso[] = cursosFake;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -14,6 +17,10 @@ export class CursoService {
 
   getCursos(): Observable<ICurso[]> {
     return this.http.get<ICurso[]>(this.url + '/listar');
+  }
+
+  getCursosFake() {
+    return this.cursosFake;
   }
 
   getCursoById(id: number): Observable<ICurso> {

@@ -37,7 +37,7 @@
       <span>Indisponíveis</span>
     </div>
     <div class="informacao-item">
-      <span class="valor">{{ salas.length }}</span>
+      <span class="valor">{{ salasFake.length }}</span>
       <span>Salas no Total</span>
     </div>
   </div>
@@ -102,7 +102,7 @@
     </form>
 
     <div class="botoes-modal">
-      <button mat-raised-button class="botao-adicionar" (click)="toggleModal()">
+      <button mat-raised-button class="botao-adicionar" (click)="cadastrarSalas()">
         Adicionar
       </button>
       <button mat-raised-button class="botao-fechar" (click)="toggleModal()">

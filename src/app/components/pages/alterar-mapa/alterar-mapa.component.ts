@@ -77,7 +77,7 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.required, Validators.maxLength(3)]],
+      descricao: ['', [Validators.required, Validators.maxLength(30)]],
       status: [null, Validators.required],
       tipoSala: [null, [Validators.required]]
     });
@@ -87,6 +87,7 @@ export class AlterarMapaComponent implements OnInit {
     //this.getSalas();
     this.getSalasFake();
     this.iniciaForm();
+    this.atualizarContagens();
   }
 
   toggleModal() {
@@ -96,9 +97,9 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   atualizarContagens() {
-    this.salasDisponiveis = this.salas.filter(s => s.status === Status.Disponivel).length;
-    this.salasReservadas = this.salas.filter(s => s.status === Status.Reservada).length;
-    this.salasIndisponiveis = this.salas.filter(s => s.status === Status.Indisponivel).length;
+    this.salasDisponiveis = this.salasFake.filter(s => s.status === Status.Disponivel).length;
+    this.salasReservadas = this.salasFake.filter(s => s.status === Status.Reservada).length;
+    this.salasIndisponiveis = this.salasFake.filter(s => s.status === Status.Indisponivel).length;
   }
 
   getSalas() {
@@ -126,22 +127,29 @@ export class AlterarMapaComponent implements OnInit {
     const novaSala: ISala = {
       descricao: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
-      tipoSala: this.formularioDeSalas.value.tipo,
+      tipoSala: this.formularioDeSalas.value.tipoSala,
     };
 
-    this._salaService.cadastrarSala(novaSala).subscribe({
-      next: retorno => {
-        this.salas.push(retorno);
-        this.getSalas();
-        this.toggleModal();
-        this.formularioDeSalas.reset();
-      },
-      error: erro => {
-        this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
-          duration: 3000,
-        });
-      }
-    });
+    this.salasFake.push(novaSala);
+    this.atualizarContagens();
+  
+    this.toggleModal();
+    this.formularioDeSalas.reset();
+
+    // this._salaService.cadastrarSala(novaSala).subscribe({
+    //   next: retorno => {
+    //     //this.salas.push(retorno);
+    //     this.salasFake.push(retorno);
+    //     this.getSalas();
+    //     this.toggleModal();
+    //     this.formularioDeSalas.reset();
+    //   },
+    //   error: erro => {
+    //     this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
+    //       duration: 3000,
+    //     });
+    //   }
+    // });
   }
 
   removerSala(id: number) {
