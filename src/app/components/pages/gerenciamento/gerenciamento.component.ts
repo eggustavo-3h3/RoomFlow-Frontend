@@ -25,10 +25,11 @@ export class GerenciamentoComponent implements OnInit {
   ) { }
 
   usuarios: IUsuario[] = [];
+  usuariosFake: IUsuario[] = [];
 
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getUsersFake();
   }
 
   getUsers() {
@@ -40,6 +41,11 @@ export class GerenciamentoComponent implements OnInit {
         console.log(erro);
       }
     })
+  }
+
+
+  getUsersFake() {
+    this.usuariosFake = this._usuarioService.getUsersFake();
   }
 
   removerUsuario(usuarioParaRemover: IUsuario) {

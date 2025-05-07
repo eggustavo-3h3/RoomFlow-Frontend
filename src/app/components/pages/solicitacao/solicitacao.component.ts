@@ -25,7 +25,8 @@ solicitacoes: IUsuario[] = [];
 
   displayedColumns: string[] = ['nome','login', 'perfil', 'acoes'];
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService) { }
+ 
 
   ngOnInit(): void {
     this.usuarioService.getUsers().subscribe({
@@ -39,7 +40,7 @@ solicitacoes: IUsuario[] = [];
   }
 
   aceitarSolicitacao(user: IUsuario) {
-    this.usuarioService.aprovarUsuario(user.id).subscribe({
+    this.usuarioService.aprovarUsuario(user.id!).subscribe({
       next: () => {
         this.removerDaLista(user);
       },
@@ -50,7 +51,7 @@ solicitacoes: IUsuario[] = [];
   }
   
   rejeitarSolicitacao(user: IUsuario) {
-    this.usuarioService.rejeitarUsuario(user.id).subscribe({
+    this.usuarioService.rejeitarUsuario(user.id!).subscribe({
       next: () => {
         this.removerDaLista(user);
       },
@@ -64,4 +65,3 @@ solicitacoes: IUsuario[] = [];
     this.solicitacoes = this.solicitacoes.filter(u => u.id !== user.id);
   }
 }
-

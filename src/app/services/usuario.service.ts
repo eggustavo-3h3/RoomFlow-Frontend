@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUsuario } from '../Interfaces/Usuario.interface';
+import { usuariosFake } from '../data/usuario-fake';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  private readonly usuarioFake: IUsuario[] = usuariosFake;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -14,6 +17,10 @@ export class UsuarioService {
 
   getUsers() : Observable<IUsuario[]> {
     return this.http.get<IUsuario[]>(this.url + '/listar');
+  }
+
+  getUsersFake() {
+    return this.usuarioFake;
   }
 
   removerUsuario(id: number) : Observable<IUsuario> {

@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISala } from '../Interfaces/Sala.interface';
+import { salaFake } from '../data/sala-fake';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalaService {
+
+  private readonly salaFake: ISala[] = salaFake;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -15,6 +18,10 @@ export class SalaService {
 
   getSalas(): Observable<ISala[]> {
     return this.http.get<ISala[]>(this.url + '/listar');
+  }
+
+  getSalasFake() {
+    return this.salaFake;
   }
 
   cadastrarSala(sala: ISala): Observable<ISala> {

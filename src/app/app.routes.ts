@@ -27,19 +27,22 @@ export const routes: Routes = [
     { path: 'formCurso', component: FormCursoComponent },
     { path: 'formDisciplina', component: FormDisciplinaComponent },
     { path: 'formTurma', component: FormTurmaComponent },
+    {path: 'gerenciamentoUsuarios', component: GerenciamentoComponent},
+    {path: 'alterar-senha', component: AlterarSenhaComponent,},
+    {path: 'alterar-mapa', component: AlterarMapaComponent,},
 
-    {
-         path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
-         canActivate: [perfilGuard([Perfil.Administrador])]
-    },
-    {
-        path: 'alterar-senha', component: AlterarSenhaComponent,
-        canActivate: [perfilGuard([Perfil.Administrador, Perfil.Professor])]
-    },
-    {
-        path: 'alterar-mapa', component: AlterarMapaComponent,
-        canActivate: [perfilGuard([Perfil.Administrador])]
-     },
+    // {
+    //      path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
+    //      canActivate: [perfilGuard([Perfil.Administrador])]
+    // },
+    // {
+    //     path: 'alterar-senha', component: AlterarSenhaComponent,
+    //     canActivate: [perfilGuard([Perfil.Administrador, Perfil.Professor])]
+    // },
+    // {
+    //     path: 'alterar-mapa', component: AlterarMapaComponent,
+    //     canActivate: [perfilGuard([Perfil.Administrador])]
+    //  },
     
     { path: '**', redirectTo: '', pathMatch: 'full' }
   

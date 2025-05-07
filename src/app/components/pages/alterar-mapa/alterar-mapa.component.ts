@@ -44,6 +44,7 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   salas: ISala[] = [];
+  salasFake: ISala[] = [];
   exibirmodal: boolean = false;
   snackBar = inject(MatSnackBar);
 
@@ -76,14 +77,15 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: [null, [Validators.required, Validators.maxLength(3)]],
+      descricao: ['', [Validators.required, Validators.maxLength(3)]],
       status: [null, Validators.required],
-      tipo: ['', [Validators.required]]
+      tipoSala: [null, [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-    this.getSalas();
+    //this.getSalas();
+    this.getSalasFake();
     this.iniciaForm();
   }
 
@@ -111,6 +113,10 @@ export class AlterarMapaComponent implements OnInit {
     });
   }
 
+  getSalasFake() {
+    this.salasFake = this._salaService.getSalasFake();
+  }
+
   cadastrarSalas() {
     if (this.formularioDeSalas.invalid) {
       this.formularioDeSalas.markAllAsTouched();
@@ -121,7 +127,6 @@ export class AlterarMapaComponent implements OnInit {
       descricao: this.formularioDeSalas.value.descricao,
       status: this.formularioDeSalas.value.status,
       tipoSala: this.formularioDeSalas.value.tipo,
-      tipo: undefined
     };
 
     this._salaService.cadastrarSala(novaSala).subscribe({

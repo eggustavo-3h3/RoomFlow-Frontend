@@ -17,7 +17,7 @@
 
     <mat-card-content>
       <div class="cards-container">
-        <div *ngFor="let sala of salas; let i = index">
+        <div *ngFor="let sala of salasFake; let i = index">
           <app-cards-sala [sala]="sala" [numSala]="i + 1" [botaoReservarSala]="true"></app-cards-sala>
         </div>
       </div>

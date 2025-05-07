@@ -9,7 +9,7 @@
 
     <mat-card-content>
       <div class="cards-container">
-        <div *ngFor="let sala of salas; let i = index">
+        <div *ngFor="let sala of salasFake; let i = index">
           <app-cards-sala
             [sala]="sala"
             [numSala]="i + 1"
@@ -48,12 +48,11 @@
     <p class="card-title">Adicionar sala</p>
     <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Informe o número da sala</mat-label>
+        <mat-label>Informe a descricao da sala</mat-label>
         <input
           type="text"
           matInput
-          formControlName="numero"
-          placeholder="adicione o número da sala"
+          formControlName="descricao"
         />
         <mat-error
           *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
@@ -67,9 +66,9 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field  class="full-width">
         <mat-label>Tipo de Sala</mat-label>
-        <mat-select formControlName="tipo">
+        <mat-select formControlName="tipoSala">
           <mat-option
             *ngFor="let tipo of tipoOptions"
             [value]="tipo.value"
@@ -78,7 +77,7 @@
           </mat-option>
         </mat-select>
         <mat-error
-          *ngIf="formularioDeSalas.controls['tipo'].hasError('required')"
+          *ngIf="formularioDeSalas.controls['tipoSala'].hasError('required')"
         >
           O Tipo de sala é <strong>obrigatório</strong>
         </mat-error>
