@@ -9,7 +9,7 @@
 
     <mat-card-content>
       <div class="cards-container">
-        <div *ngFor="let sala of salasFake; let i = index">
+        <div *ngFor="let sala of salas; let i = index">
           <app-cards-sala
             [sala]="sala"
             [numSala]="i + 1"
@@ -37,7 +37,7 @@
       <span>Indisponíveis</span>
     </div>
     <div class="informacao-item">
-      <span class="valor">{{ salasFake.length }}</span>
+      <span class="valor">{{ salas.length }}</span>
       <span>Salas no Total</span>
     </div>
   </div>

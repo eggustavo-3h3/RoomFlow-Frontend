@@ -27,10 +27,6 @@ export class CreateEntitysComponent implements OnInit {
   turmasList: ITurma[] = [];
   disciplinasList: IDisciplina[] = [];
 
-  cursosFake: ICurso[] = [];
-  turmasFake: ITurma[] = [];
-  disciplinasFake: IDisciplina[] = [];
-
   turmaService = inject(TurmaService);
   cursoService = inject(CursoService);
   disciplinaService = inject(DisciplinaService);
@@ -42,10 +38,9 @@ export class CreateEntitysComponent implements OnInit {
   constructor(private readonly router: Router) { }
 
   ngOnInit(): void {
-    // this.getCursos();
-    // this.getTurmas();
-    // this.getDisciplinas();
-    this.getTudoFake();
+    this.getCursos();
+    this.getTurmas();
+    this.getDisciplinas();
   }
 
   getCursos() {
@@ -58,14 +53,6 @@ export class CreateEntitysComponent implements OnInit {
       }
     })
   };
-
-  getTudoFake() { 
-    this.cursosFake = this.cursoService.getCursosFake();
-    this.turmasFake = this.turmaService.getTurmasFake();
-    this.disciplinasFake = this.disciplinaService.getDisciplinasFake();
-    console.log(this.cursosFake, this.turmasFake, this.disciplinasFake);
-    
-  }
 
   getTurmas() {
     this.turmaService.getTurmas().subscribe({
@@ -115,6 +102,5 @@ export class CreateEntitysComponent implements OnInit {
     this.disciplinaSelected = disciplina;
     this.router.navigate(['/formTurma', { turma: JSON.stringify(disciplina) }]);
   }
-
 
 }

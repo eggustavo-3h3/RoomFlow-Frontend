@@ -23,27 +23,40 @@ export const routes: Routes = [
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
     { path: 'solicitacao', component: SolicitacaoComponent },
-    { path: 'create', component: CreateEntitysComponent },
-    { path: 'formCurso', component: FormCursoComponent },
-    { path: 'formDisciplina', component: FormDisciplinaComponent },
-    { path: 'formTurma', component: FormTurmaComponent },
-    {path: 'gerenciamentoUsuarios', component: GerenciamentoComponent},
-    {path: 'alterar-senha', component: AlterarSenhaComponent,},
-    {path: 'alterar-mapa', component: AlterarMapaComponent,},
 
-    // {
-    //      path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
-    //      canActivate: [perfilGuard([Perfil.Administrador])]
-    // },
-    // {
-    //     path: 'alterar-senha', component: AlterarSenhaComponent,
-    //     canActivate: [perfilGuard([Perfil.Administrador, Perfil.Professor])]
-    // },
-    // {
-    //     path: 'alterar-mapa', component: AlterarMapaComponent,
-    //     canActivate: [perfilGuard([Perfil.Administrador])]
-    //  },
-    
+    {
+        path: 'create', component: CreateEntitysComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'solicitacao', component: SolicitacaoComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'formCurso', component: FormCursoComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'formDisciplina', component: FormDisciplinaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'formTurma', component: FormTurmaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'gerenciamentoUsuarios', component: GerenciamentoComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'alterar-senha', component: AlterarSenhaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador, Perfil.Professor])]
+    },
+    {
+        path: 'alterar-mapa', component: AlterarMapaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+
     { path: '**', redirectTo: '', pathMatch: 'full' }
-  
+
 ];

@@ -22,22 +22,20 @@ export class PrincipalComponent implements OnInit {
   salasReservadas: number = 0;
   salasIndisponiveis: number = 0;
 
-  salasFake: ISala[] = [];
-
   constructor(private readonly _salaService:  SalaService) {}
    
  
 
   ngOnInit(): void {
-    this.getSalasFake();
+    this.getSalas();
     this.atualizarContagens();
   }
 
 
   atualizarContagens() {
-    this.salasDisponiveis = this.salasFake.filter((salasFake) => salasFake.status === Status.Disponivel).length;
-    this.salasReservadas = this.salasFake.filter((salasFake) => salasFake.status === Status.Reservada).length;
-    this.salasIndisponiveis = this.salasFake.filter((salasFake) => salasFake.status === Status.Indisponivel).length;
+    this.salasDisponiveis = this.salas.filter((salas) => salas.status === Status.Disponivel).length;
+    this.salasReservadas = this.salas.filter((salas) => salas.status === Status.Reservada).length;
+    this.salasIndisponiveis = this.salas.filter((salas) => salas.status === Status.Indisponivel).length;
   }
 
   getSalas() {
@@ -49,9 +47,5 @@ export class PrincipalComponent implements OnInit {
           console.log(erro.message);
       },
     });
-  }
-
-  getSalasFake() {
-    this.salasFake =  this._salaService.getSalasFake()
   }
 }
