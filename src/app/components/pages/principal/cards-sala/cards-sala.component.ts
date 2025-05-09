@@ -64,7 +64,6 @@ export class CardsSalaComponent implements OnInit {
     const token = this.authService.getToken();
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('Payload do token:', payload);
     }
   
     //this.isProfessor = this.authService.usuarioEhProfessor();
@@ -91,9 +90,9 @@ export class CardsSalaComponent implements OnInit {
   }
 
   corDoCard(): string {
-    if (this.sala.status === Status.Disponivel) {
+    if (this.sala.statusSala === Status.Disponivel) {
       return 'rgb(40, 167, 69)';
-    } else if (this.sala.status === Status.Indisponivel) {
+    } else if (this.sala.statusSala === Status.Indisponivel) {
       return 'rgb(117, 117, 117)';
     } else {
       return 'rgb(198, 40, 40)';

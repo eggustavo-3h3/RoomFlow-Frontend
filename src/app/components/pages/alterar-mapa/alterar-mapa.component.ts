@@ -63,7 +63,7 @@ export class AlterarMapaComponent implements OnInit {
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
       descricao: ['', [Validators.required, Validators.maxLength(30)]],
-      status: [null, Validators.required],
+      statusSala: [null, Validators.required],
       tipoSala: [null, [Validators.required]]
     });
   }
@@ -80,9 +80,9 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   atualizarContagens() {
-    this.salasDisponiveis = this.salas.filter(s => s.status === Status.Disponivel).length;
-    this.salasReservadas = this.salas.filter(s => s.status === Status.Reservada).length;
-    this.salasIndisponiveis = this.salas.filter(s => s.status === Status.Indisponivel).length;
+    this.salasDisponiveis = this.salas.filter(s => s.statusSala === Status.Disponivel).length;
+    this.salasReservadas = this.salas.filter(s => s.statusSala === Status.Reservada).length;
+    this.salasIndisponiveis = this.salas.filter(s => s.statusSala === Status.Indisponivel).length;
   }
 
   getSalas() {
@@ -105,7 +105,7 @@ export class AlterarMapaComponent implements OnInit {
 
     const novaSala: ISala = {
       descricao: this.formularioDeSalas.value.descricao,
-      status: this.formularioDeSalas.value.status,
+      statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
     };
 

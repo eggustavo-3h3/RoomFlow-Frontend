@@ -85,7 +85,7 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Status da Sala</mat-label>
-        <mat-select formControlName="status">
+        <mat-select formControlName="statusSala">
           <mat-option
             *ngFor="let option of statusOptions"
             [value]="option.value"
@@ -94,7 +94,7 @@
           </mat-option>
         </mat-select>
         <mat-error
-          *ngIf="formularioDeSalas.controls['status'].hasError('required')"
+          *ngIf="formularioDeSalas.controls['statusSala'].hasError('required')"
         >
           O status é <strong>obrigatório</strong>
         </mat-error>

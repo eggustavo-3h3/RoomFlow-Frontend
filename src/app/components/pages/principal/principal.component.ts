@@ -28,20 +28,20 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSalas();
-    this.atualizarContagens();
   }
 
 
   atualizarContagens() {
-    this.salasDisponiveis = this.salas.filter((salas) => salas.status === Status.Disponivel).length;
-    this.salasReservadas = this.salas.filter((salas) => salas.status === Status.Reservada).length;
-    this.salasIndisponiveis = this.salas.filter((salas) => salas.status === Status.Indisponivel).length;
+    this.salasDisponiveis = this.salas.filter((salas) => salas.statusSala === Status.Disponivel).length;
+    this.salasReservadas = this.salas.filter((salas) => salas.statusSala === Status.Reservada).length;
+    this.salasIndisponiveis = this.salas.filter((salas) => salas.statusSala === Status.Indisponivel).length;
   }
 
   getSalas() {
     this._salaService.getSalas().subscribe({
       next: lista => {
         this.salas = lista;
+        this.atualizarContagens();
       },
       error: erro => {
           console.log(erro.message);
