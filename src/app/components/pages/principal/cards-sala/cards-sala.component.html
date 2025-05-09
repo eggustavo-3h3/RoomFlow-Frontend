@@ -27,14 +27,16 @@
     >
       Remover sala
     </button>
+
+    <p *ngIf="salaDisponivel" class="disponivel-texto">Status: Disponível</p>
     <button
-      mat-raised-button
-      class="reservarSala-button ml-2"
-      (click)="toggleReservaCard()"
-      *ngIf="botaoReservarSala && isProfessor"
-    >
-      Reservar sala
-    </button>
+    mat-raised-button
+    class="reservarSala-button ml-2"
+    (click)="toggleReservaCard()"
+    *ngIf="isProfessor && !salaDisponivel"
+  >
+    Reservar sala
+  </button>
 
     <div *ngIf="mostrarReservaCard" class="overlay"></div>
 

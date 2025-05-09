@@ -1,13 +1,13 @@
 .corpo {
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-height: 100vh; /* ocupa a tela toda */
   box-sizing: border-box; /* importante para incluir padding no cálculo do tamanho */
   align-items: center;
-  background-color: rgb(145, 166, 189);
+  background-color: rgb(168, 145, 189);
   padding: 40px;
   overflow-x: hidden; /* evita rolagem horizontal */
+  overflow-y: hidden;
 }
 
 .grid {
@@ -143,3 +143,4 @@ mat-card-header {
   font-weight: normal;
   font-size: 20px;
 }
+

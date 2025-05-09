@@ -7,25 +7,21 @@
       <div class="solicitacoes-container">
         <table mat-table [dataSource]="solicitacoes" class="mat-table">
           
-          <!-- Nome -->
           <ng-container matColumnDef="nome">
             <th mat-header-cell *matHeaderCellDef>Nome</th>
             <td mat-cell *matCellDef="let user">{{ user.nome }}</td>
           </ng-container>
           
-          <!-- Login -->
           <ng-container matColumnDef="login">
             <th mat-header-cell *matHeaderCellDef>Login</th>
             <td mat-cell *matCellDef="let user">{{ user.login }}</td>
           </ng-container>
         
-          <!-- Perfil Solicitado -->
           <ng-container matColumnDef="perfil">
             <th mat-header-cell *matHeaderCellDef>Perfil Solicitado</th>
             <td mat-cell *matCellDef="let user">{{ user.perfil | perfil }}</td>
           </ng-container>
         
-          <!-- Ações -->
           <ng-container matColumnDef="acoes">
             <th mat-header-cell *matHeaderCellDef class="acoes-header">Ações</th>
             <td mat-cell *matCellDef="let user" class="acoes-cell">
