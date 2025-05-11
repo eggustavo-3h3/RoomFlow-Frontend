@@ -74,7 +74,18 @@
             A Turma é obrigatória
           </mat-error>
         </mat-form-field>
-      </form>
+
+      <mat-form-field>
+        <mat-label>Data da Reserva</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="data">
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formulario.controls['data'].hasError('required') && formulario.controls['data'].touched">
+          A data é obrigatória
+        </mat-error>
+      </mat-form-field>
+    </form>
 
       <mat-card-content>
         <p>Você está prestes a reservar a sala {{ numSala }}.</p>

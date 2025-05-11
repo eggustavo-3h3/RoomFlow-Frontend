@@ -4,17 +4,31 @@
   margin-bottom: 40px;
   margin-top: 40px;
 }
+.demo-button {
+  padding: 4px 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: #1e60e5 !important;
+  color: white !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  margin-right: 10px;
+}
+.demo-button[disabled] {
+  background-color: #e0e0e0 !important;
+  color: #bdbdbd !important; 
+  box-shadow: none !important; 
+}
 
 .corpo {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh; /* ocupa a tela toda */
-  box-sizing: border-box; /* importante para incluir padding no cálculo do tamanho */
+  min-height: 100vh;
+  box-sizing: border-box; 
   align-items: center;
   background-color: rgb(145, 166, 189);
   padding: 40px;
-  overflow-x: hidden; /* evita rolagem horizontal */
+  overflow-x: hidden; 
 }
 
 mat-card-header {

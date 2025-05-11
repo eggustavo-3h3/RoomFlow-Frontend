@@ -1,18 +1,18 @@
 .corpo {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* ocupa a tela toda */
-  box-sizing: border-box; /* importante para incluir padding no cálculo do tamanho */
+  min-height: 100vh; 
+  box-sizing: border-box; 
   align-items: center;
   background-color: rgb(145, 166, 189);
   padding: 40px;
-  overflow-x: hidden; /* evita rolagem horizontal */
+  overflow-x: hidden; 
   overflow-y: hidden;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr); /* 10 colunas para a grid de cards */
+  grid-template-columns: repeat(10, 1fr);
   grid-gap: 10px;
   width: 75%;
   border: 2px solid rgb(255, 255, 255);

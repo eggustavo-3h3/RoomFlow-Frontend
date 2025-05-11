@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
 import { AuthService } from '../../../../services/auth.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { AuthService } from '../../../../services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
+    MatDatepickerModule,
   ],
 
   templateUrl: './cards-sala.component.html',
@@ -50,7 +52,8 @@ export class CardsSalaComponent implements OnInit {
   iniciaForm() {
     this.formulario = this.formBuilder.group({
       materia: [null, [Validators.required]],
-      turma: [null, [Validators.required]]
+      turma: [null, [Validators.required]],
+      data: [null, [Validators.required]] 
     });
   }
 
