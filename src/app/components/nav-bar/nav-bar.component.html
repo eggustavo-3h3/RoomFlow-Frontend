@@ -8,7 +8,13 @@
   <span class="spacer"></span>
 
 <!-- filtro / calendario-->
-<mat-icon (click)="abrirCalendario()" style="cursor: pointer;">calendar_month</mat-icon>
+<mat-icon
+  *ngIf="router.url === '/principal'"
+  (click)="abrirCalendario()"
+  style="cursor: pointer;"
+>
+  calendar_month
+</mat-icon>
 
   <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>
@@ -26,7 +32,7 @@
   <a mat-menu-item routerLink="/principal">Mapa</a>
   <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
   <a mat-menu-item routerLink="/solicitacao" *ngIf="ehAdm">Solicitações</a>
-  <a mat-menu-item routerLink="/create" *ngIf="ehAdm">Criar</a>
+  <a mat-menu-item routerLink="/create" *ngIf="ehAdm">Criar curso</a>
   <a mat-menu-item routerLink="/gerenciamentoUsuarios" *ngIf="ehAdm">Gerenciamento de Usuários</a>
   <a mat-menu-item routerLink="/alterar-senha">Alterar senha</a>
   <a mat-menu-item class="sair-link" (click)="sairDaConta()">Sair</a>

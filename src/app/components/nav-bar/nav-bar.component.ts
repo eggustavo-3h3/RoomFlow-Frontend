@@ -53,7 +53,7 @@ abrirCalendario() {
   constructor(
     public dialog: MatDialog,               
     private readonly authService: AuthService,  
-    private readonly router: Router 
+    public router: Router
   ) {}
 
 
