@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Status } from '../../../Enums/Status.enum';
 import { ISala } from '../../../Interfaces/Sala.interface';
 import { SalaService } from '../../../services/sala.service';
@@ -6,6 +6,7 @@ import { CardsSalaComponent } from "./cards-sala/cards-sala.component";
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-principal',
@@ -17,6 +18,7 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 export class PrincipalComponent implements OnInit {
 
   salas: ISala[] = [];
+  snackBar = inject(MatSnackBar);
 
   salasDisponiveis: number = 0;
   salasReservadas: number = 0;
@@ -45,6 +47,9 @@ export class PrincipalComponent implements OnInit {
       },
       error: erro => {
           console.log(erro.message);
+          this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
+            duration: 3000
+          })
       },
     });
   }
