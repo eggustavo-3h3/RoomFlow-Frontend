@@ -38,7 +38,7 @@ export class FormDisciplinaComponent implements OnInit {
     const disciplinaParam = this.route.snapshot.paramMap.get('disciplina');
 
     if (disciplinaParam) {
-      this.editando = true;
+      this.editando = true; 
       this.disciplinaService.getDisciplinasPorId(+disciplinaParam).subscribe({
         next: (disciplina) => {
           this.formDisciplina.patchValue(disciplina);

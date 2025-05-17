@@ -77,6 +77,7 @@ export class AlterarMapaComponent implements OnInit {
 
   toggleModal() {
     this.formularioDeSalas.reset();
+    this.salaParaEdicao = null;
     this.exibirmodal = !this.exibirmodal;
   }
 

@@ -48,7 +48,7 @@ export class FormTurmaComponent implements OnInit {
           this.formTurma.patchValue(curso);
         },
         error: (error) => {
-          console.error('Erro ao buscar curso:', error);
+          console.error('Erro ao buscar turma:', error);
         }
       });
     }
@@ -81,6 +81,8 @@ export class FormTurmaComponent implements OnInit {
     if (this.formTurma.valid) {
 
       if (this.editando) {
+        const turmaParam = this.route.snapshot.paramMap.get('turma');
+
         this.turmaService.atualizarTurma(this.formTurma.value).subscribe({
           next: (turma) => {
             this.snackBar.open('Turma editada com sucesso!', 'Ok', { duration: 3000 });

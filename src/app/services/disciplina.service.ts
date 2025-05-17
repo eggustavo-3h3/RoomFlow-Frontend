@@ -24,7 +24,6 @@ export class DisciplinaService {
     return this.http.put<IDisciplina>(this.url + '/atualizar', disciplina);
   }
 
-
   adicionarDisciplina(disciplina: IDisciplina) : Observable<IDisciplina> {
     return this.http.post<IDisciplina>(this.url + '/adicionar', disciplina);
   }

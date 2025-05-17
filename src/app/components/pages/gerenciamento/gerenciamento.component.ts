@@ -44,7 +44,7 @@ export class GerenciamentoComponent implements OnInit {
 
   removerUsuario(usuarioParaRemover: IUsuario) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { user: usuarioParaRemover }
+      data: { user: usuarioParaRemover, message: 'Tem certeza de que deseja remover o usuário?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
