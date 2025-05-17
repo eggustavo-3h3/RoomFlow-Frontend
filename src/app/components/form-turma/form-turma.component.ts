@@ -11,6 +11,7 @@ import { TurmaService } from '../../services/turma.service';
 
 @Component({
   selector: 'app-form-turma',
+  standalone: true,
   imports: [
     AngularMaterialModule,
     NavBarComponent,

@@ -54,6 +54,7 @@ export class AlterarMapaComponent implements OnInit {
   salasReservadas = 0;
   salasIndisponiveis = 0;
   exibirCard: any;
+  salaParaEdicao: ISala | null = null;
 
   constructor(
     private readonly _salaService: SalaService,
@@ -104,25 +105,45 @@ export class AlterarMapaComponent implements OnInit {
     }
 
     const novaSala: ISala = {
+      id: this.salaParaEdicao?.id,
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
       status: ''
     };
 
-    this._salaService.cadastrarSala(novaSala).subscribe({
-      next: retorno => {
-        this.salas.push(retorno);
-        this.getSalas();
-        this.toggleModal();
-        this.formularioDeSalas.reset();
-      },
-      error: erro => {
-        this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
-          duration: 3000,
-        });
-      }
-    });
+    if (this.salaParaEdicao) {
+      this._salaService.atualizarSala(novaSala).subscribe({
+        next: retorno => {
+          this.snackBar.open( 'Sala editada com sucesso', 'Fechar', {
+            duration: 3000,
+          });
+          this.getSalas();
+          this.toggleModal();
+          this.formularioDeSalas.reset();
+        },
+        error: erro => {
+          this.snackBar.open('Erro ao editar sala', 'Fechar', {
+            duration: 3000,
+          });
+          this.toggleModal();
+        }
+      });
+    } else {
+      this._salaService.cadastrarSala(novaSala).subscribe({
+        next: retorno => {
+          this.salas.push(retorno);
+          this.getSalas();
+          this.toggleModal();
+          this.formularioDeSalas.reset();
+        },
+        error: erro => {
+          this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
+            duration: 3000,
+          });
+        }
+      });
+    }
   }
 
   removerSala(id: number) {
@@ -140,5 +161,15 @@ export class AlterarMapaComponent implements OnInit {
         console.error(erro);
       }
     });
+  }
+
+  abrirModalEdicao(sala: ISala) {
+    this.salaParaEdicao = { ...sala };
+    this.formularioDeSalas.patchValue({
+      descricao: this.salaParaEdicao.descricao,
+      tipoSala: this.salaParaEdicao.tipoSala,
+      statusSala: this.salaParaEdicao.statusSala
+    });
+    this.exibirmodal = true;
   }
 }

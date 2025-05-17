@@ -21,6 +21,10 @@ export class SalaService {
     return this.http.post<ISala>(this.url + '/adicionar', sala);
   }
 
+  atualizarSala(sala: ISala) : Observable<ISala> {
+    return this.http.put<ISala>( `${this.url}/atualizar`, sala);
+  }
+
   removerSala(id: number): Observable<void>  {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }

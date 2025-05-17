@@ -9,6 +9,7 @@ import { DisciplinaService } from '../../services/disciplina.service';
 
 @Component({
   selector: 'app-form-disciplina',
+  standalone: true,
   imports: [
     AngularMaterialModule,
     CommonModule,

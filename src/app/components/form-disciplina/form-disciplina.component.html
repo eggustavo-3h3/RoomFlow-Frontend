@@ -11,7 +11,7 @@
         formControlName="nome"
         placeholder="Digite o nome da disciplina"
       />
-      <mat-error *ngIf="formDisciplina.get('nome')?.hasError('required')">
+      <mat-error *ngIf="formDisciplina.controls['nome'].hasError('required')">
         Nome da disciplina é obrigatório
       </mat-error>
     </mat-form-field>
@@ -25,7 +25,7 @@
         formControlName="descricao"
         placeholder="Digite a descrição da disciplina"
       />
-      <mat-error *ngIf="formDisciplina.get('descricao')?.hasError('required')">
+      <mat-error *ngIf="formDisciplina.controls['descricao'].hasError('required')">
         Descrição da disciplina é obrigatória
       </mat-error>
     </mat-form-field>

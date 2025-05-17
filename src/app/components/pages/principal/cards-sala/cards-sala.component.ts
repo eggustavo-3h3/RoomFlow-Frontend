@@ -9,7 +9,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
 import { AuthService } from '../../../../services/auth.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { Router } from '@angular/router';
 
+
+type NewType = EventEmitter<number>;
 
 @Component({
   selector: 'app-cards-sala',
@@ -32,10 +35,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 export class CardsSalaComponent implements OnInit {
 
   @Input() mostrarExcluirBotao: boolean = false;
+  @Input() mostrarEditarBotao: boolean = false;
   @Input() botaoReservarSala: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
   @Input({ required: true }) numSala!: number;
   @Output() removerSala = new EventEmitter<number>();
+  @Output() editarSala = new  EventEmitter<ISala>();
   formulario: FormGroup = new FormGroup({});
   nomeDoProfessor: string = '';
 
@@ -46,7 +51,8 @@ export class CardsSalaComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) { }
   
   iniciaForm() {
@@ -69,10 +75,6 @@ export class CardsSalaComponent implements OnInit {
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
     }
-  
-    //this.isProfessor = this.authService.usuarioEhProfessor();
-    //console.log('isProfessor:', this.isProfessor);
-    
   }
 
   toggleCard() {
@@ -105,6 +107,11 @@ export class CardsSalaComponent implements OnInit {
   }
 
   onRemoverSala() {
-    this.removerSala.emit(this.sala.id!);
+    this.removerSala.emit(this.sala.id);
+  }
+
+  onEditarSala() {
+    this.editarSala.emit(this.sala);
+    this.exibirCard = !this.exibirCard;
   }
 }

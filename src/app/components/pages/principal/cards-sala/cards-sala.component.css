@@ -91,6 +91,18 @@
   box-shadow: none;
 }
 
+.editarSala-button{
+  background-color: rgb(198, 174, 40) !important;
+  color: white !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  box-shadow: none;
+}
+
 .removerSala-button:hover {
   background-color: rgb(125, 27, 27) !important;
 }

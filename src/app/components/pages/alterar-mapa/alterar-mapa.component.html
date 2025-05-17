@@ -14,7 +14,10 @@
             [sala]="sala"
             [numSala]="i + 1"
             [mostrarExcluirBotao]="true"
+            [mostrarEditarBotao]="true"
+            [botaoReservarSala]="false"
             (removerSala)="removerSala($event)"
+            (editarSala)="abrirModalEdicao($event)"
           >
           </app-cards-sala>
         </div>
@@ -103,7 +106,7 @@
 
     <div class="botoes-modal">
       <button mat-raised-button class="botao-adicionar" (click)="cadastrarSalas()">
-        Adicionar
+        {{ salaParaEdicao ? 'Editar' : 'Cadastrar' }}
       </button>
       <button mat-raised-button class="botao-fechar" (click)="toggleModal()">
         Fechar

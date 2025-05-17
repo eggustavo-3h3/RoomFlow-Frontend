@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'periodo'
+  name: 'periodo',
+  standalone: true
 })
 export class PeriodoPipe implements PipeTransform {
 
