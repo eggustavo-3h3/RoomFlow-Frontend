@@ -7,14 +7,14 @@
 
   <span class="spacer"></span>
 
-<!-- filtro / calendario-->
-<mat-icon
-  *ngIf="router.url === '/principal'"
-  (click)="abrirCalendario()"
-  style="cursor: pointer;"
->
-  calendar_month
-</mat-icon>
+  <!-- Calendário / Filtro -->
+  <mat-icon
+    *ngIf="router.url === '/principal'"
+    (click)="abrirCalendario()"
+    style="cursor: pointer; font-size: 24px;"
+  >
+    calendar_month
+  </mat-icon>
 
   <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
     <mat-icon>account_circle</mat-icon>

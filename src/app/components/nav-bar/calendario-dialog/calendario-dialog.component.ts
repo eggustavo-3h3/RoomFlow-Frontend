@@ -39,6 +39,8 @@ export class CalendarioDialogComponent {
   dataSelecionada: Date | null = null;
   blocoSelecionado: string = 'bloco1';
   selected: Date | null = null;
+  dataService: any;
+  router: any;
 
   onDateChange(event: any) {
     this.dataSelecionada = event.value;
@@ -50,22 +52,28 @@ export class CalendarioDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  abrirBloco() {
-    if (this.blocoSelecionado === 'bloco1') {
-      console.log('Abrindo Bloco 1...');
-    } else if (this.blocoSelecionado === 'bloco2') {
-      console.log('Abrindo Bloco 2...');
-    } else {
-      console.warn('Nenhum bloco selecionado');
-    }
+abrirBloco() {
+  if (this.blocoSelecionado === 'bloco1') {
+    this.router.navigate(['/bloco1']);
+  } else if (this.blocoSelecionado === 'bloco2') {
+    this.router.navigate(['/bloco2']);
+  } else {
+    console.warn('Nenhum bloco selecionado');
   }
+}
 
-  aplicarFiltro() {
-   
-    console.log('Aplicando filtro...');
-    console.log('Data selecionada:', this.dataSelecionada);
-    console.log('Bloco selecionado:', this.blocoSelecionado);
+ aplicarFiltro() {
+  if (this.isDataSelecionada() && this.blocoSelecionado) {
+
+    this.dataService.buscarDadosFiltrados(this.dataSelecionada, this.blocoSelecionado)
+      .subscribe((data: any) => {
+        console.log('Dados filtrados:', data);
+        this.dialogRef.close(data);
+      });
+  } else {
+    console.warn('Selecione uma data e um bloco antes de aplicar o filtro');
   }
+}
 
   isDataSelecionada(): boolean {
     return this.dataSelecionada !== null;

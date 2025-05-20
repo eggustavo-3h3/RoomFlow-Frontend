@@ -7,14 +7,31 @@
     {{ numSala }}
   </div>
 </div>
-
 <div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <h5 class="card-title"> Sala {{ numSala }}</h5>
+    <p><strong>Tipo: </strong> {{ sala.tipoSala }}</p>
+
+    <p class="card-text" *ngIf="salaDisponivel">Disponível</p>
+    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
+      <strong>Professor:</strong> {{ sala.reserva?.professor }}
+    </p>
+    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
+      <strong>Disciplina:</strong> {{ sala.reserva?.materia }}
+    </p>
+    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
+      <strong>Turma:</strong> {{ sala.reserva?.turma }}
+    </p>
+    
+    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'indisponivel'">Indisponível</p>
+
+<!--<div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
   <div class="modal-card" (click)="$event.stopPropagation()">
     <h5 class="card-title"> Sala {{ numSala }}</h5>
     <p><strong>Tipo: </strong> {{ sala.tipoSala }}</p>
     <p class="card-text">Professor: Aroldo</p>
     <p class="card-text">Disciplina: sei lá bixo</p>
-    <p class="card-text">Turma: 3h3</p>
+    <p class="card-text">Turma: 3h3</p> -->
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">
       Fechar
@@ -36,15 +53,18 @@
       Editar sala
     </button>
 
-    <p *ngIf="salaDisponivel" class="disponivel-texto">Status: Disponível</p>
-    <button
-    mat-raised-button
-    class="reservarSala-button ml-2"
-    (click)="toggleReservaCard()"
-    *ngIf="botaoReservarSala"
-  >
-    Reservar sala
-  </button>
+<p *ngIf="salaDisponivel && isProfessor" class="disponivel-texto">
+  Status: Disponível
+</p>
+
+<button
+  mat-raised-button
+  class="reservarSala-button ml-2"
+  (click)="toggleReservaCard()"
+  *ngIf="botaoReservarSala"
+>
+  Reservar sala
+</button>
 
     <div *ngIf="mostrarReservaCard" class="overlay"></div>
 

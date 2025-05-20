@@ -128,7 +128,7 @@
 
 .reserva-card {
   position: absolute;
-  top: 285px;
+  top: 160px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;

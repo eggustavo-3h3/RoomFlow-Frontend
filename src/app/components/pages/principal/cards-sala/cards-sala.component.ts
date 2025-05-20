@@ -73,7 +73,7 @@ export class CardsSalaComponent implements OnInit {
   
     const token = this.authService.getToken();
     if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+        this.isProfessor = this.authService.usuarioEhProfessor();
     }
   }
 
