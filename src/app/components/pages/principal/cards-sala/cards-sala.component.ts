@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { SalaService } from '../../../../services/sala.service';
 import { TipoSala } from '../../../../Enums/TipoSala.enum';
+import { DisciplinaService } from '../../../../services/disciplina.service';
+import { TurmaService } from '../../../../services/turma.service';
+import { ITurma } from '../../../../Interfaces/Turma.interface';
 
 type NewType = EventEmitter<number>;
 
@@ -56,7 +59,9 @@ export class CardsSalaComponent implements OnInit {
   salaAtualizada: any;
   Status = Status;
   tipoSalaEnum = TipoSala;
- statusEnum = Status;
+  statusEnum = Status;
+  disciplinas: any[] = [];
+  turmas: ITurma[] = [];
 
   
 
@@ -65,11 +70,13 @@ export class CardsSalaComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly salaService: SalaService,
+    private readonly disciplinaService: DisciplinaService,
+    private readonly turmaService: TurmaService,
   ) { }
   
   iniciaForm() {
     this.formulario = this.formBuilder.group({
-      materia: [null, [Validators.required]],
+      disciplina: [null, [Validators.required]],
       turma: [null, [Validators.required]],
       data: [null, [Validators.required]],
       bloco: [null, [Validators.required]]
@@ -79,6 +86,8 @@ export class CardsSalaComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaForm();
+    this.carregarDisciplinas();
+    this.carregarTurmas();
   
     const nome = this.authService.getNomeDoUsuarioLogado();
     if (nome) {
@@ -96,6 +105,22 @@ export class CardsSalaComponent implements OnInit {
       this.exibirCard = !this.exibirCard;
       this.salaDisponivel = this.sala.status === 'disponivel';
     }
+  }
+  carregarDisciplinas(): void {
+    this.disciplinaService.getDisciplinas().subscribe({
+      next: (res) => {
+        this.disciplinas = res;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar disciplinas:', err);
+      }
+    });
+  }
+  carregarTurmas(): void {
+    this.turmaService.getTurmas().subscribe({
+      next: (res) => this.turmas = res,
+      error: (err) => console.error('Erro ao carregar turmas:', err)
+    });
   }
 
   toggleReservaCard() {

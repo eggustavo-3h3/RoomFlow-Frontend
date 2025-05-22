@@ -7,6 +7,9 @@ import { ISala } from '../Interfaces/Sala.interface';
   providedIn: 'root'
 })
 export class SalaService {
+  getDisciplinas() {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private readonly http: HttpClient) { }
 
