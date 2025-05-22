@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>Selecione o dia desejado</h2>
 <mat-dialog-content style="display: flex; flex-direction: column; gap: 20;">
 
+
   <mat-card class="demo-inline-calendar-card" style="background-color: transparent; box-shadow: none;">
     <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
   </mat-card>
@@ -11,6 +12,9 @@
     <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
   </mat-radio-group>
 
-  <button mat-raised-button color="warn" (click)="aplicarFiltro()" [disabled]="!isDataSelecionada()">Filtrar</button>
+  <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
+    <button mat-raised-button color="primary" (click)="aplicarFiltro()" [disabled]="!isDataSelecionada()">Filtrar</button>
+    <button mat-raised-button class="botao-fechar" (click)="dialogRef.close()">Fechar</button>
+  </div>
   
 </mat-dialog-content>

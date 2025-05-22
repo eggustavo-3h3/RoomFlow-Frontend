@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 import { CommonModule } from '@angular/common';
@@ -26,7 +27,10 @@ export class CadastroComponent implements OnInit {
   formularioDeUsuario: FormGroup = new FormGroup({});
   usuarioService: any;
 
-  constructor(private formbuilder: FormBuilder) { }
+  constructor(
+    private formbuilder: FormBuilder,
+    private router: Router
+  ) { }
   
   inicializaFormulario() {
     this.formularioDeUsuario = this.formbuilder.group({
@@ -40,6 +44,10 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializaFormulario();
+  }
+
+  voltar() {
+    this.router.navigate(['/']);
   }
 
   SubmitForm() {

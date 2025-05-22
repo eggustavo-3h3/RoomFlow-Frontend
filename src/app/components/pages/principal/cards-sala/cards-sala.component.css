@@ -180,3 +180,8 @@ input.mat-input-element {
   outline: none;
   font-size: 16px;
 }
+.confirmacao-final-card {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f3f3f3;
+}

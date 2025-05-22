@@ -48,6 +48,7 @@ export class CardsSalaComponent implements OnInit {
   mostrarReservaCard: boolean = false;
   isProfessor: boolean = true;
   salaDisponivel: boolean = false;
+  mostrarConfirmacaoFinal: boolean = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -93,7 +94,18 @@ export class CardsSalaComponent implements OnInit {
   }
 
   confirmarReserva() {
-    this.closeReservaCard();
+    this.mostrarConfirmacaoFinal = true;
+  }
+
+  confirmarReservaFinal() {
+    console.log('Reserva confirmada!');
+    this.mostrarConfirmacaoFinal = false;
+    this.mostrarReservaCard = false;
+    this.formulario.reset();
+  }
+  
+  cancelarConfirmacaoFinal() {
+    this.mostrarConfirmacaoFinal = false;
   }
 
   corDoCard(): string {

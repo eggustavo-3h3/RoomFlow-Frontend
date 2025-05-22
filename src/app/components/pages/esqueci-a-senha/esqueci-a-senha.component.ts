@@ -4,6 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esqueci-a-senha',
@@ -22,10 +23,17 @@ import { CommonModule } from '@angular/common';
 export class EsqueciASenhaComponent {
   formularioDeRecuperacao: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+    ) {
     this.formularioDeRecuperacao = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
+  }
+
+  voltar() {
+    this.router.navigate(['/']);
   }
 
   enviarLinkRecuperacao() {

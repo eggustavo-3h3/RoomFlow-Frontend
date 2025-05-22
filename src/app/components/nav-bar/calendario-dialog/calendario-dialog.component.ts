@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
     MatButtonModule,

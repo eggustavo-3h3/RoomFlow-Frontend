@@ -12,16 +12,17 @@
     <h5 class="card-title"> Sala {{ numSala }}</h5>
     <p><strong>Tipo: </strong> {{ sala.tipoSala }}</p>
 
-    <p class="card-text" *ngIf="salaDisponivel">Disponível</p>
-    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
-      <strong>Professor:</strong> {{ sala.reserva?.professor }}
-    </p>
-    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
-      <strong>Disciplina:</strong> {{ sala.reserva?.materia }}
-    </p>
-    <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'reservado'">
-      <strong>Turma:</strong> {{ sala.reserva?.turma }}
-    </p>
+    <ng-container *ngIf="!salaDisponivel && sala.status === 'reservado' && sala.reserva as reserva">
+      <p class="card-text">
+        <strong>Professor:</strong> {{ reserva.professor }}
+      </p>
+      <p class="card-text">
+        <strong>Disciplina:</strong> {{ reserva.materia }}
+      </p>
+      <p class="card-text">
+        <strong>Turma:</strong> {{ reserva.turma }}
+      </p>
+    </ng-container>
     
     <p class="card-text" *ngIf="!salaDisponivel && sala.status === 'indisponivel'">Indisponível</p>
 
@@ -132,6 +133,17 @@
         >
           Confirmar Reserva
         </button>
+
+        <mat-card *ngIf="mostrarConfirmacaoFinal" class="confirmacao-final-card">
+          <mat-card-title>Confirmação Final</mat-card-title>
+          <p>Deseja realmente reservar a sala {{ numSala }}?</p>
+          <button mat-raised-button color="primary" (click)="confirmarReservaFinal()">
+            OK
+          </button>
+          <button mat-raised-button color="warn" (click)="cancelarConfirmacaoFinal()">
+            Cancelar
+          </button>
+        </mat-card>
       </mat-card-content>
     </mat-card>
   </div>

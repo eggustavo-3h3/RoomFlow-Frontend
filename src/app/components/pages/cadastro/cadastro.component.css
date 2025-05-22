@@ -54,6 +54,7 @@
 .botao-container {
   display: flex;
   justify-content: center;
+  gap: 10px;
   transform: translateX(-10px);
 }
 

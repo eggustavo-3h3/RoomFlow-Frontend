@@ -8,11 +8,11 @@ mat-dialog-content {
   }
   
   mat-card.demo-inline-calendar-card {
-    background-color: transparent !important; /* Transparente */
-    box-shadow: none !important;  /* Retire a sombra */
+    background-color: transparent !important;
+    box-shadow: none !important;
   }
   
-  /* Alterar o título para ser mais leve */
+
   h2[mat-dialog-title] {
     font-weight: normal;
     text-align: center;
@@ -20,7 +20,7 @@ mat-dialog-content {
     margin-bottom: 16px;
   }
   
-  /* Alterar o botão de filtrar */
+
   button[mat-raised-button] {
     padding: 8px 16px;
     border-radius: 8px;
@@ -29,13 +29,13 @@ mat-dialog-content {
     align-self: center;
   }
   
-  /* Tamanho do calendário */
+
   mat-calendar {
-    font-size: 14px; /* Altere o tamanho da fonte do calendário */
-    max-width: 100% !important; /* Impede que o calendário ultrapasse o limite */
+    font-size: 14px; 
+    max-width: 100% !important; 
   }
   
-  /* Tornar o conteúdo responsivo */
+
   @media (max-width: 480px) {
     mat-dialog-content {
       padding: 16px;
@@ -46,42 +46,49 @@ mat-dialog-content {
     }
   }
   button[mat-icon-button] {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Remove qualquer borda padrão */
-    padding: 8px; /* Adiciona um pouco de preenchimento ao redor do ícone */
-    color: #757575; /* Cor do ícone */
-    cursor: pointer; /* Muda o cursor para indicar que é clicável */
-    border-radius: 50%; /* Torna o botão redondo */
-    transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+    background-color: transparent; 
+    border: none; 
+    padding: 8px; 
+    color: #757575; 
+    cursor: pointer; 
+    border-radius: 50%; 
+    transition: background-color 0.3s, transform 0.3s;
   }
   
-  /* Alterando o ícone para cor diferente ao passar o mouse */
+
   button[mat-icon-button]:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Fundo levemente cinza quando passar o mouse */
-    transform: scale(1.1); /* Aumenta ligeiramente o botão ao passar o mouse */
+    background-color: rgba(0, 0, 0, 0.1); 
+    transform: scale(1.1); 
   }
   
-  /* Tamanho do ícone */
+  
   button[mat-icon-button] mat-icon {
-    font-size: 24px; /* Tamanho do ícone */
-    color: #333; /* Cor do ícone */
+    font-size: 24px;
+    color: #333; 
   }
   
-  /* Caso queira um estilo mais destacado quando o botão estiver desabilitado */
+  
   button[mat-icon-button]:disabled {
-    color: #b0b0b0; /* Cor do ícone desativado */
-    background-color: transparent; /* Fundo transparente quando desabilitado */
-    cursor: not-allowed; /* Cursor de "não permitido" */
+    color: #b0b0b0; 
+    background-color: transparent; 
+    cursor: not-allowed; 
   }
   
-  /* Ajuste para mobile, caso necessário */
+
   @media (max-width: 480px) {
     button[mat-icon-button] {
-      padding: 6px; /* Menos preenchimento em telas menores */
+      padding: 6px; 
     }
     
     button[mat-icon-button] mat-icon {
-      font-size: 20px; /* Ícone menor em dispositivos móveis */
+      font-size: 20px;
     }
   }
+  .botao-fechar {
+    background-color: #d32f2f; /* vermelho escuro */
+    color: white;
+  }
   
+  .botao-fechar:hover {
+    background-color: #b71c1c;
+  }
