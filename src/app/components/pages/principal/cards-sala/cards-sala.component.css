@@ -42,7 +42,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .card-text {
@@ -251,6 +251,9 @@ input.mat-input-element {
 
 .subir-card {
   animation: subir 0.3s ease forwards;
+}
+.espaco-inferior {
+  margin-top: 8px;
 }
 mat-radio-group {
   display: flex !important;

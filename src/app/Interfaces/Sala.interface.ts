@@ -1,6 +1,7 @@
 import { TipoSala } from "../Enums/TipoSala.enum";
 
 export interface IReserva {
+bloco: any;
   professor: string;
   materia: string;
   turma: string;

@@ -12,7 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { SalaService } from '../../../../services/sala.service';
-
+import { TipoSala } from '../../../../Enums/TipoSala.enum';
 
 type NewType = EventEmitter<number>;
 
@@ -54,6 +54,10 @@ export class CardsSalaComponent implements OnInit {
   mostrarConfirmacaoFinal: boolean = false;
   minDate: Date = new Date();
   salaAtualizada: any;
+  Status = Status;
+  tipoSalaEnum = TipoSala;
+ statusEnum = Status;
+
   
 
   constructor(
