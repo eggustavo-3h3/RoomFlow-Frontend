@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import { ICurso } from '../../../Interfaces/Curso.interface';
@@ -50,7 +43,7 @@ export class CreateEntitysComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCursos();
@@ -105,19 +98,18 @@ export class CreateEntitysComponent implements OnInit {
 
   selecionarCurso(curso: ICurso) {
     this.cursoSelected = curso;
-    this.router.navigate(['/formCurso', { curso: JSON.stringify(curso) }]);
+    this.router.navigate(['/formCurso', curso.id]);
   }
 
   selecionarTurma(turma: ITurma) {
     this.turmaSelected = turma;
-    this.router.navigate(['/formTurma', { turma: JSON.stringify(turma) }]);
+    this.router.navigate(['/formTurma', turma.id]);
   }
 
   selecionarDisciplina(disciplina: IDisciplina) {
     this.disciplinaSelected = disciplina;
     this.router.navigate([
-      '/formDisciplina',
-      { disciplina: JSON.stringify(disciplina) },
+      '/formDisciplina', disciplina.id
     ]);
   }
 

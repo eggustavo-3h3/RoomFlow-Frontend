@@ -40,12 +40,13 @@ export class FormCursoComponent implements OnInit {
   ngOnInit(): void {
     this.iniciarForm();
 
-    const cursoParam = this.route.snapshot.paramMap.get('curso');
+    const cursoParam = this.route.snapshot.paramMap.get('id');
 
     if (cursoParam) {
       this.editando = true;
-      this.cursoService.getCursoById(+cursoParam).subscribe({
+      this.cursoService.getCursoById(cursoParam).subscribe({
         next: (curso) => {
+          console.log(cursoParam);
           this.formCurso.patchValue(curso);
         },
         error: (error) => {
@@ -58,6 +59,7 @@ export class FormCursoComponent implements OnInit {
   iniciarForm() {
     this.formCurso = this.formBuilder.group(
       {
+        id: [''],
         nome: ['', Validators.required],
         periodo: [null, Validators.required],
       }

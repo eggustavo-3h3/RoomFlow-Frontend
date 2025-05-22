@@ -40,10 +40,10 @@ export class FormTurmaComponent implements OnInit {
     this.iniciarForm();
     this.getCursos();
 
-    const turmaParam = this.route.snapshot.paramMap.get('turma');
+    const turmaParam = this.route.snapshot.paramMap.get('id');
     if (turmaParam) {
       this.editando = true;
-      this.turmaService.getTurmaById(+turmaParam).subscribe({
+      this.turmaService.getTurmaById(turmaParam).subscribe({
         next: (curso) => {
           this.formTurma.patchValue(curso);
         },
@@ -71,6 +71,7 @@ export class FormTurmaComponent implements OnInit {
   iniciarForm() {
     this.formTurma = this.formBuilder.group(
       {
+        id: [''],
         descricao: ['', Validators.required],
         curso: ['', Validators.required],
       }

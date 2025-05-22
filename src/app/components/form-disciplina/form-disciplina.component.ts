@@ -35,12 +35,13 @@ export class FormDisciplinaComponent implements OnInit {
   ngOnInit(): void {
     this.iniciarForm();
 
-    const disciplinaParam = this.route.snapshot.paramMap.get('disciplina');
+    const disciplinaParam = this.route.snapshot.paramMap.get('id');
 
     if (disciplinaParam) {
       this.editando = true; 
-      this.disciplinaService.getDisciplinasPorId(+disciplinaParam).subscribe({
+      this.disciplinaService.getDisciplinasPorId(disciplinaParam).subscribe({
         next: (disciplina) => {
+          console.log(disciplinaParam);
           this.formDisciplina.patchValue(disciplina);
         },
         error: (error) => {
@@ -54,6 +55,7 @@ export class FormDisciplinaComponent implements OnInit {
   iniciarForm() {
     this.formDisciplina = this.formBuilder.group(
       {
+        id: [''],
         nome: ['', Validators.required],
         descricao: ['', Validators.required],
       }

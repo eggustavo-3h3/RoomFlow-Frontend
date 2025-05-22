@@ -16,7 +16,7 @@ export class TurmaService {
     return this.http.get<ITurma[]>(this.url + '/listar');
   }
 
-  getTurmaById(id: number): Observable<ITurma> {
+  getTurmaById(id: string): Observable<ITurma> {
     return this.http.get<ITurma>(this.url + '/listar/' + id);
   }
 

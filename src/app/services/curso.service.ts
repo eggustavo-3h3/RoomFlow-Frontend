@@ -16,7 +16,7 @@ export class CursoService {
     return this.http.get<ICurso[]>(this.url + '/listar');
   }
 
-  getCursoById(id: number): Observable<ICurso> {
+  getCursoById(id: string): Observable<ICurso> {
     return this.http.get<ICurso>(this.url + '/listar/' + id);
   }
 

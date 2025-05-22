@@ -22,7 +22,6 @@ export const routes: Routes = [
     { path: 'principal', component: PrincipalComponent },
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
-    { path: 'solicitacao', component: SolicitacaoComponent },
 
     {
         path: 'create', component: CreateEntitysComponent,
@@ -37,11 +36,23 @@ export const routes: Routes = [
         canActivate: [perfilGuard([Perfil.Administrador])]
     },
     {
+        path: 'formCurso/:id', component: FormCursoComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
         path: 'formDisciplina', component: FormDisciplinaComponent,
         canActivate: [perfilGuard([Perfil.Administrador])]
     },
     {
+        path: 'formDisciplina/:id', component: FormDisciplinaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
         path: 'formTurma', component: FormTurmaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'formTurma/:id', component: FormTurmaComponent,
         canActivate: [perfilGuard([Perfil.Administrador])]
     },
     {
