@@ -10,6 +10,8 @@ import { AngularMaterialModule } from '../../../../angular-material/angular-mate
 import { AuthService } from '../../../../services/auth.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
+import { MatRadioModule } from '@angular/material/radio';
+import { SalaService } from '../../../../services/sala.service';
 
 
 type NewType = EventEmitter<number>;
@@ -27,6 +29,7 @@ type NewType = EventEmitter<number>;
     ReactiveFormsModule,
     AngularMaterialModule,
     MatDatepickerModule,
+    MatRadioModule
   ],
 
   templateUrl: './cards-sala.component.html',
@@ -49,20 +52,26 @@ export class CardsSalaComponent implements OnInit {
   isProfessor: boolean = true;
   salaDisponivel: boolean = false;
   mostrarConfirmacaoFinal: boolean = false;
+  minDate: Date = new Date();
+  salaAtualizada: any;
+  
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly salaService: SalaService,
   ) { }
   
   iniciaForm() {
     this.formulario = this.formBuilder.group({
       materia: [null, [Validators.required]],
       turma: [null, [Validators.required]],
-      data: [null, [Validators.required]] 
+      data: [null, [Validators.required]],
+      bloco: [null, [Validators.required]]
     });
   }
+  @Output() reservaConfirmada = new EventEmitter<ISala>();
 
   ngOnInit() {
     this.iniciaForm();
@@ -91,18 +100,39 @@ export class CardsSalaComponent implements OnInit {
   }
   closeReservaCard() {
     this.mostrarReservaCard = false;
+    this.exibirCard = false;
   }
 
-  confirmarReserva() {
-    this.mostrarConfirmacaoFinal = true;
+confirmarReserva() {
+  if (this.formulario.invalid) {
+    this.formulario.markAllAsTouched(); 
+    return;
   }
 
-  confirmarReservaFinal() {
-    console.log('Reserva confirmada!');
-    this.mostrarConfirmacaoFinal = false;
-    this.mostrarReservaCard = false;
-    this.formulario.reset();
-  }
+  this.mostrarConfirmacaoFinal = true;
+}
+
+ confirmarReservaFinal() {
+  if (!this.sala) return;
+
+  
+  this.sala.statusSala = Status.Reservada;
+
+
+  this.salaService.atualizarSala(this.sala).subscribe({
+    next: (salaAtualizada) => {
+      
+      this.salaAtualizada.emit(salaAtualizada);
+
+      this.mostrarConfirmacaoFinal = false;
+      this.mostrarReservaCard = false;
+      this.formulario.reset();
+    },
+    error: (err) => {
+      console.error('Erro ao atualizar a sala:', err);
+    }
+  });
+}
   
   cancelarConfirmacaoFinal() {
     this.mostrarConfirmacaoFinal = false;

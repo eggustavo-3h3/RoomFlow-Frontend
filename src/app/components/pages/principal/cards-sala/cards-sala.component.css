@@ -63,16 +63,30 @@
   box-shadow: none;
 }
 
-.button-reservar{
-  background-color: rgb(40, 167, 69) !important;
+.button-reservar {
+  background-color: rgb(40, 167, 69) !important; /* Verde escuro */
   color: white !important;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button-reservar:hover:not(:disabled) {
+  background-color: #218838 !important; /* Verde mais escuro */
+  transform: translateY(-1px);
+}
+
+.button-reservar:disabled {
+  background-color: #c1c1c1 !important; /* Cinza claro */
+  color: #6d6d6d !important;
+  cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
 .fechar-button:hover {
@@ -181,7 +195,83 @@ input.mat-input-element {
   font-size: 16px;
 }
 .confirmacao-final-card {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f3f3f3;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+.confirmacao-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.confirmacao-texto {
+  flex-grow: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+.botoes-confirmacao {
+  display: flex;
+  justify-content: center;  /* centraliza os botões */
+  gap: 12px;                /* espaçamento entre os botões */
+  min-width: 380px;         /* largura mínima pra não quebrar os botões */
+}
+
+.botoes-confirmacao button {
+  min-width: 100px;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+.botoes-confirmacao button:hover {
+  filter: brightness(90%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Se quiser diferenciar mais os botões: */
+.botoes-confirmacao button[color="primary"] {
+  background-color: #1976d2;
+  color: white;
+}
+
+.botoes-confirmacao button[color="warn"] {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.subir-card {
+  animation: subir 0.3s ease forwards;
+}
+mat-radio-group {
+  display: flex !important;
+  justify-content: center; /* centraliza horizontalmente */
+  gap: 24px; /* espaço entre os botões */
+  margin-top: 16px; /* espaço em cima */
+}
+
+mat-radio-button {
+  /* opcional: aumentar o clique do botão, melhorar alinhamento */
+  align-items: center;
+  font-size: 16px;
+}
+
+@keyframes subir {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

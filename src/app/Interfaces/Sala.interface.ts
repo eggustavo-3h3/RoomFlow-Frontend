@@ -8,6 +8,7 @@ export interface IReserva {
 }
 
 export interface ISala {
+  numSala: any;
   status: string;
   id?: number;
   descricao: string;

@@ -110,7 +110,8 @@ export class AlterarMapaComponent implements OnInit {
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
-      status: ''
+      status: '',
+      numSala: undefined
     };
 
     if (this.salaParaEdicao) {

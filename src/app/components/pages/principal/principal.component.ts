@@ -1,4 +1,4 @@
-import { Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Status } from '../../../Enums/Status.enum';
 import { ISala } from '../../../Interfaces/Sala.interface';
 import { SalaService } from '../../../services/sala.service';
@@ -9,13 +9,15 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'app-principal',
-    standalone: true,
-    templateUrl: './principal.component.html',
-    styleUrl: './principal.component.css',
-    imports: [CardsSalaComponent, NavBarComponent, CommonModule, AngularMaterialModule]
+  selector: 'app-principal',
+  standalone: true,
+  templateUrl: './principal.component.html',
+  styleUrl: './principal.component.css',
+  imports: [CardsSalaComponent, NavBarComponent, CommonModule, AngularMaterialModule]
 })
 export class PrincipalComponent implements OnInit {
+  
+  @ViewChildren(CardsSalaComponent) cards!: QueryList<CardsSalaComponent>;
 
   salas: ISala[] = [];
   snackBar = inject(MatSnackBar);
@@ -24,19 +26,30 @@ export class PrincipalComponent implements OnInit {
   salasReservadas: number = 0;
   salasIndisponiveis: number = 0;
 
-  constructor(private readonly _salaService:  SalaService) {}
-   
- 
+  constructor(private readonly _salaService: SalaService) {}
+
+  @Output() salaAtualizada = new EventEmitter<ISala>();
 
   ngOnInit(): void {
     this.getSalas();
   }
 
-
   atualizarContagens() {
-    this.salasDisponiveis = this.salas.filter((salas) => salas.statusSala === Status.Disponivel).length;
-    this.salasReservadas = this.salas.filter((salas) => salas.statusSala === Status.Reservada).length;
-    this.salasIndisponiveis = this.salas.filter((salas) => salas.statusSala === Status.Indisponivel).length;
+    this.salasDisponiveis = this.salas.filter(s => s.statusSala === Status.Disponivel).length;
+    this.salasReservadas = this.salas.filter(s => s.statusSala === Status.Reservada).length;
+    this.salasIndisponiveis = this.salas.filter(s => s.statusSala === Status.Indisponivel).length;
+  }
+
+  atualizarSalaReservada(salaReservada: ISala) {
+    const index = this.salas.findIndex(s => s.id === salaReservada.id);
+    if (index !== -1) {
+      this.salas[index] = salaReservada;
+    }
+    this.atualizarContagens();
+
+    this.snackBar.open(`Sala ${salaReservada.id} reservada com sucesso!`, 'Fechar', {
+      duration: 3000,
+    });
   }
 
   getSalas() {
@@ -46,11 +59,24 @@ export class PrincipalComponent implements OnInit {
         this.atualizarContagens();
       },
       error: erro => {
-          console.log(erro.message);
-          this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
-            duration: 3000
-          })
+        console.log(erro.message);
+        this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
+          duration: 3000,
+        });
       },
     });
+  }
+
+  fecharTodosCards() {
+    this.cards.forEach(card => {
+      card.exibirCard = false;
+      card.mostrarReservaCard = false;
+      card.mostrarConfirmacaoFinal = false;
+    });
+  }
+
+  onReservaConfirmada(salaReservada: ISala) {
+    this.atualizarSalaReservada(salaReservada);
+    this.fecharTodosCards();
   }
 }

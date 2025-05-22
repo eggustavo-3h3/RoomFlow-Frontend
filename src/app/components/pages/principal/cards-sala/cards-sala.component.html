@@ -104,47 +104,56 @@
           </mat-error>
         </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Data da Reserva</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="data">
-        <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="formulario.controls['data'].hasError('required') && formulario.controls['data'].touched">
-          A data é obrigatória
-        </mat-error>
-      </mat-form-field>
+<mat-form-field>
+  <mat-label>Data da Reserva</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="data" [min]="minDate" />
+  <mat-hint>DD/MM/AAAA</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <mat-error *ngIf="formulario.controls['data'].hasError('required') && formulario.controls['data'].touched">
+    A data é obrigatória
+  </mat-error>
+</mat-form-field>
+
+<p class="bloco-label">Escolha o bloco desejado</p>
+<mat-radio-group formControlName="bloco" [disabled]="!formulario.controls['data'].value" style="display: flex; gap: 16px; margin-top: 8px;">
+  <mat-radio-button value="bloco1">Bloco 1</mat-radio-button>
+  <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
+</mat-radio-group>
+
+<mat-error *ngIf="formulario.controls['bloco'].hasError('required') && formulario.controls['bloco'].touched" style="color: red; font-size: 12px;">
+  Escolha o bloco é obrigatório
+</mat-error>
     </form>
 
       <mat-card-content>
-        <p>Você está prestes a reservar a sala {{ numSala }}.</p>
-        <button
-          mat-raised-button
-          class="fechar-button"
-          (click)="closeReservaCard()"
-        >
-          Fechar
-        </button>
+  <div *ngIf="!mostrarConfirmacaoFinal">
+    <p>Você está prestes a reservar a sala {{ numSala }}.</p>
+  <button
+    mat-raised-button
+    class="fechar-button"
+    (click)="closeReservaCard()"
+  >
+    Fechar
+  </button>
 
-        <button
-          mat-raised-button
-          class="button-reservar ml-2"
-          (click)="confirmarReserva()"
-        >
-          Confirmar Reserva
-        </button>
-
-        <mat-card *ngIf="mostrarConfirmacaoFinal" class="confirmacao-final-card">
-          <mat-card-title>Confirmação Final</mat-card-title>
-          <p>Deseja realmente reservar a sala {{ numSala }}?</p>
-          <button mat-raised-button color="primary" (click)="confirmarReservaFinal()">
-            OK
-          </button>
-          <button mat-raised-button color="warn" (click)="cancelarConfirmacaoFinal()">
-            Cancelar
-          </button>
-        </mat-card>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<button
+  mat-raised-button
+  class="button-reservar ml-2"
+  (click)="confirmarReserva()"
+  [disabled]="formulario.invalid"
+>
+  Confirmar Reserva
+</button>
 </div>
+
+<mat-card *ngIf="mostrarConfirmacaoFinal" class="confirmacao-final-card subir-card">
+  <div class="confirmacao-container">
+    <p class="confirmacao-texto">Deseja realmente reservar a sala {{ numSala }}?</p>
+    <div class="botoes-confirmacao">
+      <button mat-raised-button color="primary" (click)="confirmarReservaFinal()">OK</button>
+      <button mat-raised-button color="warn" (click)="cancelarConfirmacaoFinal()">Cancelar</button>
+    </div>
+  </div>
+</mat-card>
+
