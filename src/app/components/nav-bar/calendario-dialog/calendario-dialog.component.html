@@ -3,8 +3,11 @@
 
 
   <mat-card class="demo-inline-calendar-card" style="background-color: transparent; box-shadow: none;">
-    <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
-  </mat-card>
+    <mat-calendar
+  [(selected)]="selected"
+  (selectedChange)="onDateChange($event)"
+  [minDate]="minDate">
+</mat-calendar>
 
   <h2 style="font-weight: normal;">Escolha o bloco</h2>
   <mat-radio-group [(ngModel)]="blocoSelecionado" (change)="abrirBloco()" [disabled]="!isDataSelecionada()">
@@ -17,4 +20,4 @@
     <button mat-raised-button class="botao-fechar" (click)="dialogRef.close()">Fechar</button>
   </div>
   
-</mat-dialog-content>
+

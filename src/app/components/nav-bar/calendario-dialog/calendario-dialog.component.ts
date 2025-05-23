@@ -41,6 +41,7 @@ export class CalendarioDialogComponent {
   selected: Date | null = null;
   dataService: any;
   router: any;
+  minDate: Date = new Date();
 
   onDateChange(event: any) {
     this.dataSelecionada = event.value;

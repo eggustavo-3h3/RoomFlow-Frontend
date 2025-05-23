@@ -20,6 +20,10 @@ export class SalaService {
     return this.http.get<ISala[]>(this.url + '/listar');
   }
 
+  listSalasById(id : string) : Observable<ISala> {
+    return this.http.get<ISala>(this.url + '/listar/' + id);
+  }
+
   cadastrarSala(sala: ISala): Observable<ISala> {
     return this.http.post<ISala>(this.url + '/adicionar', sala);
   }

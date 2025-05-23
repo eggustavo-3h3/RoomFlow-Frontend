@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { MatCardModule } from '@angular/material/card';
 import { CardsSalaComponent } from '../principal/cards-sala/cards-sala.component';
@@ -28,6 +28,8 @@ import { TipoSala } from '../../../Enums/TipoSala.enum';
   styleUrl: './alterar-mapa.component.css',
 })
 export class AlterarMapaComponent implements OnInit {
+
+  numSala!: number;
 
   salas: ISala[] = [];
   exibirmodal: boolean = false;
@@ -111,7 +113,10 @@ export class AlterarMapaComponent implements OnInit {
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
       status: '',
-      numSala: undefined
+      numSala: undefined,
+      turma: undefined,
+      disciplina: undefined,
+      professor: undefined
     };
 
     if (this.salaParaEdicao) {

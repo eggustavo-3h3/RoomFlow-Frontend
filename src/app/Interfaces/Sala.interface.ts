@@ -9,9 +9,12 @@ bloco: any;
 }
 
 export interface ISala {
+  turma: any;
+  disciplina: any;
+  professor: any;
   numSala: any;
   status: string;
-  id?: number;
+  id?: string;
   descricao: string;
   statusSala: number;
   tipoSala: TipoSala;

@@ -16,6 +16,10 @@ export class UsuarioService {
     return this.http.get<IUsuario[]>(this.url + '/listar');
   }
 
+  getUsersApproved() : Observable<IUsuario[]> {
+    return this.http.get<IUsuario[]>(this.url + '/listar-ativos');
+  }
+
   removerUsuario(id: number) : Observable<IUsuario> {
     return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }

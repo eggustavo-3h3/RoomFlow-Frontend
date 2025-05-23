@@ -50,6 +50,10 @@ export class CardsSalaComponent implements OnInit {
   formulario: FormGroup = new FormGroup({});
   nomeDoProfessor: string = '';
 
+  reservaProfessor: string = '';
+  reservaDisciplina: string = '';
+  reservaTurma: string = '';
+
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
   isProfessor: boolean = true;
@@ -86,6 +90,17 @@ export class CardsSalaComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaForm();
+
+    this.formulario.get('bloco')?.disable();
+
+    this.formulario.get('data')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.formulario.get('bloco')?.enable();
+      } else {
+        this.formulario.get('bloco')?.disable();
+      }
+    });
+  
     this.carregarDisciplinas();
     this.carregarTurmas();
   
@@ -96,14 +111,29 @@ export class CardsSalaComponent implements OnInit {
   
     const token = this.authService.getToken();
     if (token) {
-        this.isProfessor = this.authService.usuarioEhProfessor();
+      this.isProfessor = this.authService.usuarioEhProfessor();
     }
   }
+  
 
   toggleCard() {
     if (this.sala) {
       this.exibirCard = !this.exibirCard;
-      this.salaDisponivel = this.sala.status === 'disponivel';
+
+      const status = this.sala?.status;
+if (status && status.toLowerCase() === this.statusEnum.Reservada.toString().toLowerCase()) {
+        this.salaService.listSalasById(this.sala.id!).subscribe({
+          next: (salaInfo) => {
+
+            this.reservaProfessor = salaInfo.professor;
+            this.reservaDisciplina = salaInfo.disciplina;
+            this.reservaTurma = salaInfo.turma;
+          },
+          error: (erro) => {
+            console.error('Erro ao buscar dados da reserva:', erro);
+          }
+        });
+      }
     }
   }
   carregarDisciplinas(): void {
@@ -155,6 +185,7 @@ confirmarReserva() {
 
       this.mostrarConfirmacaoFinal = false;
       this.mostrarReservaCard = false;
+      this.exibirCard = false;
       this.formulario.reset();
     },
     error: (err) => {
@@ -178,7 +209,7 @@ confirmarReserva() {
   }
 
   onRemoverSala() {
-    this.removerSala.emit(this.sala.id);
+    //this.removerSala.emit(this.sala.id);
   }
 
   onEditarSala() {

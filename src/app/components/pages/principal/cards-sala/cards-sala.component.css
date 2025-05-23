@@ -28,6 +28,7 @@
 }
 
 .modal-card {
+  animation: fadeInUp 0.3s ease;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -37,7 +38,16 @@
   max-width: 300px;
   box-sizing: border-box;
 }
-
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -219,9 +229,9 @@ input.mat-input-element {
 }
 .botoes-confirmacao {
   display: flex;
-  justify-content: center;  /* centraliza os botões */
-  gap: 12px;                /* espaçamento entre os botões */
-  min-width: 380px;         /* largura mínima pra não quebrar os botões */
+  justify-content: center;
+  gap: 12px;          
+  min-width: 380px;        
 }
 
 .botoes-confirmacao button {
@@ -238,7 +248,6 @@ input.mat-input-element {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* Se quiser diferenciar mais os botões: */
 .botoes-confirmacao button[color="primary"] {
   background-color: #1976d2;
   color: white;
@@ -257,13 +266,12 @@ input.mat-input-element {
 }
 mat-radio-group {
   display: flex !important;
-  justify-content: center; /* centraliza horizontalmente */
-  gap: 24px; /* espaço entre os botões */
-  margin-top: 16px; /* espaço em cima */
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px; 
 }
 
 mat-radio-button {
-  /* opcional: aumentar o clique do botão, melhorar alinhamento */
   align-items: center;
   font-size: 16px;
 }

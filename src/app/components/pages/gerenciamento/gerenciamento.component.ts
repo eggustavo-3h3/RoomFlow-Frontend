@@ -32,7 +32,7 @@ export class GerenciamentoComponent implements OnInit {
   }
 
   getUsers() {
-    this._usuarioService.getUsers().subscribe({
+    this._usuarioService.getUsersApproved().subscribe({
       next: list => {
         this.usuarios = list;
       },

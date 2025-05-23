@@ -161,3 +161,40 @@ mat-toolbar {
 .usuario-info .info {
   color: black; 
 }
+
+
+.bloco-radio-group {
+  display: flex;
+  gap: 20px; /* espaço entre os botões */
+  margin-top: 12px;
+}
+
+.bloco-radio {
+  font-weight: 600;
+  font-size: 16px;
+  color: #555;
+  padding: 8px 20px;
+  border: 2px solid #1976d2; /* azul do Angular Material */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  user-select: none;
+}
+
+/* Cor do texto e fundo quando selecionado */
+.bloco-radio.mat-radio-checked {
+  color: white !important;
+  background-color: #1976d2 !important;
+  border-color: #115293 !important;
+}
+
+/* Hover suave */
+.bloco-radio:hover:not(.mat-radio-checked) {
+  background-color: #e3f2fd;
+  border-color: #42a5f5;
+}
+
+/* Ajuste para alinhar verticalmente o rádio com o texto */
+.bloco-radio .mat-radio-container {
+  margin-right: 8px;
+}

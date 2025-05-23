@@ -10,11 +10,30 @@
 
 <div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
   <div class="modal-card" (click)="$event.stopPropagation()">
-    <h5 class="card-title"> Sala {{ numSala }}</h5>
+
+    <h5 class="card-title">Sala {{ numSala }}</h5>
     <p><strong>Tipo:</strong> {{ tipoSalaEnum[sala.tipoSala] }}</p>
-    <p class="card-text">Professor: Aroldo</p>
-    <p class="card-text">Disciplina: sei lá bixo</p>
-    <p class="card-text">Turma: 3h3</p>
+
+    <ng-container *ngIf="sala.statusSala === statusEnum.Indisponivel; else verificaDisponivel">
+      <p class="card-text" style="color: red; font-weight: bold;">
+        Esta sala está indisponível no momento.
+      </p>
+    </ng-container>
+
+    <ng-template #verificaDisponivel>
+      <ng-container *ngIf="sala.statusSala === statusEnum.Disponivel; else mostraDetalhes">
+        <p class="card-text" style="color: green; font-weight: bold;">
+          Esta sala está disponível para reserva.
+        </p>
+      </ng-container>
+    </ng-template>
+
+    <ng-template #mostraDetalhes>
+      
+      <p class="card-text">Professor: {{ reservaProfessor }}</p>
+      <p class="card-text">Disciplina: {{ reservaDisciplina }}</p>
+      <p class="card-text">Turma: {{ reservaTurma }}</p>
+    </ng-template>
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">
       Fechar
@@ -44,7 +63,7 @@
       mat-raised-button
       class="reservarSala-button ml-2"
       (click)="toggleReservaCard()"
-      *ngIf="botaoReservarSala && sala.statusSala === 1"
+      *ngIf="botaoReservarSala &&sala.statusSala === 1"
     >
       Reservar sala
     </button>
@@ -97,7 +116,7 @@
         </mat-form-field>
 
         <p class="bloco-label">Escolha o bloco desejado</p>
-        <mat-radio-group formControlName="bloco" [disabled]="!formulario.controls['data'].value" style="display: flex; gap: 16px; margin-top: 8px;">
+        <mat-radio-group formControlName="bloco" style="display: flex; gap: 16px; margin-top: 8px;">
           <mat-radio-button value="bloco1">Bloco 1</mat-radio-button>
           <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
         </mat-radio-group>
