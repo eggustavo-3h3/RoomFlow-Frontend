@@ -17,10 +17,10 @@
 
     <mat-card-content>
       <div class="cards-container">
-  <div *ngFor="let sala of salas; let i = index">
+  <div *ngFor="let sala of salas">
     <app-cards-sala 
       [sala]="sala" 
-      [numSala]="i + 1" 
+      [saladesc]="sala.descricao"
       [botaoReservarSala]="true"
       (reservaConfirmada)="atualizarSalaReservada($event)">
     </app-cards-sala>

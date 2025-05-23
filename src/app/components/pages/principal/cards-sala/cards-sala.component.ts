@@ -44,15 +44,11 @@ export class CardsSalaComponent implements OnInit {
   @Input() mostrarEditarBotao: boolean = false;
   @Input() botaoReservarSala: boolean = false;
   @Input({ required: true }) sala: ISala = {} as ISala;
-  @Input({ required: true }) numSala!: number;
-  @Output() removerSala = new EventEmitter<number>();
-  @Output() editarSala = new  EventEmitter<ISala>();
+  @Input({ required: true }) saladesc!: string;
+  @Output() removerSala = new EventEmitter<string>();
+  @Output() editarSala = new EventEmitter<ISala>();
   formulario: FormGroup = new FormGroup({});
   nomeDoProfessor: string = '';
-
-  reservaProfessor: string = '';
-  reservaDisciplina: string = '';
-  reservaTurma: string = '';
 
   exibirCard: boolean = false;
   mostrarReservaCard: boolean = false;
@@ -60,14 +56,14 @@ export class CardsSalaComponent implements OnInit {
   salaDisponivel: boolean = false;
   mostrarConfirmacaoFinal: boolean = false;
   minDate: Date = new Date();
-  salaAtualizada: any;
+  salaSeleciona: ISala | null = null;
   Status = Status;
   tipoSalaEnum = TipoSala;
   statusEnum = Status;
   disciplinas: any[] = [];
   turmas: ITurma[] = [];
 
-  
+
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -77,7 +73,7 @@ export class CardsSalaComponent implements OnInit {
     private readonly disciplinaService: DisciplinaService,
     private readonly turmaService: TurmaService,
   ) { }
-  
+
   iniciaForm() {
     this.formulario = this.formBuilder.group({
       disciplina: [null, [Validators.required]],
@@ -100,39 +96,37 @@ export class CardsSalaComponent implements OnInit {
         this.formulario.get('bloco')?.disable();
       }
     });
-  
+
     this.carregarDisciplinas();
     this.carregarTurmas();
-  
+
     const nome = this.authService.getNomeDoUsuarioLogado();
     if (nome) {
       this.nomeDoProfessor = nome;
     }
-  
+
     const token = this.authService.getToken();
     if (token) {
       this.isProfessor = this.authService.usuarioEhProfessor();
     }
   }
-  
+
 
   toggleCard() {
     if (this.sala) {
       this.exibirCard = !this.exibirCard;
 
-      const status = this.sala?.status;
-if (status && status.toLowerCase() === this.statusEnum.Reservada.toString().toLowerCase()) {
+      const status = this.sala.statusSala;
+      if (status === this.statusEnum.Indisponivel || status === this.statusEnum.Disponivel) {
         this.salaService.listSalasById(this.sala.id!).subscribe({
           next: (salaInfo) => {
-
-            this.reservaProfessor = salaInfo.professor;
-            this.reservaDisciplina = salaInfo.disciplina;
-            this.reservaTurma = salaInfo.turma;
+            this.salaSeleciona = salaInfo;
           },
           error: (erro) => {
-            console.error('Erro ao buscar dados da reserva:', erro);
+            console.error('Erro ao buscar dados da sala:', erro);
           }
         });
+
       }
     }
   }
@@ -162,38 +156,37 @@ if (status && status.toLowerCase() === this.statusEnum.Reservada.toString().toLo
     this.exibirCard = false;
   }
 
-confirmarReserva() {
-  if (this.formulario.invalid) {
-    this.formulario.markAllAsTouched(); 
-    return;
+  confirmarReserva() {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+
+    this.mostrarConfirmacaoFinal = true;
   }
 
-  this.mostrarConfirmacaoFinal = true;
-}
-
- confirmarReservaFinal() {
-  if (!this.sala) return;
-
-  
-  this.sala.statusSala = Status.Reservada;
+  confirmarReservaFinal() {
+    if (!this.sala) return;
 
 
-  this.salaService.atualizarSala(this.sala).subscribe({
-    next: (salaAtualizada) => {
-      
-      this.salaAtualizada.emit(salaAtualizada);
+    this.sala.statusSala = Status.Reservada;
 
-      this.mostrarConfirmacaoFinal = false;
-      this.mostrarReservaCard = false;
-      this.exibirCard = false;
-      this.formulario.reset();
-    },
-    error: (err) => {
-      console.error('Erro ao atualizar a sala:', err);
-    }
-  });
-}
-  
+
+    this.salaService.atualizarSala(this.sala).subscribe({
+      next: (salaAtualizada) => {
+
+
+        this.mostrarConfirmacaoFinal = false;
+        this.mostrarReservaCard = false;
+        this.exibirCard = false;
+        this.formulario.reset();
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar a sala:', err);
+      }
+    });
+  }
+
   cancelarConfirmacaoFinal() {
     this.mostrarConfirmacaoFinal = false;
   }
@@ -209,7 +202,7 @@ confirmarReserva() {
   }
 
   onRemoverSala() {
-    //this.removerSala.emit(this.sala.id);
+    this.removerSala.emit(this.sala.id);
   }
 
   onEditarSala() {

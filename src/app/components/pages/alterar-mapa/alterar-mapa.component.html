@@ -12,8 +12,8 @@
         <div *ngFor="let sala of salas; let i = index">
           <app-cards-sala
             [sala]="sala"
-            [numSala]="i + 1"
             [mostrarExcluirBotao]="true"
+            [saladesc]="sala.descricao"
             [mostrarEditarBotao]="true"
             [botaoReservarSala]="false"
             (removerSala)="removerSala($event)"
@@ -60,15 +60,14 @@
         <mat-error
           *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
         >
-          O número é <strong>obrigatório</strong>
+          A descricao é <strong>obrigatória</strong>
         </mat-error>
         <mat-error
           *ngIf="formularioDeSalas.controls['descricao'].hasError('maxlength')"
         >
-          Máximo de caracteres ultrapassado
+          Máximo de 6 caracteres ultrapassado
         </mat-error>
       </mat-form-field>
-
       <mat-form-field  class="full-width">
         <mat-label>Tipo de Sala</mat-label>
         <mat-select formControlName="tipoSala">

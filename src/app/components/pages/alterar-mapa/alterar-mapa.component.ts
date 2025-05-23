@@ -29,7 +29,6 @@ import { TipoSala } from '../../../Enums/TipoSala.enum';
 })
 export class AlterarMapaComponent implements OnInit {
 
-  numSala!: number;
 
   salas: ISala[] = [];
   exibirmodal: boolean = false;
@@ -65,7 +64,7 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.required, Validators.maxLength(30)]],
+      descricao: ['', [Validators.required, Validators.maxLength(7)]],
       statusSala: [null, Validators.required],
       tipoSala: [null, [Validators.required]]
     });
@@ -112,11 +111,6 @@ export class AlterarMapaComponent implements OnInit {
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
-      status: '',
-      numSala: undefined,
-      turma: undefined,
-      disciplina: undefined,
-      professor: undefined
     };
 
     if (this.salaParaEdicao) {
@@ -153,7 +147,7 @@ export class AlterarMapaComponent implements OnInit {
     }
   }
 
-  removerSala(id: number) {
+  removerSala(id: string) {
     this._salaService.removerSala(id).subscribe({
       next: () => {
         this.snackBar.open('Sala removida com sucesso!', 'Fechar', {

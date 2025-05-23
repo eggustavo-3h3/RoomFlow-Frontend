@@ -32,7 +32,7 @@ export class SalaService {
     return this.http.put<ISala>( `${this.url}/atualizar`, sala);
   }
 
-  removerSala(id: number): Observable<void>  {
+  removerSala(id: string): Observable<void>  {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }
 }
