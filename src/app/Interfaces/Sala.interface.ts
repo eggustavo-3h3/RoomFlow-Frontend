@@ -5,4 +5,5 @@ export interface ISala {
   descricao: string;
   statusSala: number;
   tipoSala: TipoSala;
+  numero: number;
 }

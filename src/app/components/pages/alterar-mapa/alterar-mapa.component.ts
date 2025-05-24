@@ -39,7 +39,6 @@ export class AlterarMapaComponent implements OnInit {
   statusEnum = Status;
   statusOptions = [
     { label: 'Disponível', value: Status.Disponivel },
-    { label: 'Reservada', value: Status.Reservada },
     { label: 'Indisponível', value: Status.Indisponivel },
   ];
 
@@ -64,9 +63,10 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.required, Validators.maxLength(7)]],
+      descricao: ['', [Validators.maxLength(7)]],
       statusSala: [null, Validators.required],
-      tipoSala: [null, [Validators.required]]
+      tipoSala: [null, [Validators.required]],
+      numero: [null],
     });
   }
 
@@ -111,6 +111,7 @@ export class AlterarMapaComponent implements OnInit {
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
+      numero: this.formularioDeSalas.value.numero,
     };
 
     if (this.salaParaEdicao) {

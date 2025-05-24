@@ -28,10 +28,9 @@
         </button>
       </div>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="scrollable-content">
       <div class="table-section">
         <h2>Cursos</h2>
-        <div class="scroll-container"></div>
         <table mat-table [dataSource]="cursosList" class="mat-table">
           <ng-container matColumnDef="nome">
             <th mat-header-cell *matHeaderCellDef>Nome</th>

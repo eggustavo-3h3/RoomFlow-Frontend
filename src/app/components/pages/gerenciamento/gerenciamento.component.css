@@ -10,3 +10,20 @@
   padding: 40px;
   overflow-x: hidden;
 }
+
+mat-card {
+  background-color:white !important;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+mat-card-content {
+  background-color: white !important;
+  padding: 2px;
+}
+
+.scrollable-content {
+  max-height: 650px;
+  overflow-y: auto; 
+  padding-right: 10px;
+}

@@ -49,6 +49,7 @@
 <div class="overlay" *ngIf="exibirmodal" (click)="toggleModal()">
   <div class="modal-card" (click)="$event.stopPropagation()">
     <p class="card-title">Adicionar sala</p>
+    <p>Informe a descrição</p>
     <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Informe a descricao da sala</mat-label>
@@ -66,6 +67,29 @@
           *ngIf="formularioDeSalas.controls['descricao'].hasError('maxlength')"
         >
           Máximo de 6 caracteres ultrapassado
+        </mat-error>
+      </mat-form-field>
+
+      <p>ou</p>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Informe o número da sala</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="numero"
+        />
+        <mat-error
+          *ngIf="formularioDeSalas.controls['numero'].hasError('required')"
+        >
+          A descricao é <strong>obrigatória</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')"
+        >
+          Máximo de 6 caracteres ultrapassado
+
+          
         </mat-error>
       </mat-form-field>
       <mat-form-field  class="full-width">

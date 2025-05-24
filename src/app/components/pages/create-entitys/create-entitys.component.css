@@ -1,3 +1,6 @@
+mat-card {
+  background-color: #ffffff;
+}
 .demo-button-container {
   display: flex;
   justify-content: flex-end;
@@ -12,11 +15,19 @@
   color: white !important;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   margin-right: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+.demo-button:hover:not([disabled]) {
+  background-color: #1548b0 !important;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
 .demo-button[disabled] {
   background-color: #e0e0e0 !important;
   color: #bdbdbd !important; 
   box-shadow: none !important; 
+  cursor: default;
 }
 
 .corpo {
@@ -34,4 +45,24 @@
 mat-card-header {
   display: flex;
   justify-content: center;
+}
+.scrollable-content {
+  max-height: 650px;
+  overflow-y: auto; 
+  padding-right: 10px;
+}
+
+.mat-table,
+.mat-row,
+.mat-header-row,
+.mat-cell,
+.mat-header-cell {
+  background-color: transparent !important;
+}
+
+.table-section {
+  background-color: transparent;
+  padding: 16px 0;
+  border-radius: 0;
+  box-shadow: none;
 }
