@@ -39,6 +39,7 @@
       color="primary"
       class="submit-button"
       (click)="cadastrar()"
+      [disabled]="formTurma.invalid"
     >
     {{ editando ? 'Salvar' : 'Cadastrar' }}
     </button>

@@ -1,7 +1,14 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
-  <img src="icons/icone_azul.png" alt="Logo" style="height: 40px; margin-right: 16px;" routerLink="/" />
+  <img
+  src="icons/icone_azul.png"
+  alt="Logo"
+  style="height: 40px; margin-right: 16px;"
+  [routerLink]="estaLogado ? '/principal' : '/'"
+/>
 
-  <a routerLink="/principal" class="perfil-link" routerLink="/">RoomFlow</a>
+<a [routerLink]="estaLogado ? '/principal' : '/'" class="perfil-link" style="text-decoration: none;">
+  RoomFlow
+</a>
 
   <span class="toolbar-title">{{ textoNav }}</span>
 
@@ -20,24 +27,40 @@
     calendar_month
   </mat-icon>
 
-  <button *ngIf="estaLogado" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu" class="account-button">
+  <a
+    *ngIf="!estaLogado"
+    routerLink="/login"
+    class="login-link"
+    style="color: rgb(0, 0, 0); text-decoration: none; font-weight: 550; margin-left: 16px;"
+  >
+    Entrar
+  </a>
+
+  <button
+    *ngIf="estaLogado"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Toggle menu"
+    class="account-button"
+    style="margin-right: 16px;"
+  >
     <mat-icon>account_circle</mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu">
+    <div *ngIf="usuario" class="usuario-info" style="padding: 8px 16px; font-size: 18px;">
+      <div><span class="label">Nome:</span> <span class="info">{{usuario.nome}}</span></div>
+      <div><span class="label">Email:</span> <span class="info">{{usuario.email}}</span></div>
+      <div><span class="label">Cargo:</span> <span class="info">{{usuario.cargo}}</span></div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <a mat-menu-item routerLink="/principal">Mapa</a>
+    <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
+    <a mat-menu-item routerLink="/solicitacao" *ngIf="ehAdm">Solicitações</a>
+    <a mat-menu-item routerLink="/create" *ngIf="ehAdm">Criar</a>
+    <a mat-menu-item routerLink="/gerenciamentoUsuarios" *ngIf="ehAdm">Gerenciamento de Usuários</a>
+    <a mat-menu-item routerLink="/alterar-senha">Alterar senha</a>
+    <a mat-menu-item class="sair-link" (click)="sairDaConta()">Sair</a>
+  </mat-menu>
 </mat-toolbar>
-
-<mat-menu #menu="matMenu">
-  <div *ngIf="usuario" class="usuario-info" style="padding: 8px 16px; font-size: 18px;">
-    <div><span class="label">Nome:  </span> <span class="info">{{usuario.nome}}</span></div>
-    <div><span class="label">Email: </span> <span class="info">{{usuario.email}}</span></div>
-    <div><span class="label">Cargo: </span> <span class="info">{{usuario.cargo}}</span></div>
-  </div>
-
-  <mat-divider></mat-divider>
-  <a mat-menu-item routerLink="/principal">Mapa</a>
-  <a mat-menu-item routerLink="/alterar-mapa" *ngIf="ehAdm">Alterar mapa</a>
-  <a mat-menu-item routerLink="/solicitacao" *ngIf="ehAdm">Solicitações</a>
-  <a mat-menu-item routerLink="/create" *ngIf="ehAdm">Criar</a>
-  <a mat-menu-item routerLink="/gerenciamentoUsuarios" *ngIf="ehAdm">Gerenciamento de Usuários</a>
-  <a mat-menu-item routerLink="/alterar-senha">Alterar senha</a>
-  <a mat-menu-item class="sair-link" (click)="sairDaConta()">Sair</a>
-</mat-menu>

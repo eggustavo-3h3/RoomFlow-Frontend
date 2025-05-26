@@ -47,7 +47,7 @@ mat-card-header {
   justify-content: center;
 }
 .scrollable-content {
-  max-height: 650px;
+  max-height: 600px;
   overflow-y: auto; 
   padding-right: 10px;
 }

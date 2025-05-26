@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
   ],
   templateUrl: './alterar-senha.component.html',
-  styleUrl: './alterar-senha.component.css'
+  styleUrls: ['./alterar-senha.component.css']
 })
 export class AlterarSenhaComponent {
   form: FormGroup;

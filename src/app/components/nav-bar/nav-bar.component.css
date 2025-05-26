@@ -8,7 +8,6 @@ mat-toolbar {
   justify-content: space-between;
   align-items: center;
 }
-
 :host {
   display: block;
   margin-bottom: 60px;
@@ -79,6 +78,11 @@ mat-toolbar {
 }
 
 @media (max-width: 768px) {
+  .perfil-link,
+  .usuario-info,
+  mat-radio-group {
+    display: none;
+  }
 
   .mat-toolbar {
     width: 100%;
@@ -165,36 +169,28 @@ mat-toolbar {
 
 .bloco-radio-group {
   display: flex;
-  gap: 20px; /* espaço entre os botões */
+  gap: 16px;
   margin-top: 12px;
+}
+mat-radio-group {
+  margin-right: 24px;
 }
 
 .bloco-radio {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   color: #555;
-  padding: 8px 20px;
-  border: 2px solid #1976d2; /* azul do Angular Material */
-  border-radius: 8px;
+  padding: 2px 16px;
+  border: 2px solid #1976d2;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  user-select: none;
+  transition: 0.2s ease;
 }
-
-/* Cor do texto e fundo quando selecionado */
 .bloco-radio.mat-radio-checked {
-  color: white !important;
+  color: #fff !important;
   background-color: #1976d2 !important;
   border-color: #115293 !important;
 }
-
-/* Hover suave */
 .bloco-radio:hover:not(.mat-radio-checked) {
   background-color: #e3f2fd;
-  border-color: #42a5f5;
-}
-
-/* Ajuste para alinhar verticalmente o rádio com o texto */
-.bloco-radio .mat-radio-container {
-  margin-right: 8px;
 }

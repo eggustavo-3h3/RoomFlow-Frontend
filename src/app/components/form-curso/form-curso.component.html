@@ -38,6 +38,7 @@
       color="primary"
       class="submit-button"
       (click)="cadastrar()"
+      [disabled]="formCurso.invalid"
     >
     {{ editando? 'Salvar' : 'Cadastrar'}}
     </button>

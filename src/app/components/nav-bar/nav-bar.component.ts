@@ -15,6 +15,7 @@ import { MatMenuModule, MatMenuPanel } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-nav-bar',
@@ -33,6 +34,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatToolbarModule,
     MatDialogModule,
     MatRadioModule,
+    MatSidenavModule,
+
   ],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
