@@ -64,7 +64,7 @@ abrirCalendario() {
 
   openCalendarioDialog() {
     const dialogRef = this.dialog.open(CalendarioDialogComponent, {
-      width: '300px',
+      width: '450px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

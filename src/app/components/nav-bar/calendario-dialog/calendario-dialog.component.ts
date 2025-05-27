@@ -43,10 +43,10 @@ export class CalendarioDialogComponent {
   router: any;
   minDate: Date = new Date();
 
-  onDateChange(event: any) {
-    this.dataSelecionada = event.value;
-    console.log('Data selecionada:', this.dataSelecionada);
-  }
+onDateChange(date: Date) {
+  this.dataSelecionada = date;
+  console.log('Data selecionada:', this.dataSelecionada);
+}
 
   constructor(
     public dialogRef: MatDialogRef<CalendarioDialogComponent>,

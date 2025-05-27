@@ -59,16 +59,43 @@
   justify-content: center;
   align-items: center;
   padding: 16px;
+  flex-wrap: wrap; /* permite que os botões quebrem linha em telas pequenas */
 }
+
+.custom-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #1e60e5 !important;
+  color: #ffffff !important;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.custom-button:hover {
+  background-color: #1548b0 !important;
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
 .custom-button:active {
-  transform: scale(0.95);
-  transition: transform 0.1s ease;
+  transform: translateY(0);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-button:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 .botao-remover-sala {
   background-color: #d21919;
   color: white;
   font-size: 18px;
-  padding: 8px 24px;
+  padding: 9px 24px;
   border-radius: 10px;
   font-weight: 500;
   transition: background-color 0.3s ease;
@@ -76,29 +103,64 @@
   outline: none;
   box-shadow: none;
 }
-.custom-button {
-  padding: 4px 10px;         
-  font-size: 16px;          
-  border-radius: 8px;         
-  background-color: #1e60e5 !important;
-  color: white !important;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
+
 .botao-adicionar {
-  padding: 4px 10px;
+  padding: 10px 20px;
   font-size: 16px;
+  font-weight: 500;
   border-radius: 8px;
   background-color: #1e60e5 !important;
-  color: white !important;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  color: #ffffff !important;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.botao-adicionar:hover {
+  background-color: #1548b0 !important;
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.botao-adicionar:active {
+  transform: translateY(0);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.botao-adicionar:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 .botao-fechar {
-  padding: 4px 10px;
+  padding: 10px 20px;
   font-size: 16px;
+  font-weight: 500;
   border-radius: 8px;
   background-color: #e51e28 !important;
-  color: white !important;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  color: #ffffff !important;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.botao-fechar:hover {
+  background-color: #b8141d !important;
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.botao-fechar:active {
+  transform: translateY(0);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.botao-fechar:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 .botoes-modal {
   display: flex;
@@ -152,4 +214,39 @@
   background-color: transparent;
   border-bottom: 1px solid black;
   border-radius: 0;
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  margin-bottom: 16px;
+  color: #555;
+}
+
+.ou-texto {
+  text-align: center;
+  font-weight: 500;
+  color: #888;
+  margin: 0 0 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+@media (max-width: 600px) {
+  .modal-card {
+    width: 95%;
+    padding: 16px;
+  }
 }

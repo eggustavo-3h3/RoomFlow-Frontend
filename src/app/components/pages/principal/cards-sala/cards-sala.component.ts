@@ -32,7 +32,7 @@ type NewType = EventEmitter<number>;
     ReactiveFormsModule,
     AngularMaterialModule,
     MatDatepickerModule,
-    MatRadioModule
+    MatRadioModule,
   ],
 
   templateUrl: './cards-sala.component.html',
@@ -191,15 +191,16 @@ export class CardsSalaComponent implements OnInit {
     this.mostrarConfirmacaoFinal = false;
   }
 
-  corDoCard(): string {
-    if (this.sala.statusSala === Status.Disponivel) {
-      return 'rgb(40, 167, 69)';
-    } else if (this.sala.statusSala === Status.Indisponivel) {
-      return 'rgb(117, 117, 117)';
-    } else {
-      return 'rgb(198, 40, 40)';
-    }
+corDoCardClass(): string {
+  switch (this.sala.statusSala) {
+    case Status.Disponivel:
+      return 'card-disponivel';
+    case Status.Indisponivel:
+      return 'card-indisponivel';
+    default:
+      return 'card-reservado';
   }
+}
 
   onRemoverSala() {
     this.removerSala.emit(this.sala.id);

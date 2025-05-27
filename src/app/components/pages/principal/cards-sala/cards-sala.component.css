@@ -17,6 +17,57 @@
   outline: none;
 }
 
+.card-disponivel {
+  background-color: rgb(40, 167, 69);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.card-disponivel:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.card-indisponivel {
+  background-color: rgb(117, 117, 117);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.card-indisponivel:hover {
+  background-color: #757575;
+  transform: scale(1.05);
+}
+
+.card-reservado {
+  background-color: rgb(198, 40, 40);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.card-reservado:hover {
+  background-color: #8b1d1d;
+  transform: scale(1.05);
+}
+
+.card-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.card-status {
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .card-status {
+  opacity: 1;
+}
 .overlay {
   position: fixed;
   inset: 0;

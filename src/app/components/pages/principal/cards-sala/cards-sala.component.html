@@ -1,6 +1,6 @@
 <div>
-  <div [ngStyle]="{ 'background-color': corDoCard() }" class="card" (click)="toggleCard()">
-    {{saladesc}}
+  <div [ngClass]="corDoCardClass()" class="card" (click)="toggleCard()">
+  {{ saladesc }}
   </div>
 </div>
 

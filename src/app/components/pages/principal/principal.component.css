@@ -69,12 +69,12 @@ mat-card-header {
 
 
 .status {
-  grid-column: span 10; /* Faz com que a linha ocupe toda a largura da grid */
+  grid-column: span 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px; /* espaço entre os status-items */
-  flex-wrap: wrap; /* para responsividade */
+  gap: 30px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
@@ -109,9 +109,9 @@ mat-card-header {
 }
 .informacoes {
   display: flex;
-  flex-wrap: wrap; /* permite quebrar se não couber */
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 90%; /* reduz de 50% para 90% para evitar quebra em telas pequenas */
+  width: 90%; 
   max-width: 800px;
   background-color: white;
   padding: 15px;
