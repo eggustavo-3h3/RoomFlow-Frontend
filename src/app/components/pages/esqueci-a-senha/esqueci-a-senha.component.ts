@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { EsqueciSenhaService, IRequestResetSenha } from '../../../services/esqueci-senha.service';
 
 @Component({
   selector: 'app-esqueci-a-senha',
@@ -25,7 +26,8 @@ export class EsqueciASenhaComponent {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private esqueciSenhaService: EsqueciSenhaService
     ) {
     this.formularioDeRecuperacao = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -38,9 +40,19 @@ export class EsqueciASenhaComponent {
 
   enviarLinkRecuperacao() {
     if (this.formularioDeRecuperacao.valid) {
-      const email = this.formularioDeRecuperacao.value.email;
-      console.log('Enviar link para:', email);
-      // Aqui você chama o serviço que envia o e-mail de recuperação
+      const email = this.formularioDeRecuperacao.value.email as string;
+      const dados: IRequestResetSenha = { email };
+
+      this.esqueciSenhaService.solicitarResetSenha(dados).subscribe({
+        next: (res: any) => {
+          console.log('Link de recuperação enviado com sucesso:', res);
+
+        },
+        error: (err: any) => {
+          console.error('Erro ao enviar link de recuperação:', err);
+
+        }
+      });
     }
   }
 }

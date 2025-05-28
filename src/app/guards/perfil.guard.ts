@@ -37,11 +37,11 @@ export const perfilGuard = (perfisPermitidos: Perfil[]): CanActivateFn => {
 
 function getPerfilEnum(perfilStr: string): Perfil {
   switch (perfilStr) {
-    case 'Administrador':
+    case '1':
       return Perfil.Administrador;
-    case 'Professor':
+    case '2':
       return Perfil.Professor;
     default:
-      return -1 as Perfil;
+      return '' as Perfil;
   }
 }

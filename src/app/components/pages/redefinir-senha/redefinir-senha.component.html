@@ -1,0 +1,31 @@
+<app-nav-bar [textoNav]="'Redefinir senha'"></app-nav-bar>
+
+<div class="grid-alterar-senha">
+  <h2 class="card-title">Crie uma nova senha</h2>
+
+  <form [formGroup]="form" (ngSubmit)="alterarSenha()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nova senha</mat-label>
+      <input matInput type="password" formControlName="novaSenha" required />
+      <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Confirmar nova senha</mat-label>
+      <input matInput type="password" formControlName="confirmarSenha" required />
+      <mat-error *ngIf="form.controls['confirmarSenha'].hasError('required')">
+        Campo obrigatório
+      </mat-error>
+       <mat-error *ngIf="form.hasError('senhasDiferentes') && form.controls['confirmarSenha'].touched">
+       As senhas não coincidem
+       </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Alterar senha
+    </button>
+  </form>
+</div>

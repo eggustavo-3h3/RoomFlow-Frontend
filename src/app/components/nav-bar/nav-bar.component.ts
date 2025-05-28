@@ -16,29 +16,31 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { Perfil } from '../../Enums/Perfil.enum';
+import { PerfilPipe } from "../../Pipes/perfil.pipe";
 
 @Component({
-  selector: 'app-nav-bar',
-  standalone: true,
-  imports: [
-    RouterLink,
-    RouterModule,
-    CommonModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatRadioModule,
-    MatSidenavModule,
-
-  ],
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+    selector: 'app-nav-bar',
+    standalone: true,
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.css'],
+    imports: [
+        RouterLink,
+        RouterModule,
+        CommonModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatIconModule,
+        MatDividerModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatSidenavModule,
+        PerfilPipe
+    ]
 })
 export class NavBarComponent implements OnInit {
 aplicarFiltro() {
@@ -79,7 +81,7 @@ abrirCalendario() {
         const payload = JSON.parse(atob(token.split('.')[1]));
         this.estaLogado = true;
 
-        this.ehAdm = payload.Perfil === 'Administrador';
+        this.ehAdm = payload.Perfil === Perfil.Administrador;
 
         this.usuario = {
           nome: payload.Nome,
@@ -97,12 +99,12 @@ abrirCalendario() {
 
   getPerfilUsuario(perfil: string): string {
     switch (perfil) {
-      case 'Administrador':
-        return 'Administrador';
-      case 'Professor':
-        return 'Professor';
+      case '1':
+        return '1';
+      case '2':
+        return '2';
       default:
-        return 'Usuário';
+        return '';
     }
   }
 
