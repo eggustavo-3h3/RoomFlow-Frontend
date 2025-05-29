@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { SegurancaService } from '../../../services/seguranca.service';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -15,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatInputModule,
     CommonModule,
+    //SegurancaService
   ],
   templateUrl: './alterar-senha.component.html',
   styleUrls: ['./alterar-senha.component.css']
