@@ -2,7 +2,7 @@
   <div class="login-form">
     <h2>Recuperar Senha</h2>
 
-    <form [formGroup]="formularioDeRecuperacao">
+<form [formGroup]="formularioDeRecuperacao" (ngSubmit)="enviarLinkRecuperacao()">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>E-mail</mat-label>
         <input
@@ -21,14 +21,13 @@
       </mat-form-field>
 
       <div class="botao-container">
-        <button
-          mat-flat-button
-          color="primary"
-          [disabled]="formularioDeRecuperacao.invalid"
-          (click)="enviarLinkRecuperacao()"
-        >
-          Enviar link de recuperação
-        </button>
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [disabled]="formularioDeRecuperacao.invalid">
+        Enviar link de recuperação
+      </button>
         <button
         mat-flat-button
         color="accent"

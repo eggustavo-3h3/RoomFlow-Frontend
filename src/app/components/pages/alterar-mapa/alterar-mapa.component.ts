@@ -63,7 +63,7 @@ export class AlterarMapaComponent implements OnInit {
 
   iniciaForm() {
     this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.maxLength(7)]],
+      descricao: ['', [Validators.maxLength(6)]],
       statusSala: [null, Validators.required],
       tipoSala: [null, [Validators.required]],
       numero: [null],
@@ -107,7 +107,6 @@ export class AlterarMapaComponent implements OnInit {
     }
 
     const novaSala: ISala = {
-      id: this.salaParaEdicao?.id,
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,

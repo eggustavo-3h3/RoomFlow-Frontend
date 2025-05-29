@@ -5,7 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { EsqueciSenhaService, IRequestResetSenha } from '../../../services/esqueci-senha.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SegurancaService, ISolicitarResetSenha } from '../../../services/seguranca.service';
 
 @Component({
   selector: 'app-esqueci-a-senha',
@@ -18,16 +19,17 @@ import { EsqueciSenhaService, IRequestResetSenha } from '../../../services/esque
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ]
 })
 export class EsqueciASenhaComponent {
   formularioDeRecuperacao: FormGroup;
+  esqueciSenhaService: any;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private esqueciSenhaService: EsqueciSenhaService
+    private snackBar: MatSnackBar
     ) {
     this.formularioDeRecuperacao = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -41,15 +43,15 @@ export class EsqueciASenhaComponent {
   enviarLinkRecuperacao() {
     if (this.formularioDeRecuperacao.valid) {
       const email = this.formularioDeRecuperacao.value.email as string;
-      const dados: IRequestResetSenha = { email };
+      const dados: ISolicitarResetSenha = { email };
 
       this.esqueciSenhaService.solicitarResetSenha(dados).subscribe({
         next: (res: any) => {
-          console.log('Link de recuperação enviado com sucesso:', res);
+            this.snackBar.open('Link enviado com sucesso!', 'Fechar', { duration: 3000 });
 
         },
-        error: (err: any) => {
-          console.error('Erro ao enviar link de recuperação:', err);
+        error: () => {
+           this.snackBar.open('Erro ao enviar link. Verifique o e-mail informado.', 'Fechar', { duration: 3000 });
 
         }
       });

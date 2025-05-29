@@ -5,9 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
-import { EsqueciSenhaService, IResetarSenha } from '../../../services/esqueci-senha.service';
 import { ActivatedRoute } from '@angular/router';
-import { SegurancaService } from '../../../services/seguranca.service';
+import { IResetarSenha, SegurancaService } from '../../../services/seguranca.service';
 @Component({
   selector: 'app-redefinir-senha',
   standalone: true,
@@ -18,20 +17,19 @@ import { SegurancaService } from '../../../services/seguranca.service';
     MatInputModule,
     MatCardModule,
     NavBarComponent,
-    //SegurancaService
+
   ],
-  providers: [EsqueciSenhaService],
   templateUrl: './redefinir-senha.component.html',
   styleUrls: ['./redefinir-senha.component.css']
 })
 export class RedefinirSenhaComponent implements OnInit {
   form: FormGroup;
   chaveResetSenha: string = '';
+  esqueciSenhaService: any;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private esqueciSenhaService: EsqueciSenhaService
   ) {
     this.form = this.fb.group(
       {
@@ -62,8 +60,8 @@ export class RedefinirSenhaComponent implements OnInit {
       };
 
       this.esqueciSenhaService.resetarSenha(dados).subscribe({
-        next: (res) => console.log('Senha redefinida com sucesso', res),
-        error: (err) => console.error('Erro ao redefinir senha', err)
+        next: (res: any) => console.log('Senha redefinida com sucesso', res),
+        error: (err: any) => console.error('Erro ao redefinir senha', err)
       });
     }
   }
