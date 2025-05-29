@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centraliza o conteúdo na horizontal */
+  align-items: center;
 
 }
 

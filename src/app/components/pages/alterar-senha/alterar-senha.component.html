@@ -4,7 +4,7 @@
   <h2 class="card-title">Crie uma nova senha</h2>
 
   <form [formGroup]="form" (ngSubmit)="alterarSenha()">
-    <!-- Senha atual -->
+
     <mat-form-field appearance="fill">
       <mat-label>Senha atual</mat-label>
       <input matInput type="password" formControlName="senhaAtual" required />
@@ -13,7 +13,6 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Nova senha -->
     <mat-form-field appearance="fill">
       <mat-label>Nova senha</mat-label>
       <input matInput type="password" formControlName="novaSenha" required />
@@ -22,7 +21,6 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Confirmar nova senha -->
     <mat-form-field appearance="fill">
       <mat-label>Confirmar nova senha</mat-label>
       <input matInput type="password" formControlName="confirmarSenha" required />
@@ -34,7 +32,6 @@
        </mat-error>
     </mat-form-field>
 
-    <!-- Botão de submissão -->
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Alterar senha
     </button>

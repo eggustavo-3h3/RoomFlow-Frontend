@@ -103,8 +103,8 @@
 
         <p class="bloco-label">Escolha o bloco desejado</p>
         <mat-radio-group formControlName="bloco" style="display: flex; gap: 16px; margin-top: 8px;">
-          <mat-radio-button value="bloco1">Bloco 1</mat-radio-button>
-          <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
+          <mat-radio-button [value]="blocoEnum.Primeiro">Bloco 1</mat-radio-button>
+          <mat-radio-button [value]="blocoEnum.Segundo">Bloco 2</mat-radio-button>
         </mat-radio-group>
         <mat-error *ngIf="formulario.controls['bloco'].hasError('required') && formulario.controls['bloco'].touched"
           style="color: red; font-size: 12px;">

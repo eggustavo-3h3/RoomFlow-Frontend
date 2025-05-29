@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.iniciaForm();
   }
+  voltar() {
+    this.route.navigate(['/']);
+  }
+
 
   togglePasswordVisibility() {
     this.passwordApears = !this.passwordApears;

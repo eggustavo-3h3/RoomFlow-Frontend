@@ -79,4 +79,18 @@ export class PrincipalComponent implements OnInit {
     this.atualizarSalaReservada(salaReservada);
     this.fecharTodosCards();
   }
+  filtrarPorBloco(bloco: string) {
+    this._salaService.getSalas().subscribe({
+      next: lista => {
+        this.salas = lista.filter(s => s.bloco === bloco);
+        this.atualizarContagens();
+      },
+      error: erro => {
+        console.log(erro.message);
+        this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
+          duration: 3000,
+        });
+      },
+    });
+  }
 }

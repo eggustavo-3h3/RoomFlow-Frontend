@@ -7,6 +7,9 @@ import { Perfil } from '../Enums/Perfil.enum';
   providedIn: 'root'
 })
 export class AuthService {
+  getUsuario(): import("../Interfaces/Usuario.interface").IUsuario {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private readonly http: HttpClient) { }
 

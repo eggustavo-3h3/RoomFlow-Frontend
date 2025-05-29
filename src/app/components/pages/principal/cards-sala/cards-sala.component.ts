@@ -16,6 +16,9 @@ import { TipoSala } from '../../../../Enums/TipoSala.enum';
 import { DisciplinaService } from '../../../../services/disciplina.service';
 import { TurmaService } from '../../../../services/turma.service';
 import { ITurma } from '../../../../Interfaces/Turma.interface';
+import { Bloco } from '../../../../Enums/Bloco.enum';
+import { IAula } from '../../../../Interfaces/Aula.interface';
+import { AulaService } from '../../../../services/aula.service';
 
 type NewType = EventEmitter<number>;
 
@@ -62,6 +65,7 @@ export class CardsSalaComponent implements OnInit {
   statusEnum = Status;
   disciplinas: any[] = [];
   turmas: ITurma[] = [];
+  blocoEnum = Bloco;
 
 
 
@@ -72,6 +76,7 @@ export class CardsSalaComponent implements OnInit {
     private readonly salaService: SalaService,
     private readonly disciplinaService: DisciplinaService,
     private readonly turmaService: TurmaService,
+    private readonly aulaService: AulaService
   ) { }
 
   iniciaForm() {
@@ -166,26 +171,46 @@ export class CardsSalaComponent implements OnInit {
   }
 
   confirmarReservaFinal() {
-    if (!this.sala) return;
-
-
-    this.sala.statusSala = Status.Reservada;
-
-
-    this.salaService.atualizarSala(this.sala).subscribe({
-      next: (salaAtualizada) => {
-
-
-        this.mostrarConfirmacaoFinal = false;
-        this.mostrarReservaCard = false;
-        this.exibirCard = false;
-        this.formulario.reset();
+    if (!this.sala || this.formulario.invalid) return;
+  
+    const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
+    const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
+    const blocoSelecionado = this.formulario.value.bloco;
+  
+    if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado) {
+      console.error('Erro: disciplina, turma ou bloco não selecionados corretamente.');
+      return;
+    }
+  
+    const dadosReserva: IAula = {
+      bloco: blocoSelecionado,
+      disciplina: disciplinaSelecionada,
+      sala: this.sala,
+      turma: turmaSelecionada,
+      data: this.formulario.value.data,
+      professor: this.authService.getUsuario()
+    };
+  
+    console.log('Dados da reserva:', dadosReserva);
+  
+    this.aulaService.criarAula(dadosReserva).subscribe({
+      next: () => {
+        this.sala.statusSala = Status.Reservada;
+  
+        this.salaService.atualizarSala(this.sala).subscribe({
+          next: () => {
+            this.mostrarConfirmacaoFinal = false;
+            this.mostrarReservaCard = false;
+            this.exibirCard = false;
+            this.formulario.reset();
+          },
+          error: (err) => console.error('Erro ao atualizar status da sala:', err)
+        });
       },
-      error: (err) => {
-        console.error('Erro ao atualizar a sala:', err);
-      }
+      error: (err) => console.error('Erro ao salvar aula:', err)
     });
   }
+  
 
   cancelarConfirmacaoFinal() {
     this.mostrarConfirmacaoFinal = false;

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { SegurancaService } from '../../../services/seguranca.service';
+import { IAlterarSenha, SegurancaService } from '../../../services/seguranca.service';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -24,12 +24,16 @@ import { SegurancaService } from '../../../services/seguranca.service';
 export class AlterarSenhaComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private segurancaService: SegurancaService
+    ) {
     this.form = this.fb.group(
       {
         senhaAtual: ['', Validators.required],
         novaSenha: ['', Validators.required],
-        confirmarSenha: ['', Validators.required]
+        confirmarSenha: ['', Validators.required],
+
       },
       { validators: this.validarSenhasIguais }
     );
@@ -42,12 +46,26 @@ export class AlterarSenhaComponent {
   }
 
   alterarSenha() {
-    if (this.form.valid) {
-      const dados = this.form.value;
-      // Chame aqui sua API de alteração de senha
-      console.log('Dados para alterar senha:', dados);
-      // this.authService.alterarSenha(dados).subscribe(...)
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+  
+    const formValue = this.form.value;
+  
+    const dados: IAlterarSenha = {
+      senha: formValue.senhaAtual,
+      novaSenha: formValue.novaSenha,
+      confirmarNovaSenha: formValue.confirmarSenha
+    };
+  
+    this.segurancaService.alterarSenha(dados).subscribe({
+      next: () => {
+        console.log('Senha alterada com sucesso.');
+      },
+      error: (erro) => {
+        console.error('Erro ao alterar senha:', erro);
+      }
+    });
   }
 }
-
