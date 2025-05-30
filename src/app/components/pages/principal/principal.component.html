@@ -24,7 +24,7 @@
     <app-cards-sala 
       [sala]="sala" 
       [saladesc]="sala.descricao"
-      [botaoReservarSala]="true"
+      [botaoReservarSala]="authService.usuarioEhProfessor() ? true : false"
       (reservaConfirmada)="atualizarSalaReservada($event)">
     </app-cards-sala>
   </div>

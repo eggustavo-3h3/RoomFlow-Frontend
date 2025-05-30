@@ -7,6 +7,7 @@ import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-principal',
@@ -21,6 +22,7 @@ export class PrincipalComponent implements OnInit {
 
   salas: ISala[] = [];
   snackBar = inject(MatSnackBar);
+  authService = inject(AuthService);
 
   salasDisponiveis: number = 0;
   salasReservadas: number = 0;
@@ -82,7 +84,7 @@ export class PrincipalComponent implements OnInit {
   filtrarPorBloco(bloco: string) {
     this._salaService.getSalas().subscribe({
       next: lista => {
-        this.salas = lista.filter(s => s.bloco === bloco);
+        this.salas = lista;
         this.atualizarContagens();
       },
       error: erro => {

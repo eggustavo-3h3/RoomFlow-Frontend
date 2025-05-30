@@ -54,11 +54,10 @@ export class AuthService {
   
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload?.perfil === Perfil.Professor; // 2
+      return payload?.Perfil === Perfil.Professor; // 2
     } catch (error) {
       console.error('Erro ao decodificar token:', error);
       return false;
     }
   }
-  
 }
