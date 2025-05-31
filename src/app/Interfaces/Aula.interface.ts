@@ -11,5 +11,5 @@ export interface IAula {
     sala : ISala;
     turma: ITurma;
     data : Date | string;
-    professor: IUsuario | null;
+    professor: IUsuario;
 }

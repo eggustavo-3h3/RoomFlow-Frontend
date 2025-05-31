@@ -26,12 +26,12 @@
       </ng-container>
     </ng-template>
 
-    <ng-template #mostraDetalhes>
-
-      <p class="card-text">Professor: </p>
-      <p class="card-text">Disciplina: </p>
-      <p class="card-text">Turma: </p>
-    </ng-template>
+<ng-template #mostraDetalhes>
+  <p class="card-text"><strong>Professor:</strong> {{ nomeDoProfessor || 'Não definido' }}</p>
+  <p class="card-text"><strong>Disciplina:</strong> {{ disciplinaSelecionada?.nome || 'Não definida' }}</p>
+  <p class="card-text"><strong>Turma:</strong> {{ turmaSelecionada?.descricao || 'Não definida' }}</p>
+  <p class="card-text"><strong>Bloco:</strong> {{ blocoSelecionadoTexto || 'Não definido' }}</p>
+</ng-template>
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">
       Fechar

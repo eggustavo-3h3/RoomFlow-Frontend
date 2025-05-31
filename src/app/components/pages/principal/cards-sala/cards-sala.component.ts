@@ -66,7 +66,9 @@ export class CardsSalaComponent implements OnInit {
   disciplinas: any[] = [];
   turmas: ITurma[] = [];
   blocoEnum = Bloco;
-
+  disciplinaSelecionada?: any;
+  turmaSelecionada?: ITurma;
+  blocoSelecionadoTexto: string = '';
 
 
   constructor(
@@ -183,48 +185,55 @@ export class CardsSalaComponent implements OnInit {
     return;
   }
 
-  console.log('confirmarReservaFinal() foi chamado e está tudo válido.');
-  
-    const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
-    const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
-    const blocoSelecionado = this.formulario.value.bloco;
-    const dataSelecionada = this.formulario.value.data;
-
-    if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado || !dataSelecionada) {
-      console.error('Erro: disciplina, turma, bloco ou data não selecionados corretamente.');
-      return;
-    }
-    const dataFormatada = new Date(dataSelecionada).toISOString().split('T')[0];
-  
-    const dadosReserva: IAula = {
-      bloco: blocoSelecionado,
-      disciplina: disciplinaSelecionada,
-      sala: this.sala,
-      turma: turmaSelecionada,
-      data: dataFormatada,
-      professor: this.authService.getUsuario()
-    };
-  
-    console.log('Dados da reserva:', dadosReserva);
-  
-    this.aulaService.criarAula(dadosReserva).subscribe({
-      next: () => {
-        this.sala.statusSala = Status.Reservada;
-  
-        this.salaService.atualizarSala(this.sala).subscribe({
-          next: () => {
-            this.mostrarConfirmacaoFinal = false;
-            this.mostrarReservaCard = false;
-            this.exibirCard = false;
-            this.formulario.reset();
-            this.reservaConfirmada.emit(this.sala);
-          },
-          error: (err) => console.error('Erro ao atualizar status da sala:', err)
-        });
-      },
-      error: (err) => console.error('Erro ao salvar aula:', err)
-    });
+  const professor = this.authService.getUsuario();
+  if (!professor) {
+    console.error('Usuário não está logado.');
+    return;
   }
+
+  console.log('confirmarReservaFinal() foi chamado e está tudo válido.');
+
+  const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
+  const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
+  const blocoSelecionado = this.formulario.value.bloco;
+  const dataSelecionada = this.formulario.value.data;
+
+  if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado || !dataSelecionada) {
+    console.error('Erro: disciplina, turma, bloco ou data não selecionados corretamente.');
+    return;
+  }
+  const dataFormatada = new Date(dataSelecionada).toISOString().split('T')[0];
+
+  const dadosReserva: IAula = {
+    bloco: blocoSelecionado,
+    disciplina: disciplinaSelecionada,
+    sala: this.sala,
+    turma: turmaSelecionada,
+    data: dataFormatada,
+    professor: professor
+  };
+
+  console.log('Dados da reserva:', dadosReserva);
+
+  this.aulaService.criarAula(dadosReserva).subscribe({
+    next: () => {
+      this.sala.statusSala = Status.Reservada;
+
+      this.salaService.atualizarSala(this.sala).subscribe({
+        next: () => {
+          this.mostrarConfirmacaoFinal = false;
+          this.mostrarReservaCard = false;
+          this.exibirCard = false;
+          this.formulario.reset();
+          this.reservaConfirmada.emit(this.sala);
+        },
+        error: (err) => console.error('Erro ao atualizar status da sala:', err)
+      });
+    },
+    error: (err) => console.error('Erro ao salvar aula:', err)
+  });
+}
+
   
 
   cancelarConfirmacaoFinal() {
@@ -250,4 +259,15 @@ corDoCardClass(): string {
     this.editarSala.emit(this.sala);
     this.exibirCard = !this.exibirCard;
   }
+
+  converterBlocoParaTexto(bloco: Bloco): string {
+  switch (bloco) {
+    case Bloco.Primeiro:
+      return 'Bloco 1';
+    case Bloco.Segundo:
+      return 'Bloco 2';
+    default:
+      return 'Não definido';
+  }
+}
 }
