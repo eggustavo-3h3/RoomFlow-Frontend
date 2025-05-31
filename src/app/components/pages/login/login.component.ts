@@ -22,12 +22,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
 
   formularioDeUsuario: FormGroup = new FormGroup({});
-  passwordApears = true;
+  passwordAppears = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
-    private readonly route: Router,
+    private readonly router: Router,
     private readonly snackBar: MatSnackBar
   ) { }
 
@@ -42,12 +42,12 @@ export class LoginComponent implements OnInit {
     this.iniciaForm();
   }
   voltar() {
-    this.route.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
 
   togglePasswordVisibility() {
-    this.passwordApears = !this.passwordApears;
+    this.passwordAppears = !this.passwordAppears;
   }
 
   logar() {
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       next: token => {
         if (token) {
           this.authService.addToken(token);
-          this.route.navigate(['principal']);
+          this.router.navigate(['principal']);
           console.log('logado');
         }
       },

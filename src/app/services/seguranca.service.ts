@@ -36,7 +36,8 @@ export class SegurancaService {
     return this.http.put(`${this.url}/resetar-senha`, dados);
   }
 
-  alterarSenha(dados: IAlterarSenha): Observable<any> {
-    return this.http.put(`${this.url}/alterar-senha`, dados);
+  alterarSenha(dados: IAlterarSenha): Observable<IAlterarSenha> {
+    return this.http.put<IAlterarSenha>(`${this.url}/alterar-senha`, dados);
   }
+
 }

@@ -52,7 +52,6 @@ export class EsqueciASenhaComponent {
         },
         error: () => {
            this.snackBar.open('Erro ao enviar link. Verifique o e-mail informado.', 'Fechar', { duration: 3000 });
-
         }
       });
     }

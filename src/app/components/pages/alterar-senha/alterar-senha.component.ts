@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { IAlterarSenha, SegurancaService } from '../../../services/seguranca.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -16,13 +19,19 @@ import { IAlterarSenha, SegurancaService } from '../../../services/seguranca.ser
     ReactiveFormsModule,
     MatInputModule,
     CommonModule,
-    //SegurancaService
+    MatIcon
   ],
   templateUrl: './alterar-senha.component.html',
   styleUrls: ['./alterar-senha.component.css']
 })
 export class AlterarSenhaComponent {
   form: FormGroup;
+  passwordAppears1 = false;
+  passwordAppears2 = false;
+  passwordAppears3 = false;
+
+  snackBar = inject(MatSnackBar);
+  router = inject(Router);
 
   constructor(
     private fb: FormBuilder,
@@ -45,11 +54,25 @@ export class AlterarSenhaComponent {
     return novaSenha === confirmar ? null : { senhasDiferentes: true };
   }
 
+  
+  togglePasswordVisibility1() {
+    this.passwordAppears1 = !this.passwordAppears1;
+  }
+  togglePasswordVisibility2() {
+    this.passwordAppears2 = !this.passwordAppears2;
+  }
+  togglePasswordVisibility3() {
+    this.passwordAppears3 = !this.passwordAppears3;
+  }
+
+
+
   alterarSenha() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
+    
   
     const formValue = this.form.value;
   
@@ -61,7 +84,10 @@ export class AlterarSenhaComponent {
   
     this.segurancaService.alterarSenha(dados).subscribe({
       next: () => {
-        console.log('Senha alterada com sucesso.');
+        this.router.navigate(['/']);
+        this.snackBar.open('Senha alterada com sucesso' , 'Ok', {
+          duration: 3000
+        })
       },
       error: (erro) => {
         console.error('Erro ao alterar senha:', erro);

@@ -7,32 +7,89 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Senha atual</mat-label>
-      <input matInput type="password" formControlName="senhaAtual" required />
-      <mat-error *ngIf="form.controls['senhaAtual'].hasError('required')">
-        Campo obrigatório
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Nova senha</mat-label>
-      <input matInput type="password" formControlName="novaSenha" required />
+      <input
+        matInput
+        [type]="passwordAppears1 ? 'text' : 'password'"
+        formControlName="senhaAtual"
+        placeholder="Senha Atual"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility1()"
+        tabindex="-1"
+      >
+      <mat-icon>
+        {{ passwordAppears1 ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      </button>
       <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
         Campo obrigatório
       </mat-error>
     </mat-form-field>
+    
 
     <mat-form-field appearance="fill">
+      <mat-label>Nova senha</mat-label>
+      <input
+        matInput
+        [type]="passwordAppears2 ? 'text' : 'password'"
+        formControlName="novaSenha"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility2()"
+        tabindex="-1"
+      >
+      <mat-icon>
+        {{ passwordAppears2 ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      </button>
+      <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
       <mat-label>Confirmar nova senha</mat-label>
-      <input matInput type="password" formControlName="confirmarSenha" required />
+      <input
+        matInput
+        [type]="passwordAppears3 ? 'text' : 'password'"
+        formControlName="confirmarSenha"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility3()"
+        tabindex="-1"
+      >
+      <mat-icon>
+        {{ passwordAppears3 ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+      </button>
       <mat-error *ngIf="form.controls['confirmarSenha'].hasError('required')">
         Campo obrigatório
       </mat-error>
-       <mat-error *ngIf="form.hasError('senhasDiferentes') && form.controls['confirmarSenha'].touched">
-       As senhas não coincidem
-       </mat-error>
+      <mat-error
+        *ngIf="form.hasError('senhasDiferentes') && form.controls['confirmarSenha'].touched"
+      >
+        As senhas não coincidem
+      </mat-error>
     </mat-form-field>
-
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit" (click)="alterarSenha()"
+      [disabled]="form.invalid"
+    >
       Alterar senha
     </button>
   </form>
