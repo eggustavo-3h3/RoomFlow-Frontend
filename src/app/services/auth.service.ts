@@ -2,14 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Perfil } from '../Enums/Perfil.enum';
+import { IUsuario } from '../Interfaces/Usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  getUsuario(): import("../Interfaces/Usuario.interface").IUsuario {
-    throw new Error('Method not implemented.');
+  getUsuario(): IUsuario | null {
+  const token = this.getToken();
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    const usuario: IUsuario = {
+      status: payload.Status || '',     
+      id: payload.Id,                    
+      nome: payload.Nome || '',
+      login: payload.Login || '',
+      senha: '',                        
+      perfil: payload.Perfil           
+    };
+
+    return usuario;
+  } catch (error) {
+    console.error('Erro ao decodificar token para obter usuário:', error);
+    return null;
   }
+}
 
   constructor(private readonly http: HttpClient) { }
 

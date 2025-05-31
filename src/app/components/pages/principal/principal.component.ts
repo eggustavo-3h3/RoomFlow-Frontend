@@ -45,7 +45,11 @@ export class PrincipalComponent implements OnInit {
   atualizarSalaReservada(salaReservada: ISala) {
     const index = this.salas.findIndex(s => s.id === salaReservada.id);
     if (index !== -1) {
-      this.salas[index] = salaReservada;
+      this.salas = [
+      ...this.salas.slice(0, index),
+  salaReservada,
+      ...this.salas.slice(index + 1)
+];
     }
     this.atualizarContagens();
 

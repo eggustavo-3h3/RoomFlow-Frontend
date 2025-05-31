@@ -78,6 +78,7 @@ export class CardsSalaComponent implements OnInit {
     private readonly turmaService: TurmaService,
     private readonly aulaService: AulaService
   ) { }
+  
 
   iniciaForm() {
     this.formulario = this.formBuilder.group({
@@ -170,24 +171,37 @@ export class CardsSalaComponent implements OnInit {
     this.mostrarConfirmacaoFinal = true;
   }
 
-  confirmarReservaFinal() {
-    if (!this.sala || this.formulario.invalid) return;
+ confirmarReservaFinal() {
+  if (!this.sala) {
+    console.error('Sala não está definida.');
+    return;
+  }
+
+  if (this.formulario.invalid) {
+    console.error('Formulário está inválido.');
+    this.formulario.markAllAsTouched();
+    return;
+  }
+
+  console.log('confirmarReservaFinal() foi chamado e está tudo válido.');
   
     const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
     const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
     const blocoSelecionado = this.formulario.value.bloco;
-  
-    if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado) {
-      console.error('Erro: disciplina, turma ou bloco não selecionados corretamente.');
+    const dataSelecionada = this.formulario.value.data;
+
+    if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado || !dataSelecionada) {
+      console.error('Erro: disciplina, turma, bloco ou data não selecionados corretamente.');
       return;
     }
+    const dataFormatada = new Date(dataSelecionada).toISOString().split('T')[0];
   
     const dadosReserva: IAula = {
       bloco: blocoSelecionado,
       disciplina: disciplinaSelecionada,
       sala: this.sala,
       turma: turmaSelecionada,
-      data: this.formulario.value.data,
+      data: dataFormatada,
       professor: this.authService.getUsuario()
     };
   
@@ -203,6 +217,7 @@ export class CardsSalaComponent implements OnInit {
             this.mostrarReservaCard = false;
             this.exibirCard = false;
             this.formulario.reset();
+            this.reservaConfirmada.emit(this.sala);
           },
           error: (err) => console.error('Erro ao atualizar status da sala:', err)
         });

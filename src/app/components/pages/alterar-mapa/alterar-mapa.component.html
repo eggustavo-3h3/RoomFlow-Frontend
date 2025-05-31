@@ -80,6 +80,10 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-error *ngIf="formularioDeSalas.errors?.['descricaoOuNumeroObrigatorio']">
+      É necessário preencher a descrição <strong>ou</strong> o número da sala.
+      </mat-error>
+
       <!-- Tipo -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tipo de Sala</mat-label>

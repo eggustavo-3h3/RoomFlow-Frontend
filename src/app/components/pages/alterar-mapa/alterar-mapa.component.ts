@@ -61,14 +61,14 @@ export class AlterarMapaComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
   ) { }
 
-  iniciaForm() {
-    this.formularioDeSalas = this.formBuilder.group({
-      descricao: ['', [Validators.maxLength(6)]],
-      statusSala: [null, Validators.required],
-      tipoSala: [null, [Validators.required]],
-      numero: [null],
-    });
-  }
+iniciaForm() {
+  this.formularioDeSalas = this.formBuilder.group({
+    descricao: ['', [Validators.maxLength(6)]],
+    numero: [null],
+    tipoSala: [null, Validators.required],
+    statusSala: [null, Validators.required]
+  }, { validators: this.descricaoOuNumeroValidator });
+}
 
   ngOnInit(): void {
     this.getSalas();
@@ -100,6 +100,17 @@ export class AlterarMapaComponent implements OnInit {
     });
   }
 
+  descricaoOuNumeroValidator(form: FormGroup) {
+  const descricao = form.get('descricao')?.value;
+  const numero = form.get('numero')?.value;
+
+  if (!descricao && !numero) {
+    return { descricaoOuNumeroObrigatorio: true };
+  }
+
+  return null;
+}
+
   cadastrarSalas() {
     if (this.formularioDeSalas.invalid) {
       this.formularioDeSalas.markAllAsTouched();
@@ -107,6 +118,7 @@ export class AlterarMapaComponent implements OnInit {
     }
 
     const novaSala: ISala = {
+      id: this.salaParaEdicao?.id,
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
@@ -165,12 +177,13 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   abrirModalEdicao(sala: ISala) {
-    this.salaParaEdicao = { ...sala };
-    this.formularioDeSalas.patchValue({
-      descricao: this.salaParaEdicao.descricao,
-      tipoSala: this.salaParaEdicao.tipoSala,
-      statusSala: this.salaParaEdicao.statusSala
-    });
-    this.exibirmodal = true;
-  }
+  this.salaParaEdicao = { ...sala };
+  this.formularioDeSalas.patchValue({
+    descricao: sala.descricao,
+    numero: sala.numero,
+    tipoSala: sala.tipoSala,
+    statusSala: sala.statusSala
+  });
+  this.exibirmodal = true;
+}
 }
