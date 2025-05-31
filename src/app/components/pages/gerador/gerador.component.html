@@ -1,0 +1,84 @@
+<app-nav-bar [textoNav]="'Gerenciamento de Usuarios'"></app-nav-bar>
+<div class="container">
+  <mat-card class="central-card">
+    <mat-card-title>Preencha os Dados da Reserva</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Disciplina ID</mat-label>
+          <input matInput formControlName="disciplinaId" />
+          <mat-error *ngIf="form.get('disciplinaId')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Curso ID</mat-label>
+          <input matInput formControlName="cursoId" />
+          <mat-error *ngIf="form.get('cursoId')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Sala ID</mat-label>
+          <input matInput formControlName="salaId" />
+          <mat-error *ngIf="form.get('salaId')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Turma ID</mat-label>
+          <input matInput formControlName="turmaId" />
+          <mat-error *ngIf="form.get('turmaId')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Data</mat-label>
+          <input matInput [matDatepicker]="pickerData" formControlName="data" />
+          <mat-datepicker-toggle matSuffix [for]="pickerData"></mat-datepicker-toggle>
+          <mat-datepicker #pickerData></mat-datepicker>
+          <mat-error *ngIf="form.get('data')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Professor ID</mat-label>
+          <input matInput formControlName="professorId" />
+          <mat-error *ngIf="form.get('professorId')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Dia da Semana (0=Domingo, 6=Sábado)</mat-label>
+          <input type="number" matInput formControlName="diaSemana" />
+          <mat-error *ngIf="form.get('diaSemana')?.hasError('required')">Obrigatório</mat-error>
+          <mat-error *ngIf="form.get('diaSemana')?.hasError('min') || form.get('diaSemana')?.hasError('max')">Entre 0 e 6</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Data Início</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" formControlName="dataInicio" />
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+          <mat-error *ngIf="form.get('dataInicio')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Data Fim</mat-label>
+          <input matInput [matDatepicker]="pickerFim" formControlName="dataFim" />
+          <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFim></mat-datepicker>
+          <mat-error *ngIf="form.get('dataFim')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Bloco</mat-label>
+          <input matInput formControlName="bloco" />
+          <mat-error *ngIf="form.get('bloco')?.hasError('required')">Obrigatório</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
+      </form>
+
+      <div *ngIf="resultado" class="resultado">
+        <h3>Dados preenchidos:</h3>
+        <pre>{{ resultado | json }}</pre>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

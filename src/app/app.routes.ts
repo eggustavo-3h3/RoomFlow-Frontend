@@ -15,6 +15,7 @@ import { FormCursoComponent } from './components/form-curso/form-curso.component
 import { FormDisciplinaComponent } from './components/form-disciplina/form-disciplina.component';
 import { FormTurmaComponent } from './components/form-turma/form-turma.component';
 import { RedefinirSenhaComponent } from './components/pages/redefinir-senha/redefinir-senha.component';
+import { GeradorComponent } from './components/pages/gerador/gerador.component';
 
 export const routes: Routes = [
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { path: 'esqueci', component: EsqueciASenhaComponent },
     { path: 'cadastro', component: CadastroComponent },
     { path: 'redefinir', component: RedefinirSenhaComponent},
+    { path: 'gerador-de-aula', component:GeradorComponent},
 
     {
         path: 'create', component: CreateEntitysComponent,
