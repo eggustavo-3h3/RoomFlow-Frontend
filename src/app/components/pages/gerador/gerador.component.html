@@ -1,84 +1,129 @@
-<app-nav-bar [textoNav]="'Gerenciamento de Usuarios'"></app-nav-bar>
-<div class="container">
-  <mat-card class="central-card">
-    <mat-card-title>Preencha os Dados da Reserva</mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<app-nav-bar [textoNav]="'Gerenciamento de Reservas'"></app-nav-bar>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Disciplina ID</mat-label>
-          <input matInput formControlName="disciplinaId" />
-          <mat-error *ngIf="form.get('disciplinaId')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+  <h2 class="form-title">Preencha os Dados da Reserva</h2>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Curso ID</mat-label>
-          <input matInput formControlName="cursoId" />
-          <mat-error *ngIf="form.get('cursoId')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Disciplina</mat-label>
+      <mat-select formControlName="disciplinaId">
+        <mat-option value="" disabled>Selecione uma Disciplina</mat-option>
+        <mat-option *ngFor="let disc of disciplinasList" [value]="disc.id">
+          {{ disc.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['disciplinaId'].hasError('required')">
+        Disciplina é obrigatória
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Sala ID</mat-label>
-          <input matInput formControlName="salaId" />
-          <mat-error *ngIf="form.get('salaId')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="cursoId">
+        <mat-option value="" disabled>Selecione um curso</mat-option>
+        <mat-option *ngFor="let curso of cursosList" [value]="curso.id">
+          {{ curso.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['cursoId'].hasError('required')">
+        Curso é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Turma ID</mat-label>
-          <input matInput formControlName="turmaId" />
-          <mat-error *ngIf="form.get('turmaId')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Sala</mat-label>
+      <mat-select formControlName="salaId">
+        <mat-option value="" disabled>Selecione uma sala</mat-option>
+        <mat-option *ngFor="let sala of salasList" [value]="sala.id">
+          {{ sala.descricao }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['salaId'].hasError('required')">
+        Sala é obrigatória
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Data</mat-label>
-          <input matInput [matDatepicker]="pickerData" formControlName="data" />
-          <mat-datepicker-toggle matSuffix [for]="pickerData"></mat-datepicker-toggle>
-          <mat-datepicker #pickerData></mat-datepicker>
-          <mat-error *ngIf="form.get('data')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Turma</mat-label>
+      <mat-select formControlName="turmaId">
+        <mat-option value="" disabled>Selecione uma turma</mat-option>
+        <mat-option *ngFor="let turma of turmasList" [value]="turma.id">
+          {{ turma.descricao }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['turmaId'].hasError('required')">
+        Turma é obrigatória
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Professor ID</mat-label>
-          <input matInput formControlName="professorId" />
-          <mat-error *ngIf="form.get('professorId')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Professor</mat-label>
+      <mat-select formControlName="professorId">
+        <mat-option value="" disabled>Selecione um Professor</mat-option>
+        <mat-option *ngFor="let professor of profList" [value]="professor.id">
+          {{ professor.nome }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['professorId'].hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Dia da Semana (0=Domingo, 6=Sábado)</mat-label>
-          <input type="number" matInput formControlName="diaSemana" />
-          <mat-error *ngIf="form.get('diaSemana')?.hasError('required')">Obrigatório</mat-error>
-          <mat-error *ngIf="form.get('diaSemana')?.hasError('min') || form.get('diaSemana')?.hasError('max')">Entre 0 e 6</mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Dia da Semana (0=Domingo, 6=Sábado)</mat-label>
+      <input type="number" matInput formControlName="diaSemana" />
+      <mat-error *ngIf="form.controls['diaSemana'].hasError('required')">
+        Obrigatório
+      </mat-error>
+      <mat-error *ngIf="form.controls['diaSemana'].hasError('min') || form.controls['diaSemana'].hasError('max')">
+        Entre 0 e 6
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Data Início</mat-label>
-          <input matInput [matDatepicker]="pickerInicio" formControlName="dataInicio" />
-          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-          <mat-datepicker #pickerInicio></mat-datepicker>
-          <mat-error *ngIf="form.get('dataInicio')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+  <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Data Início</mat-label>
+      <input matInput [min]="minDate" [matDatepicker]="pickerInicio" formControlName="dataInicio" />
+      <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+      <mat-datepicker #pickerInicio></mat-datepicker>
+      <mat-error *ngIf="form.controls['dataInicio'].hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Data Fim</mat-label>
-          <input matInput [matDatepicker]="pickerFim" formControlName="dataFim" />
-          <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFim></mat-datepicker>
-          <mat-error *ngIf="form.get('dataFim')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Data Fim</mat-label>
+      <input matInput [matDatepicker]="pickerFim" formControlName="dataFim" />
+      <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFim></mat-datepicker>
+      <mat-error *ngIf="form.controls['dataFim'].hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Bloco</mat-label>
-          <input matInput formControlName="bloco" />
-          <mat-error *ngIf="form.get('bloco')?.hasError('required')">Obrigatório</mat-error>
-        </mat-form-field>
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Bloco</mat-label>
+      <mat-select formControlName="bloco">
+        <mat-option *ngFor="let bloco of blocoEnum" [value]="bloco.value">
+          {{ bloco.label }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls['bloco'].hasError('required')">
+        O bloco é obrigatório.
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-        <button mat-raised-button color="primary" type="submit">Enviar</button>
-      </form>
-
-      <div *ngIf="resultado" class="resultado">
-        <h3>Dados preenchidos:</h3>
-        <pre>{{ resultado | json }}</pre>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <div class="button-container">
+    <button mat-raised-button color="primary" type="submit" class="submit-button" [disabled]="form.invalid">
+      Enviar
+    </button>
+  </div>
+</form>

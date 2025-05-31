@@ -23,6 +23,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
   styleUrl: './create-entitys.component.css',
 })
 export class CreateEntitysComponent implements OnInit {
+  
   cursoSelected: ICurso | null = null;
   turmaSelected: ITurma | null = null;
   disciplinaSelected: IDisciplina | null = null;

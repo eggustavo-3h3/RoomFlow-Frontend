@@ -22,4 +22,8 @@ export class AulaService {
   const url = `${this.url}?salaId=${salaId}&data=${data}`;
   return this.http.get<IAula[]>(url);
 }
+
+  gerador(aulas : IAula[]) : Observable<IAula[]> {
+   return this.http.post<IAula[]>(this.url + '/gerador', aulas);
+  }
 }

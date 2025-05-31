@@ -42,6 +42,6 @@ function getPerfilEnum(perfilStr: string): Perfil {
     case '2':
       return Perfil.Professor;
     default:
-      return '' as Perfil;
+      return  -1 as Perfil;
   }
 }

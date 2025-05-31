@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IUsuario } from '../Interfaces/Usuario.interface';
+import { Perfil } from '../Enums/Perfil.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ export class UsuarioService {
     return this.http.get<IUsuario[]>(this.url + '/listar-ativos');
   }
 
+  getProfessores(): Observable<IUsuario[]> {
+  return this.http.get<IUsuario[]>(this.url + '/listar-ativos').pipe(
+    map((usuarios : IUsuario[]) => {
+      return usuarios.filter(usuario => usuario.perfil === Perfil.Professor);
+    })
+  );
+}
+
   removerUsuario(id: number) : Observable<IUsuario> {
     return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }
@@ -27,12 +36,12 @@ export class UsuarioService {
     return this.http.post<IUsuario>(this.url + '/cadastrar', usuario);
   }
   
-  aprovarUsuario(id: number): Observable<any> {
-    return this.http.put(this.url + '/aprovar/' + id, {});
+  aprovarUsuario(id: number): Observable<IUsuario> {
+    return this.http.put<IUsuario>(this.url + '/aprovar/' + id, {});
   }
   
-  rejeitarUsuario(id: number): Observable<any> {
-    return this.http.put(this.url + '/rejeitar/' + id, {});
+  rejeitarUsuario(id: number): Observable<IUsuario> {
+    return this.http.put<IUsuario>(this.url + '/rejeitar/' + id, {});
   }
 
 }

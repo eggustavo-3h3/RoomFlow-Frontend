@@ -14,13 +14,6 @@
 
   <span class="spacer"></span>
 
-  <mat-radio-group 
-  *ngIf="router.url === '/principal' || router.url === '/alterar-mapa'"
-  (change)="onSelecionarBloco($event.value)"
-  style="display: flex; gap: 24px;">
-  <mat-radio-button class="bloco-radio" value="bloco1">Bloco 1</mat-radio-button>
-  <mat-radio-button class="bloco-radio" value="bloco2">Bloco 2</mat-radio-button>
-</mat-radio-group>
 
   <mat-icon
     *ngIf="router.url === '/principal' || router.url === '/alterar-mapa'"

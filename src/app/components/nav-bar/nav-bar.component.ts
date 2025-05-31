@@ -44,7 +44,6 @@ import { PerfilPipe } from "../../Pipes/perfil.pipe";
 })
 export class NavBarComponent implements OnInit {
   @Input() textoNav: string = '';
-  @Output() blocoSelecionado = new EventEmitter<string>(); // ← AQUI
 
   estaLogado: boolean = false;
   ehAdm: boolean = false;
@@ -93,13 +92,5 @@ export class NavBarComponent implements OnInit {
     this.dialog.open(CalendarioDialogComponent, {
       width: '450px',
     });
-  }
-
-  onSelecionarBloco(bloco: string) { // ← AQUI
-    this.blocoSelecionado.emit(bloco);
-  }
-
-  aplicarFiltro() {
-    throw new Error('Method not implemented.');
   }
 }
