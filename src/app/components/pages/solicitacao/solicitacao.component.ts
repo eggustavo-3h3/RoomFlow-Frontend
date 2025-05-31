@@ -6,6 +6,7 @@ import { PerfilPipe } from "../../../Pipes/perfil.pipe";
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { UsuarioService } from '../../../services/usuario.service';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
+import { StatusUsuario } from '../../../Enums/StatusUsuario';
 
 @Component({
   selector: 'app-solicitacao',
@@ -20,7 +21,7 @@ import { IUsuario } from '../../../Interfaces/Usuario.interface';
   styleUrl: './solicitacao.component.css'
 })
 export class SolicitacaoComponent implements OnInit {
-// falta chamar na api
+
 solicitacoes: IUsuario[] = [];
 
   displayedColumns: string[] = ['nome','login', 'perfil', 'acoes'];
@@ -31,7 +32,7 @@ solicitacoes: IUsuario[] = [];
   ngOnInit(): void {
     this.usuarioService.getUsers().subscribe({
       next: (usuarios) => {
-        this.solicitacoes = usuarios.filter(user => user.status === 'pendente'); // confirmar se tem no BD
+        this.solicitacoes = usuarios.filter(user => user.statusUsuario === StatusUsuario.Pendente);
       },
       error: (err) => {
         console.error('Erro ao buscar solicitações:', err);

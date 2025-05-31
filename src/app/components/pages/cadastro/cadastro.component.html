@@ -5,7 +5,8 @@
       <mat-form-field appearance="fill" class="input-full">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="nome" placeholder="Nome" />
-        <mat-error *ngIf="formularioDeUsuario.controls['nome'].hasError('required')"
+        <mat-error
+          *ngIf="formularioDeUsuario.controls['nome'].hasError('required')"
           >O Nome é <strong> obrigatório </strong></mat-error
         >
         <mat-error
@@ -16,13 +17,15 @@
 
       <mat-form-field appearance="fill" class="input-full">
         <mat-label>E-mail</mat-label>
-        <input matInput formControlName="email" placeholder="E-mail" />
+        <input matInput formControlName="login" placeholder="E-mail" />
         <mat-error
-          *ngIf="formularioDeUsuario.controls['email'].hasError('required')"
+          *ngIf="formularioDeUsuario.controls['login'].hasError('required')"
         >
           O Email é <strong>obrigatório</strong>
         </mat-error>
-        <mat-error *ngIf="formularioDeUsuario.controls['email'].hasError('email')">
+        <mat-error
+          *ngIf="formularioDeUsuario.controls['login'].hasError('email')"
+        >
           Por favor digite um email <strong>válido</strong>
         </mat-error>
       </mat-form-field>
@@ -35,9 +38,11 @@
           formControlName="senha"
           placeholder="Senha"
         />
-        <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('required')">
-  A Senha é obrigatória
-</mat-error>
+        <mat-error
+          *ngIf="formularioDeUsuario.controls['senha'].hasError('required')"
+        >
+          A Senha é obrigatória
+        </mat-error>
         <mat-error
           *ngIf="formularioDeUsuario.controls['senha'].hasError('minlength')"
         >
@@ -53,8 +58,9 @@
       <h3 class="perfil-titulo titulo-centralizado">Perfil</h3>
 
       <mat-radio-group formControlName="perfil" class="perfil-opcoes">
-        <mat-radio-button value="admin">Administrador</mat-radio-button>
-        <mat-radio-button value="professor">Professor</mat-radio-button>
+        <mat-radio-button *ngFor="let p of perfil" [value]="p.value">
+          {{ p.label }}
+        </mat-radio-button>
       </mat-radio-group>
 
       <div class="botao-container">
@@ -62,16 +68,13 @@
           mat-flat-button
           color="primary"
           [disabled]="formularioDeUsuario.invalid"
+          (click)="SubmitForm()"
         >
           Criar
         </button>
-        <button
-        mat-flat-button
-        color="accent"
-        (click)="voltar()"
-      >
-        Voltar
-      </button>
+        <button mat-flat-button color="accent" (click)="voltar()">
+          Voltar
+        </button>
       </div>
     </form>
   </div>

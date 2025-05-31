@@ -33,7 +33,7 @@ export class UsuarioService {
     return this.http.delete<IUsuario>(this.url + '/remover/' + id);
   }
   criarUsuario(usuario: IUsuario): Observable<IUsuario> {
-    return this.http.post<IUsuario>(this.url + '/cadastrar', usuario);
+    return this.http.post<IUsuario>(this.url + '/adicionar', usuario);
   }
   
   aprovarUsuario(id: number): Observable<IUsuario> {

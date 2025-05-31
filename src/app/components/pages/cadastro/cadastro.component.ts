@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { Perfil } from '../../../Enums/Perfil.enum';
+import { UsuarioService } from '../../../services/usuario.service';
+import { StatusUsuario } from '../../../Enums/StatusUsuario';
 
 @Component({
   selector: 'app-cadastro',
@@ -15,32 +23,39 @@ import { MatRadioModule } from '@angular/material/radio';
     ReactiveFormsModule,
     CommonModule,
     AngularMaterialModule,
-    MatRadioModule
+    MatRadioModule,
   ],
   templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.css'
+  styleUrl: './cadastro.component.css',
 })
 export class CadastroComponent implements OnInit {
-
   usuarios: IUsuario[] = [];
 
-  formularioDeUsuario: FormGroup = new FormGroup({});
-  usuarioService: any;
+  perfil = [
+    { label: 'Administrador', value: Perfil.Administrador },
+    { label: 'Professor', value: Perfil.Professor },
+  ];
 
-  constructor(
-    private formbuilder: FormBuilder,
-    private router: Router
-  ) { }
-  
+  formularioDeUsuario: FormGroup = new FormGroup({});
+  usuarioService = inject(UsuarioService);
+
+  constructor(private formbuilder: FormBuilder, private router: Router) {}
+
   inicializaFormulario() {
     this.formularioDeUsuario = this.formbuilder.group({
       nome: ['', [Validators.required, Validators.maxLength(250)]],
-      email: ['', [Validators.email, Validators.required]],
-      senha: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      login: ['', [Validators.email, Validators.required]],
+      senha: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(50),
+        ],
+      ],
       perfil: [null, [Validators.required]]
     });
   }
-
 
   ngOnInit(): void {
     this.inicializaFormulario();
@@ -52,8 +67,13 @@ export class CadastroComponent implements OnInit {
 
   SubmitForm() {
     if (this.formularioDeUsuario.valid) {
-      const novoUsuario = this.formularioDeUsuario.value;
-  
+      const novoUsuario = {
+        ...this.formularioDeUsuario.value,
+        statusUsuario: StatusUsuario.Pendente, // <- adiciona o status fixo
+      };
+
+      console.log(novoUsuario);
+
       this.usuarioService.criarUsuario(novoUsuario).subscribe({
         next: () => {
           console.log('Usuário cadastrado com sucesso');
@@ -61,7 +81,7 @@ export class CadastroComponent implements OnInit {
         },
         error: (err: any) => {
           console.error('Erro ao cadastrar usuário:', err);
-        }
+        },
       });
     }
   }

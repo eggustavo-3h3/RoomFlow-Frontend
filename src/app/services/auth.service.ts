@@ -16,7 +16,7 @@ export class AuthService {
     const payload = JSON.parse(atob(token.split('.')[1]));
 
     const usuario: IUsuario = {
-      status: payload.Status || '',     
+      statusUsuario: payload.StatusUsuario || '',     
       id: payload.Id,                    
       nome: payload.Nome || '',
       login: payload.Login || '',
