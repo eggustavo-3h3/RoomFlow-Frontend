@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { Perfil } from '../../../Enums/Perfil.enum';
 import { UsuarioService } from '../../../services/usuario.service';
 import { StatusUsuario } from '../../../Enums/StatusUsuario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cadastro',
@@ -29,7 +30,10 @@ import { StatusUsuario } from '../../../Enums/StatusUsuario';
   styleUrl: './cadastro.component.css',
 })
 export class CadastroComponent implements OnInit {
+  
   usuarios: IUsuario[] = [];
+
+  snackBar = inject(MatSnackBar);
 
   perfil = [
     { label: 'Administrador', value: Perfil.Administrador },
@@ -76,10 +80,13 @@ export class CadastroComponent implements OnInit {
 
       this.usuarioService.criarUsuario(novoUsuario).subscribe({
         next: () => {
-          console.log('Usuário cadastrado com sucesso');
+          this.snackBar.open('Cadastro concluído. Aguarde a autorização do Administrador', 'Ok', {
+            duration: 5000
+          });
+          this.router.navigate(['/']);
           this.formularioDeUsuario.reset();
         },
-        error: (err: any) => {
+        error: (err) => {
           console.error('Erro ao cadastrar usuário:', err);
         },
       });
