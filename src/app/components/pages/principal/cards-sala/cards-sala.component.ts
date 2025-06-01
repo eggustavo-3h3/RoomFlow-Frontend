@@ -92,52 +92,81 @@ export class CardsSalaComponent implements OnInit {
   }
   @Output() reservaConfirmada = new EventEmitter<ISala>();
 
-  ngOnInit() {
-    this.iniciaForm();
+  salas: ISala[] = [];
 
-    this.formulario.get('bloco')?.disable();
+ngOnInit() {
+  this.iniciaForm();
 
-    this.formulario.get('data')?.valueChanges.subscribe(value => {
-      if (value) {
-        this.formulario.get('bloco')?.enable();
-      } else {
-        this.formulario.get('bloco')?.disable();
-      }
-    });
+  this.formulario.get('bloco')?.disable();
 
-    this.carregarDisciplinas();
-    this.carregarTurmas();
-
-    const nome = this.authService.getNomeDoUsuarioLogado();
-    if (nome) {
-      this.nomeDoProfessor = nome;
+  this.formulario.get('data')?.valueChanges.subscribe(value => {
+    if (value) {
+      this.formulario.get('bloco')?.enable();
+    } else {
+      this.formulario.get('bloco')?.disable();
     }
+  });
 
-    const token = this.authService.getToken();
-    if (token) {
-      this.isProfessor = this.authService.usuarioEhProfessor();
-    }
+  this.carregarDisciplinas();
+  this.carregarTurmas();
+
+  const nome = this.authService.getNomeDoUsuarioLogado();
+  if (nome) {
+    this.nomeDoProfessor = nome;
   }
 
+  const token = this.authService.getToken();
+  if (token) {
+    this.isProfessor = this.authService.usuarioEhProfessor();
+  }
 
-  toggleCard() {
-    if (this.sala) {
-      this.exibirCard = !this.exibirCard;
+  this.salaService.getSalas().subscribe({
+    next: (salas) => {
+      this.salas = salas;
+      console.log('Salas carregadas:', this.salas);
+    },
+    error: (err) => {
+      console.error('Erro ao carregar salas:', err);
+    }
+  });
+}
 
-      const status = this.sala.statusSala;
-      if (status === this.statusEnum.Indisponivel || status === this.statusEnum.Disponivel) {
-        this.salaService.listSalasById(this.sala.id!).subscribe({
-          next: (salaInfo) => {
-            this.salaSeleciona = salaInfo;
-          },
-          error: (erro) => {
-            console.error('Erro ao buscar dados da sala:', erro);
-          }
-        });
+ toggleCard() {
+  
+  if (this.sala) {
+    this.exibirCard = !this.exibirCard;
 
-      }
+    const status = this.sala.statusSala;
+
+    if (status === this.statusEnum.Reservada) {
+      this.salaSeleciona = this.sala;
+
+      const aula = this.sala.aula;
+      this.nomeDoProfessor = aula?.professor?.nome || 'Não definido';
+      this.disciplinaSelecionada = aula?.disciplina ?? undefined;
+      this.turmaSelecionada = aula?.turma ?? undefined;
+      this.blocoSelecionadoTexto = aula?.bloco != null
+        ? this.converterBlocoParaTexto(aula.bloco)
+        : 'Não definido';
+    } else {
+      this.salaService.listSalasById(this.sala.id!).subscribe({
+        next: (salaInfo) => {
+          this.salaSeleciona = salaInfo;
+        },
+        error: (erro) => {
+          console.error('Erro ao buscar dados da sala:', erro);
+        }
+      });
+
+      this.nomeDoProfessor = 'Não definido';
+      this.disciplinaSelecionada = undefined;
+      this.turmaSelecionada = undefined;
+      this.blocoSelecionadoTexto = 'Não definido';
     }
   }
+}
+
+
   carregarDisciplinas(): void {
     this.disciplinaService.getDisciplinas().subscribe({
       next: (res) => {

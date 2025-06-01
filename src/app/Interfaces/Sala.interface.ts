@@ -1,4 +1,5 @@
 import { TipoSala } from "../Enums/TipoSala.enum";
+import { IAula } from "./Aula.interface";
 
 export interface ISala {
   id?: string;
@@ -6,4 +7,6 @@ export interface ISala {
   statusSala: number;
   tipoSala: TipoSala;
   numero: number;
+
+  aula?: IAula;
 }

@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ActivatedRoute } from '@angular/router';
 import { IResetarSenha, SegurancaService } from '../../../services/seguranca.service';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-redefinir-senha',
   standalone: true,
@@ -17,6 +18,7 @@ import { IResetarSenha, SegurancaService } from '../../../services/seguranca.ser
     MatInputModule,
     MatCardModule,
     NavBarComponent,
+    MatIconModule,
 
   ],
   templateUrl: './redefinir-senha.component.html',
@@ -25,11 +27,13 @@ import { IResetarSenha, SegurancaService } from '../../../services/seguranca.ser
 export class RedefinirSenhaComponent implements OnInit {
   form: FormGroup;
   chaveResetSenha: string = '';
-  esqueciSenhaService: any;
+  esconderNovaSenha: boolean = true;
+  esconderConfirmarSenha: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+     private esqueciSenhaService: SegurancaService,
   ) {
     this.form = this.fb.group(
       {
