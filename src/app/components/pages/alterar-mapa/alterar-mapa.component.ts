@@ -66,7 +66,8 @@ iniciaForm() {
     descricao: ['', [Validators.maxLength(6)]],
     numero: [null],
     tipoSala: [null, Validators.required],
-    statusSala: [null, Validators.required]
+    statusSala: [null, Validators.required],
+    flagExibirNumeroSala: [null]
   }, { validators: this.descricaoOuNumeroValidator });
 }
 
@@ -122,7 +123,8 @@ iniciaForm() {
       descricao: this.formularioDeSalas.value.descricao,
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
-      numero: this.formularioDeSalas.value.numero,
+      numeroSala: this.formularioDeSalas.value.numero,
+      flagExibirNumeroSala : this.formularioDeSalas.value.flagExibirNumeroSala,
     };
 
     if (this.salaParaEdicao) {
@@ -180,7 +182,7 @@ iniciaForm() {
   this.salaParaEdicao = { ...sala };
   this.formularioDeSalas.patchValue({
     descricao: sala.descricao,
-    numero: sala.numero,
+    numero: sala.numeroSala,
     tipoSala: sala.tipoSala,
     statusSala: sala.statusSala
   });

@@ -7,5 +7,5 @@ export interface IUsuario {
     nome: string;
     login: string;
     senha: string;
-    perfil: Perfil;
+    perfil: Perfil | string;
 }

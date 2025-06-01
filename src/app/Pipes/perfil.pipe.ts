@@ -6,13 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PerfilPipe implements PipeTransform {
 
-transform(perfil: number): string {
-  if (perfil === 1) {
-    return 'Administrador';
-  } else if (perfil === 2) {
-    return 'Professor';
-  } else {
-    return 'Perfil inválido';
-  }
+transform(perfil: string): string {
+   switch (perfil) {
+      case 'Administrador':
+        return 'Administrador';
+      case 'Professor':
+        return 'Professor';
+      default:
+        return 'Perfil inválido';
+    }
 }
 }

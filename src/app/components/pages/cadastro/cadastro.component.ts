@@ -53,13 +53,15 @@ export class CadastroComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(4),
+          Validators.minLength(8),
           Validators.maxLength(50),
         ],
       ],
       perfil: [null, [Validators.required]]
     });
   }
+
+ 
 
   ngOnInit(): void {
     this.inicializaFormulario();
@@ -75,10 +77,7 @@ export class CadastroComponent implements OnInit {
 
   SubmitForm() {
     if (this.formularioDeUsuario.valid) {
-      const novoUsuario = {
-        ...this.formularioDeUsuario.value,
-        statusUsuario: StatusUsuario.Pendente, // <- adiciona o status fixo
-      };
+      const novoUsuario = this.formularioDeUsuario.value;
 
       console.log(novoUsuario);
 
@@ -91,7 +90,7 @@ export class CadastroComponent implements OnInit {
           this.formularioDeUsuario.reset();
         },
         error: (err) => {
-          console.error('Erro ao cadastrar usuário:', err);
+          console.log('Erro ao cadastrar usuário:', err);
         },
       });
     }

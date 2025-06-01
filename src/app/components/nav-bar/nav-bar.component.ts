@@ -45,41 +45,30 @@ import { PerfilPipe } from "../../Pipes/perfil.pipe";
 export class NavBarComponent implements OnInit {
   @Input() textoNav: string = '';
 
-  estaLogado: boolean = false;
-  ehAdm: boolean = false;
-  usuario: { nome: string, email: string, cargo: string } = { nome: '', email: '', cargo: '' };
+  estaLogado = false;
+  ehAdm = false;
+  usuario = { nome: '', email: '', cargo: '' };
 
   constructor(
-    public dialog: MatDialog,
+    private readonly dialog: MatDialog,
     private readonly authService: AuthService,
-    public router: Router
+    public readonly router: Router
   ) {}
 
   ngOnInit(): void {
-    const token = this.authService.getToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        this.estaLogado = true;
-        this.ehAdm = payload.Perfil === Perfil.Administrador;
-        this.usuario = {
-          nome: payload.Nome,
-          email: payload.Login,
-          cargo: this.getPerfilUsuario(payload.Perfil),
-        };
-      } catch (error) {
-        console.error('Erro ao decodificar o token:', error);
-        this.estaLogado = false;
-        this.ehAdm = false;
-      }
-    }
-  }
+    this.estaLogado = this.authService.isLoggedIn();
 
-  getPerfilUsuario(perfil: string): string {
-    switch (perfil) {
-      case '1': return '1';
-      case '2': return '2';
-      default: return '';
+    if (this.estaLogado) {
+      const user = this.authService.getUsuario();
+      const perfil = this.authService.getPerfil();
+
+      this.ehAdm = perfil === Perfil.Administrador;
+
+      this.usuario = {
+        nome: user?.nome || '',
+        email: user?.login || '',
+        cargo: user?.perfil || ''
+      };
     }
   }
 
@@ -89,8 +78,6 @@ export class NavBarComponent implements OnInit {
   }
 
   abrirCalendario() {
-    this.dialog.open(CalendarioDialogComponent, {
-      width: '450px',
-    });
+    this.dialog.open(CalendarioDialogComponent, { width: '450px' });
   }
 }

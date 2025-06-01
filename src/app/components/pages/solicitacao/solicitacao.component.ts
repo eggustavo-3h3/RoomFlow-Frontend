@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -7,6 +7,7 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 import { UsuarioService } from '../../../services/usuario.service';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 import { StatusUsuario } from '../../../Enums/StatusUsuario';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-solicitacao',
@@ -22,7 +23,9 @@ import { StatusUsuario } from '../../../Enums/StatusUsuario';
 })
 export class SolicitacaoComponent implements OnInit {
 
-solicitacoes: IUsuario[] = [];
+  solicitacoes: IUsuario[] = [];
+
+  snackBar = inject(MatSnackBar);
 
   displayedColumns: string[] = ['nome','login', 'perfil', 'acoes'];
 
@@ -30,9 +33,9 @@ solicitacoes: IUsuario[] = [];
  
 
   ngOnInit(): void {
-    this.usuarioService.getUsers().subscribe({
+    this.usuarioService.getUsersPendentes().subscribe({
       next: (usuarios) => {
-        this.solicitacoes = usuarios.filter(user => user.statusUsuario === StatusUsuario.Pendente);
+        this.solicitacoes = usuarios;
       },
       error: (err) => {
         console.error('Erro ao buscar solicitações:', err);
@@ -41,23 +44,35 @@ solicitacoes: IUsuario[] = [];
   }
 
   aceitarSolicitacao(user: IUsuario) {
-    this.usuarioService.aprovarUsuario(user.id!).subscribe({
+    this.usuarioService.usuarioAtivar(user.id!).subscribe({
       next: () => {
         this.removerDaLista(user);
+        this.snackBar.open('Usuario aceito', 'Ok', {
+          duration: 3000
+        });
       },
       error: (err) => {
         console.error('Erro ao aprovar usuário:', err);
+        this.snackBar.open('Erro ao aceitar usuário', 'Ok', {
+          duration: 3000
+        });
       }
     });
   }
   
   rejeitarSolicitacao(user: IUsuario) {
-    this.usuarioService.rejeitarUsuario(user.id!).subscribe({
+    this.usuarioService.usuarioInativar(user.id!).subscribe({
       next: () => {
         this.removerDaLista(user);
+        this.snackBar.open('Usuario Rejeitado', 'Ok', {
+          duration: 3000
+        });
       },
       error: (err) => {
         console.error('Erro ao rejeitar usuário:', err);
+        this.snackBar.open('Erro ao rejeitar usuário', 'Ok', {
+          duration: 3000
+        });
       }
     });
   }

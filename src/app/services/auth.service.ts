@@ -5,35 +5,12 @@ import { Perfil } from '../Enums/Perfil.enum';
 import { IUsuario } from '../Interfaces/Usuario.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  getUsuario(): IUsuario | null {
-  const token = this.getToken();
-  if (!token) return null;
-
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-
-    const usuario: IUsuario = {
-      statusUsuario: payload.StatusUsuario || '',     
-      id: payload.Id,                    
-      nome: payload.Nome || '',
-      login: payload.Login || '',
-      senha: '',                        
-      perfil: payload.Perfil           
-    };
-
-    return usuario;
-  } catch (error) {
-    console.error('Erro ao decodificar token para obter usuário:', error);
-    return null;
-  }
-}
-
-  constructor(private readonly http: HttpClient) { }
-
   private url = 'https://roomflow-api.tccnapratica.com.br/autenticar';
+
+  constructor(private readonly http: HttpClient) {}
 
   logar(login: string, senha: string): Observable<string> {
     return this.http.post<string>(this.url, { login, senha });
@@ -47,37 +24,66 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  getToken() {
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  getNomeDoUsuarioLogado(): string | null {
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  private decodeToken(): any | null {
     const token = this.getToken();
     if (!token) return null;
-  
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.Nome || payload.sub || null;
+      return JSON.parse(atob(token.split('.')[1]));
     } catch (error) {
       console.error('Erro ao decodificar token:', error);
       return null;
     }
   }
 
-  usuarioEhProfessor(): boolean {
-    const token = this.getToken();
-    if (!token) return false;
-  
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload?.Perfil === Perfil.Professor; // 2
-    } catch (error) {
-      console.error('Erro ao decodificar token:', error);
-      return false;
+  getUsuario(): IUsuario | null {
+    const payload = this.decodeToken();
+    if (!payload) return null;
+
+    return {
+      statusUsuario: payload.StatusUsuario || '',
+      id: payload.Id,
+      nome: payload.Nome || '',
+      login: payload.Login || '',
+      senha: '',
+      perfil:
+        payload[
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ] || '',
+    };
+  }
+
+  getNomeDoUsuarioLogado(): string {
+    const usuario = this.getUsuario();
+    return usuario ? usuario.nome : '';
+  }
+
+  getPerfil(): Perfil | null {
+    const usuario = this.getUsuario();
+    if (!usuario) return null;
+
+    switch (usuario.perfil) {
+      case 'Administrador':
+        return Perfil.Administrador;
+      case 'Professor':
+        return Perfil.Professor;
+      default:
+        return null;
     }
+  }
+
+  usuarioEhProfessor(): boolean {
+    return this.getPerfil() === Perfil.Professor;
+  }
+
+  usuarioEhAdministrador(): boolean {
+    return this.getPerfil() === Perfil.Administrador;
   }
 }

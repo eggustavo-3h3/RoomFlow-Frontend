@@ -6,7 +6,7 @@ export interface ISala {
   descricao: string;
   statusSala: number;
   tipoSala: TipoSala;
-  numero: number;
-
-  aula?: IAula;
+  numeroSala: number;
+  flagExibirNumeroSala : boolean;
+  //aula?: IAula;
 }

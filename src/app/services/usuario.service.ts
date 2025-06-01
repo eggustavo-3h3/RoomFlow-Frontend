@@ -21,6 +21,10 @@ export class UsuarioService {
     return this.http.get<IUsuario[]>(this.url + '/listar-ativos');
   }
 
+  getUsersPendentes() : Observable<IUsuario[]> {
+    return this.http.get<IUsuario[]>(this.url + '/listar-pendentes');
+  }
+
   getProfessores(): Observable<IUsuario[]> {
   return this.http.get<IUsuario[]>(this.url + '/listar-ativos').pipe(
     map((usuarios : IUsuario[]) => {
@@ -35,13 +39,16 @@ export class UsuarioService {
   criarUsuario(usuario: IUsuario): Observable<IUsuario> {
     return this.http.post<IUsuario>(this.url + '/adicionar', usuario);
   }
-  
-  aprovarUsuario(id: number): Observable<IUsuario> {
-    return this.http.put<IUsuario>(this.url + '/aprovar/' + id, {});
-  }
-  
-  rejeitarUsuario(id: number): Observable<IUsuario> {
-    return this.http.put<IUsuario>(this.url + '/rejeitar/' + id, {});
-  }
 
+  signUp(usuario  : IUsuario) {
+    return this.http.post('https://roomflow-api.tccnapratica.com.br/signup', usuario)
+  }
+  
+  usuarioAtivar(id: number): Observable<IUsuario> {
+    return this.http.put<IUsuario>(this.url + '/ativar/' + id, {});
+  }
+  
+  usuarioInativar(id: number): Observable<IUsuario> {
+    return this.http.put<IUsuario>(this.url + '/inativar/' + id, {});
+  }
 }

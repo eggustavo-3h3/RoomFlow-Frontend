@@ -1,4 +1,5 @@
 import { Bloco } from "../Enums/Bloco.enum";
+import { ICurso } from "./Curso.interface";
 import { IDisciplina } from "./Disciplina.interface";
 import { ISala } from "./Sala.interface";
 import { ITurma } from "./Turma.interface";
@@ -12,4 +13,5 @@ export interface IAula {
     turma: ITurma;
     data : Date | string;
     professor: IUsuario;
+    curso: ICurso;
 }

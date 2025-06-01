@@ -131,40 +131,40 @@ ngOnInit() {
   });
 }
 
- toggleCard() {
+//  toggleCard() {
   
-  if (this.sala) {
-    this.exibirCard = !this.exibirCard;
+//   if (this.sala) {
+//     this.exibirCard = !this.exibirCard;
 
-    const status = this.sala.statusSala;
+//     const status = this.sala.statusSala;
 
-    if (status === this.statusEnum.Reservada) {
-      this.salaSeleciona = this.sala;
+//     if (status === this.statusEnum.Reservada) {
+//       this.salaSeleciona = this.sala;
 
-      const aula = this.sala.aula;
-      this.nomeDoProfessor = aula?.professor?.nome || 'Não definido';
-      this.disciplinaSelecionada = aula?.disciplina ?? undefined;
-      this.turmaSelecionada = aula?.turma ?? undefined;
-      this.blocoSelecionadoTexto = aula?.bloco != null
-        ? this.converterBlocoParaTexto(aula.bloco)
-        : 'Não definido';
-    } else {
-      this.salaService.listSalasById(this.sala.id!).subscribe({
-        next: (salaInfo) => {
-          this.salaSeleciona = salaInfo;
-        },
-        error: (erro) => {
-          console.error('Erro ao buscar dados da sala:', erro);
-        }
-      });
+//       const aula = this.sala.aula;
+//       this.nomeDoProfessor = aula?.professor?.nome || 'Não definido';
+//       this.disciplinaSelecionada = aula?.disciplina ?? undefined;
+//       this.turmaSelecionada = aula?.turma ?? undefined;
+//       this.blocoSelecionadoTexto = aula?.bloco != null
+//         ? this.converterBlocoParaTexto(aula.bloco)
+//         : 'Não definido';
+//     } else {
+//       this.salaService.listSalasById(this.sala.id!).subscribe({
+//         next: (salaInfo) => {
+//           this.salaSeleciona = salaInfo;
+//         },
+//         error: (erro) => {
+//           console.error('Erro ao buscar dados da sala:', erro);
+//         }
+//       });
 
-      this.nomeDoProfessor = 'Não definido';
-      this.disciplinaSelecionada = undefined;
-      this.turmaSelecionada = undefined;
-      this.blocoSelecionadoTexto = 'Não definido';
-    }
-  }
-}
+//       this.nomeDoProfessor = 'Não definido';
+//       this.disciplinaSelecionada = undefined;
+//       this.turmaSelecionada = undefined;
+//       this.blocoSelecionadoTexto = 'Não definido';
+//     }
+//   }
+// }
 
 
   carregarDisciplinas(): void {
@@ -202,66 +202,66 @@ ngOnInit() {
     this.mostrarConfirmacaoFinal = true;
   }
 
- confirmarReservaFinal() {
-  if (!this.sala) {
-    console.error('Sala não está definida.');
-    return;
-  }
+//  confirmarReservaFinal() {
+//   if (!this.sala) {
+//     console.error('Sala não está definida.');
+//     return;
+//   }
 
-  if (this.formulario.invalid) {
-    console.error('Formulário está inválido.');
-    this.formulario.markAllAsTouched();
-    return;
-  }
+//   if (this.formulario.invalid) {
+//     console.error('Formulário está inválido.');
+//     this.formulario.markAllAsTouched();
+//     return;
+//   }
 
-  const professor = this.authService.getUsuario();
-  if (!professor) {
-    console.error('Usuário não está logado.');
-    return;
-  }
+//   const professor = this.authService.getUsuario();
+//   if (!professor) {
+//     console.error('Usuário não está logado.');
+//     return;
+//   }
 
-  console.log('confirmarReservaFinal() foi chamado e está tudo válido.');
+//   console.log('confirmarReservaFinal() foi chamado e está tudo válido.');
 
-  const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
-  const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
-  const blocoSelecionado = this.formulario.value.bloco;
-  const dataSelecionada = this.formulario.value.data;
+//   const disciplinaSelecionada = this.disciplinas.find(d => d.id === this.formulario.value.disciplina);
+//   const turmaSelecionada = this.turmas.find(t => t.id === this.formulario.value.turma);
+//   const blocoSelecionado = this.formulario.value.bloco;
+//   const dataSelecionada = this.formulario.value.data;
 
-  if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado || !dataSelecionada) {
-    console.error('Erro: disciplina, turma, bloco ou data não selecionados corretamente.');
-    return;
-  }
-  const dataFormatada = new Date(dataSelecionada).toISOString().split('T')[0];
+//   if (!disciplinaSelecionada || !turmaSelecionada || !blocoSelecionado || !dataSelecionada) {
+//     console.error('Erro: disciplina, turma, bloco ou data não selecionados corretamente.');
+//     return;
+//   }
+//   const dataFormatada = new Date(dataSelecionada).toISOString().split('T')[0];
 
-  const dadosReserva: IAula = {
-    bloco: blocoSelecionado,
-    disciplina: disciplinaSelecionada,
-    sala: this.sala,
-    turma: turmaSelecionada,
-    data: dataFormatada,
-    professor: professor
-  };
+//   const dadosReserva: IAula = {
+//     bloco: blocoSelecionado,
+//     disciplina: disciplinaSelecionada,
+//     sala: this.sala,
+//     turma: turmaSelecionada,
+//     data: dataFormatada,
+//     professor: professor
+//   };
 
-  console.log('Dados da reserva:', dadosReserva);
+//   console.log('Dados da reserva:', dadosReserva);
 
-  this.aulaService.criarAula(dadosReserva).subscribe({
-    next: () => {
-      this.sala.statusSala = Status.Reservada;
+//   this.aulaService.criarAula(dadosReserva).subscribe({
+//     next: () => {
+//       this.sala.statusSala = Status.Reservada;
 
-      this.salaService.atualizarSala(this.sala).subscribe({
-        next: () => {
-          this.mostrarConfirmacaoFinal = false;
-          this.mostrarReservaCard = false;
-          this.exibirCard = false;
-          this.formulario.reset();
-          this.reservaConfirmada.emit(this.sala);
-        },
-        error: (err) => console.error('Erro ao atualizar status da sala:', err)
-      });
-    },
-    error: (err) => console.error('Erro ao salvar aula:', err)
-  });
-}
+//       this.salaService.atualizarSala(this.sala).subscribe({
+//         next: () => {
+//           this.mostrarConfirmacaoFinal = false;
+//           this.mostrarReservaCard = false;
+//           this.exibirCard = false;
+//           this.formulario.reset();
+//           this.reservaConfirmada.emit(this.sala);
+//         },
+//         error: (err) => console.error('Erro ao atualizar status da sala:', err)
+//       });
+//     },
+//     error: (err) => console.error('Erro ao salvar aula:', err)
+//   });
+// }
 
   
 

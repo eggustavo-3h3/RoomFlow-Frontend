@@ -1,10 +1,10 @@
-<div>
+<!-- <div>
   <div [ngClass]="corDoCardClass()" class="card" (click)="toggleCard()">
   {{ saladesc }}
   </div>
 </div>
 
-<div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
+<div class="overlay" *ngIf="exibirCard"  (click)="toggleCard()">
   <div class="modal-card" (click)="$event.stopPropagation()">
 
     <div *ngIf="salaSeleciona">
@@ -33,9 +33,9 @@
   <p class="card-text"><strong>Bloco:</strong> {{ blocoSelecionadoTexto || 'Não definido' }}</p>
 </ng-template>
 
-    <button mat-raised-button class="fechar-button" (click)="toggleCard()">
+     <button mat-raised-button class="fechar-button" (click)="toggleCard()">
       Fechar
-    </button>
+    </button> 
     <button mat-raised-button class="removerSala-button ml-2" *ngIf="mostrarExcluirBotao" (click)="onRemoverSala()">
       Remover sala
     </button>
@@ -55,7 +55,6 @@
 
     <div *ngIf="mostrarReservaCard" class="overlay"></div>
 
-    <!-- Card de reserva de sala -->
     <mat-card *ngIf="mostrarReservaCard" class="reserva-card">
       <mat-card-title class="card-title">
         Reserva de Sala
@@ -126,7 +125,8 @@
             <div class="confirmacao-container">
               <p class="confirmacao-texto">Deseja realmente reservar a sala {{ saladesc }}?</p>
               <div class="botoes-confirmacao">
-                <button mat-raised-button color="primary" (click)="confirmarReservaFinal()">OK</button>
+                
+               <button mat-raised-button color="primary" (click)="confirmarReservaFinal()">OK</button> 
                 <button mat-raised-button color="warn" (click)="cancelarConfirmacaoFinal()">Cancelar</button>
               </div>
             </div>
@@ -135,4 +135,4 @@
       </form>
     </mat-card>
   </div>
-</div>
+</div>  -->
