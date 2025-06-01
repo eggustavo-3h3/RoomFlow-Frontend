@@ -32,7 +32,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CadastroComponent implements OnInit {
   
   usuarios: IUsuario[] = [];
-
+  isMobile: boolean = false;
   snackBar = inject(MatSnackBar);
 
   perfil = [
@@ -63,7 +63,11 @@ export class CadastroComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializaFormulario();
+     window.addEventListener('resize', this.checkMobileMode.bind(this));
   }
+  checkMobileMode() {
+  this.isMobile = window.innerWidth <= 768;
+}
 
   voltar() {
     this.router.navigate(['/']);

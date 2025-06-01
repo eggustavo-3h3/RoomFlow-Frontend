@@ -63,3 +63,39 @@ table.mat-table {
 .icone-vermelho {
   color: #F44336 !important;
 }
+/* Responsividade para telas pequenas */
+@media screen and (max-width: 768px) {
+  .corpo {
+    padding: 20px 10px;
+  }
+
+  .solicitacoes-container {
+    padding: 10px;
+    border-width: 1px;
+    box-shadow: none;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .icone-verde,
+  .icone-vermelho {
+    font-size: 20px;
+  }
+
+  .acoes-cell button {
+    margin: 0 4px;
+  }
+}
+
+/* Tabela com rolagem horizontal para mobile */
+.solicitacoes-container {
+  overflow-x: auto;
+}
+
+table.mat-table {
+  min-width: 600px; /* evita quebra da tabela em telas muito estreitas */
+}

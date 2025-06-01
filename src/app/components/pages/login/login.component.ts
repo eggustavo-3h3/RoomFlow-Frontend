@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   formularioDeUsuario: FormGroup = new FormGroup({});
   passwordAppears = false;
+  isMobile = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -40,7 +41,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaForm();
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
   }
+  checkScreenSize() {
+  this.isMobile = window.innerWidth <= 768;
+}
   voltar() {
     this.router.navigate(['/']);
   }
