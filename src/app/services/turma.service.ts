@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ITurma } from '../Interfaces/Turma.interface';
+import { ITurma, ITurmaAdicionar, ITurmaAtualizar } from '../Interfaces/Turma.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,21 @@ export class TurmaService {
   }
 
   getTurmaById(id: string): Observable<ITurma> {
-    return this.http.get<ITurma>(this.url + '/listar/' + id);
+    return this.http.get<ITurma>(this.url + '/obter/' + id);
   }
 
-  adicionarTurma(turma: ITurma) : Observable<ITurma> {
+  adicionarTurma(turma: ITurmaAdicionar) : Observable<ITurma> {
     return this.http.post<ITurma>(this.url + '/adicionar', turma);
   }
 
-  atualizarTurma(turma: ITurma): Observable<ITurma> {
-    return this.http.put<ITurma>(this.url + '/atualizar', turma);
+  atualizarTurma(turma: ITurmaAtualizar): Observable<ITurma> {
+  if (!turma.id) {
+    throw new Error('ID da turma é obrigatório para atualização');
   }
+  return this.http.put<ITurma>(`${this.url}/atualizar`, turma);
+}
 
-  removerTurma(id: number) : Observable<ITurma> {
+  removerTurma(id: string) : Observable<ITurma> {
     return this.http.delete<ITurma>(this.url + '/remover/' + id);
   }
 

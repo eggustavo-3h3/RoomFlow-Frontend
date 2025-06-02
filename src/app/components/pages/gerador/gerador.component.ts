@@ -149,7 +149,11 @@ export class GeradorComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.aulaService.gerador(this.form.value).subscribe({
+
+      const formValue = {...this.form.value};
+    formValue.salaId = formValue.salaId.id;
+
+      this.aulaService.gerador(formValue).subscribe({
         next : ger => {
           this.snackBar.open('Aulas geradas com sucesso', 'Ok', {
             duration: 3000

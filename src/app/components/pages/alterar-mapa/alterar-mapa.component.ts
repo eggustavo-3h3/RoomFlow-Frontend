@@ -7,9 +7,16 @@ import { ISala } from '../../../Interfaces/Sala.interface';
 import { Status } from '../../../Enums/Status.enum';
 import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TipoSala } from '../../../Enums/TipoSala.enum';
+import { IMapa } from '../../../Interfaces/Mapa.interface';
 
 @Component({
   selector: 'app-alterar-mapa',
@@ -22,17 +29,15 @@ import { TipoSala } from '../../../Enums/TipoSala.enum';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-
   ],
   templateUrl: './alterar-mapa.component.html',
   styleUrl: './alterar-mapa.component.css',
 })
 export class AlterarMapaComponent implements OnInit {
-
-
   salas: ISala[] = [];
   exibirmodal: boolean = false;
   snackBar = inject(MatSnackBar);
+  mapa: IMapa[] = [];
 
   formularioDeSalas: FormGroup = new FormGroup({});
 
@@ -46,7 +51,7 @@ export class AlterarMapaComponent implements OnInit {
     { label: 'Lab. Informatica', value: TipoSala.LabInformatica },
     { label: 'Lab. Quimica', value: TipoSala.LabQuimica },
     { label: 'Sala Comum', value: TipoSala.SalaComum },
-  ]
+  ];
 
   mostrarExcluirBotao: boolean = false;
 
@@ -58,21 +63,24 @@ export class AlterarMapaComponent implements OnInit {
 
   constructor(
     private readonly _salaService: SalaService,
-    private readonly formBuilder: FormBuilder,
-  ) { }
+    private readonly formBuilder: FormBuilder
+  ) {}
 
-iniciaForm() {
-  this.formularioDeSalas = this.formBuilder.group({
-    descricao: ['', [Validators.maxLength(6)]],
-    numero: [null],
-    tipoSala: [null, Validators.required],
-    statusSala: [null, Validators.required],
-    flagExibirNumeroSala: [null]
-  }, { validators: this.descricaoOuNumeroValidator });
-}
+  iniciaForm() {
+    this.formularioDeSalas = this.formBuilder.group(
+      {
+        descricao: ['', [Validators.maxLength(6)]],
+        numero: [null],
+        tipoSala: [null, Validators.required],
+        statusSala: [null, Validators.required],
+        flagExibirNumeroSala: [null],
+      },
+      { validators: this.descricaoOuNumeroValidator }
+    );
+  }
 
   ngOnInit(): void {
-    this.getSalas();
+    this.getMapa();
     this.iniciaForm();
     this.atualizarContagens();
   }
@@ -84,33 +92,46 @@ iniciaForm() {
   }
 
   atualizarContagens() {
-    this.salasDisponiveis = this.salas.filter(s => s.statusSala === Status.Disponivel).length;
-    this.salasReservadas = this.salas.filter(s => s.statusSala === Status.Reservada).length;
-    this.salasIndisponiveis = this.salas.filter(s => s.statusSala === Status.Indisponivel).length;
+    this.salasDisponiveis = this.mapa.filter(
+      (s) => s.statusSala === Status.Disponivel
+    ).length;
+    this.salasReservadas = this.mapa.filter(
+      (s) => s.statusSala === Status.Reservada
+    ).length;
+    this.salasIndisponiveis = this.mapa.filter(
+      (s) => s.statusSala === Status.Indisponivel
+    ).length;
   }
 
-  getSalas() {
-    this._salaService.getSalas().subscribe({
-      next: lista => {
-        this.salas = lista;
+  getMapa() {
+    this._salaService.getMapa().subscribe({
+      next: (lista) => {
+        this.mapa = lista;
         this.atualizarContagens();
       },
-      error: erro => {
+      error: (erro) => {
         console.log(erro.message);
+        this.snackBar.open(
+          'Erro ao carregar salas, volte novamente mais tarde!',
+          'Fechar',
+          {
+            duration: 3000,
+          }
+        );
       },
     });
   }
 
   descricaoOuNumeroValidator(form: FormGroup) {
-  const descricao = form.get('descricao')?.value;
-  const numero = form.get('numero')?.value;
+    const descricao = form.get('descricao')?.value;
+    const numero = form.get('numero')?.value;
 
-  if (!descricao && !numero) {
-    return { descricaoOuNumeroObrigatorio: true };
+    if (!descricao && !numero) {
+      return { descricaoOuNumeroObrigatorio: true };
+    }
+
+    return null;
   }
-
-  return null;
-}
 
   cadastrarSalas() {
     if (this.formularioDeSalas.invalid) {
@@ -124,39 +145,39 @@ iniciaForm() {
       statusSala: this.formularioDeSalas.value.statusSala,
       tipoSala: this.formularioDeSalas.value.tipoSala,
       numeroSala: this.formularioDeSalas.value.numero,
-      flagExibirNumeroSala : this.formularioDeSalas.value.flagExibirNumeroSala,
+      flagExibirNumeroSala: this.formularioDeSalas.value.flagExibirNumeroSala,
     };
 
     if (this.salaParaEdicao) {
       this._salaService.atualizarSala(novaSala).subscribe({
-        next: retorno => {
-          this.snackBar.open( 'Sala editada com sucesso', 'Fechar', {
+        next: (retorno) => {
+          this.snackBar.open('Sala editada com sucesso', 'Fechar', {
             duration: 3000,
           });
-          this.getSalas();
+          this.getMapa();
           this.toggleModal();
           this.formularioDeSalas.reset();
         },
-        error: erro => {
+        error: (erro) => {
           this.snackBar.open('Erro ao editar sala', 'Fechar', {
             duration: 3000,
           });
           this.toggleModal();
-        }
+        },
       });
     } else {
       this._salaService.cadastrarSala(novaSala).subscribe({
-        next: retorno => {
+        next: (retorno) => {
           this.salas.push(retorno);
-          this.getSalas();
+          this.getMapa();
           this.toggleModal();
           this.formularioDeSalas.reset();
         },
-        error: erro => {
+        error: (erro) => {
           this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
             duration: 3000,
           });
-        }
+        },
       });
     }
   }
@@ -167,25 +188,37 @@ iniciaForm() {
         this.snackBar.open('Sala removida com sucesso!', 'Fechar', {
           duration: 3000,
         });
-        this.getSalas();
+        this.getMapa();
       },
-      error: erro => {
+      error: (erro) => {
         this.snackBar.open('Erro ao remover sala', 'Fechar', {
           duration: 3000,
         });
         console.error(erro);
-      }
+      },
     });
   }
 
-  abrirModalEdicao(sala: ISala) {
-  this.salaParaEdicao = { ...sala };
-  this.formularioDeSalas.patchValue({
-    descricao: sala.descricao,
-    numero: sala.numeroSala,
-    tipoSala: sala.tipoSala,
-    statusSala: sala.statusSala
-  });
-  this.exibirmodal = true;
-}
+  abrirModalEdicao(salaId: string) {
+    const sala = this.mapa.find((s) => s.salaId === salaId);
+
+    if (!sala) {
+      this.snackBar.open('Sala não encontrada!', 'Fechar', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    this.salaParaEdicao = { ...sala };
+
+    this.formularioDeSalas.patchValue({
+      descricao: sala.descricao,
+      numero: sala.numeroSala,
+      tipoSala: sala.tipoSala,
+      statusSala: sala.statusSala,
+      flagExibirNumeroSala: sala.flagExibirNumeroSala,
+    });
+
+    this.exibirmodal = true;
+  }
 }

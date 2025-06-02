@@ -19,12 +19,12 @@
 
     <mat-card-content>
       <div class="cards-container">
-  <div *ngFor="let sala of salas">
+  <div *ngFor="let map of mapa">
     <app-cards-sala 
-      [sala]="sala" 
-      [saladesc]="sala.descricao"
+      [mapa]="map" 
+      [saladesc]="map.descricao"
       [botaoReservarSala]="authService.usuarioEhProfessor() ? true : false"
-      (reservaConfirmada)="atualizarSalaReservada($event)">
+      >
     </app-cards-sala>
   </div>
 </div>

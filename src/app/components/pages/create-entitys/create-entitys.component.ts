@@ -56,6 +56,8 @@ export class CreateEntitysComponent implements OnInit {
     this.cursoService.getCursos().subscribe({
       next: (cursos) => {
         this.cursosList = cursos;
+        console.log(cursos);
+        
       },
       error: (error) => {
         console.log('Não foi possível carregar cursos:', error);
@@ -103,6 +105,7 @@ export class CreateEntitysComponent implements OnInit {
   }
 
   selecionarTurma(turma: ITurma) {
+    console.log('Selecionando turma com ID:', turma.id);
     this.turmaSelected = turma;
     this.router.navigate(['/formTurma', turma.id]);
   }

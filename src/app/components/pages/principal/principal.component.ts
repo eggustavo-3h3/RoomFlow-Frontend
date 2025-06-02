@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../services/auth.service';
+import { IMapa } from '../../../Interfaces/Mapa.interface';
 
 @Component({
   selector: 'app-principal',
@@ -21,6 +22,9 @@ export class PrincipalComponent implements OnInit {
   @ViewChildren(CardsSalaComponent) cards!: QueryList<CardsSalaComponent>;
 
   salas: ISala[] = [];
+
+  mapa : IMapa[] = [];
+
   snackBar = inject(MatSnackBar);
   authService = inject(AuthService);
 
@@ -33,7 +37,7 @@ export class PrincipalComponent implements OnInit {
   @Output() salaAtualizada = new EventEmitter<ISala>();
 
   ngOnInit(): void {
-    this.getSalas();
+    this.getMapa();
   }
 
   atualizarContagens() {
@@ -58,10 +62,11 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
-  getSalas() {
-    this._salaService.getSalas().subscribe({
+  getMapa() {
+    this._salaService.getMapa().subscribe({
       next: lista => {
-        this.salas = lista;
+        console.log(lista);
+        this.mapa = lista;
         this.atualizarContagens();
       },
       error: erro => {
@@ -78,25 +83,6 @@ export class PrincipalComponent implements OnInit {
       card.exibirCard = false;
       card.mostrarReservaCard = false;
       card.mostrarConfirmacaoFinal = false;
-    });
-  }
-
-  onReservaConfirmada(salaReservada: ISala) {
-    this.atualizarSalaReservada(salaReservada);
-    this.fecharTodosCards();
-  }
-  filtrarPorBloco(bloco: string) {
-    this._salaService.getSalas().subscribe({
-      next: lista => {
-        this.salas = lista;
-        this.atualizarContagens();
-      },
-      error: erro => {
-        console.log(erro.message);
-        this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
-          duration: 3000,
-        });
-      },
     });
   }
 }

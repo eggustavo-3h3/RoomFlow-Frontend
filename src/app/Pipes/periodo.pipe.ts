@@ -6,17 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PeriodoPipe implements PipeTransform {
 
-  transform(periodo: number): string {
+  transform(periodo: string): string {
 
     if (!periodo) {
       return '';
     }
     
-    if (periodo === 1) {
+    if (periodo === 'Manha') {
       return 'Manhã';
-    } else if (periodo === 2) {
+    } else if (periodo === 'Tarde') {
       return 'Tarde';
-    } else if (periodo === 3) { 
+    } else if (periodo === 'Noite') { 
       return 'Noite';
     } else {
       return 'Período inválido';

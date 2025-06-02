@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ISala } from '../Interfaces/Sala.interface';
 import { Status } from '../Enums/Status.enum'; // ajuste o caminho conforme sua estrutura
+import { IMapa } from '../Interfaces/Mapa.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class SalaService {
         }))
       )
     );
+  }
+
+  getMapa() : Observable<IMapa[]> {
+    return this.http.get<IMapa[]>('https://roomflow-api.tccnapratica.com.br/mapa/listar');
   }
 
   listSalasById(id : string) : Observable<ISala> {

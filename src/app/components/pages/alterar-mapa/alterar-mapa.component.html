@@ -2,19 +2,22 @@
 <div class="corpo">
   <mat-card>
     <mat-card-header class="header-botao">
-      <button mat-raised-button color="primary" class="custom-button" (click)="toggleModal()">
+      <button
+        mat-raised-button
+        color="primary"
+        class="custom-button"
+        (click)="toggleModal()"
+      >
         Adicionar sala
       </button>
     </mat-card-header>
 
     <mat-card-content>
       <div class="cards-container">
-        <div *ngFor="let sala of salas; let i = index">
+        <div *ngFor="let map of mapa">
           <app-cards-sala
-            [sala]="sala"
-            [mostrarExcluirBotao]="true"
-            [saladesc]="sala.descricao"
-            [mostrarEditarBotao]="true"
+            [mapa]="map"
+            [saladesc]="map.descricao"
             [botaoReservarSala]="false"
             (removerSala)="removerSala($event)"
             (editarSala)="abrirModalEdicao($event)"
@@ -24,7 +27,6 @@
       </div>
     </mat-card-content>
   </mat-card>
-  
 
   <div class="informacoes">
     <div class="informacao-item">
@@ -48,20 +50,31 @@
 
 <div class="overlay" *ngIf="exibirmodal" (click)="toggleModal()">
   <div class="modal-card" (click)="$event.stopPropagation()">
-    <h2 class="card-title">{{ salaParaEdicao ? 'Editar Sala' : 'Adicionar Sala' }}</h2>
+    <h2 class="card-title">
+      {{ salaParaEdicao ? "Editar Sala" : "Adicionar Sala" }}
+    </h2>
     <p class="card-subtitle">Preencha os campos abaixo:</p>
 
-    <form [formGroup]="formularioDeSalas" *ngIf="formularioDeSalas" class="modal-form">
-      
+    <form
+      [formGroup]="formularioDeSalas"
+      *ngIf="formularioDeSalas"
+      class="modal-form"
+    >
       <!-- Descrição -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Descrição da sala</mat-label>
         <input matInput type="text" formControlName="descricao" maxlength="6" />
-        <mat-hint align="end">{{ formularioDeSalas.controls['descricao'] || 0 }}/6</mat-hint>
-        <mat-error *ngIf="formularioDeSalas.controls['descricao'].hasError('required')">
+        <mat-hint align="end"
+          >{{ formularioDeSalas.controls["descricao"] || 0 }}/6</mat-hint
+        >
+        <mat-error
+          *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
+        >
           A descrição é obrigatória.
         </mat-error>
-        <mat-error *ngIf="formularioDeSalas.controls['descricao'].hasError('maxlength')">
+        <mat-error
+          *ngIf="formularioDeSalas.controls['descricao'].hasError('maxlength')"
+        >
           Máximo de 6 caracteres excedido.
         </mat-error>
       </mat-form-field>
@@ -72,16 +85,22 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Número da sala</mat-label>
         <input matInput type="number" formControlName="numero" />
-        <mat-error *ngIf="formularioDeSalas.controls['numero'].hasError('required')">
+        <mat-error
+          *ngIf="formularioDeSalas.controls['numero'].hasError('required')"
+        >
           O número é obrigatório.
         </mat-error>
-        <mat-error *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')">
+        <mat-error
+          *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')"
+        >
           Máximo de 6 caracteres excedido.
         </mat-error>
       </mat-form-field>
 
-      <mat-error *ngIf="formularioDeSalas.errors?.['descricaoOuNumeroObrigatorio']">
-      É necessário preencher a descrição <strong>ou</strong> o número da sala.
+      <mat-error
+        *ngIf="formularioDeSalas.errors?.['descricaoOuNumeroObrigatorio']"
+      >
+        É necessário preencher a descrição <strong>ou</strong> o número da sala.
       </mat-error>
 
       <!-- Tipo -->
@@ -92,7 +111,9 @@
             {{ tipo.label }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="formularioDeSalas.controls['tipoSala'].hasError('required')">
+        <mat-error
+          *ngIf="formularioDeSalas.controls['tipoSala'].hasError('required')"
+        >
           O tipo é obrigatório.
         </mat-error>
       </mat-form-field>
@@ -101,20 +122,33 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Status da Sala</mat-label>
         <mat-select formControlName="statusSala">
-          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+          <mat-option
+            *ngFor="let option of statusOptions"
+            [value]="option.value"
+          >
             {{ option.label }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="formularioDeSalas.controls['statusSala'].hasError('required')">
+        <mat-error
+          *ngIf="formularioDeSalas.controls['statusSala'].hasError('required')"
+        >
           O status é obrigatório.
         </mat-error>
       </mat-form-field>
 
-    <div class="botoes-modal">
-      <button type="button" mat-raised-button class="botao-adicionar" (click)="cadastrarSalas()">
-        {{ salaParaEdicao ? 'Editar' : 'Cadastrar' }}
-      </button>
-      <button mat-raised-button class="botao-fechar" (click)="toggleModal()">
-        Fechar
-      </button>
-    </div>
+      <div class="botoes-modal">
+        <button
+          type="button"
+          mat-raised-button
+          class="botao-adicionar"
+          (click)="cadastrarSalas()"
+        >
+          {{ salaParaEdicao ? "Editar" : "Cadastrar" }}
+        </button>
+        <button mat-raised-button class="botao-fechar" (click)="toggleModal()">
+          Fechar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

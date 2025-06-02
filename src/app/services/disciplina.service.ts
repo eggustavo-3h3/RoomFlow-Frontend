@@ -17,7 +17,7 @@ export class DisciplinaService {
   }
 
   getDisciplinasPorId(id: string) : Observable<IDisciplina> {
-    return this.http.get<IDisciplina>(this.url + '/listar/' + id);
+    return this.http.get<IDisciplina>(this.url + '/obter/' + id);
   }
 
   atualizarDisciplina(disciplina: IDisciplina): Observable<IDisciplina> {
