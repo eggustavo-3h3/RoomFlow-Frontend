@@ -60,13 +60,12 @@
       *ngIf="formularioDeSalas"
       class="modal-form"
     >
-      <!-- Descrição -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Descrição da sala</mat-label>
         <input matInput type="text" formControlName="descricao" maxlength="6" />
-        <mat-hint align="end"
-          >{{ formularioDeSalas.controls["descricao"] || 0 }}/6</mat-hint
-        >
+        <mat-hint align="end">
+        {{ formularioDeSalas.controls["descricao"].value?.length || 0 }}/6
+        </mat-hint>
         <mat-error
           *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
         >
@@ -81,7 +80,6 @@
 
       <div class="ou-texto">ou</div>
 
-      <!-- Número -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Número da sala</mat-label>
         <input matInput type="number" formControlName="numero" />
@@ -118,7 +116,6 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Status -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Status da Sala</mat-label>
         <mat-select formControlName="statusSala">

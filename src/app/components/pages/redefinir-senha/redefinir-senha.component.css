@@ -35,6 +35,7 @@ body {
     
     mat-form-field {
       width: 100%;
+      background-color: transparent !important;
     }
     
    button[type="submit"] {
@@ -65,13 +66,14 @@ button[type="submit"]:disabled {
   box-shadow: none;
 }
 mat-form-field {
+  background-color: transparent !important;
   width: 100%;
   margin-bottom: 20px;
 }
 
-/* Estilização do campo de input */
+
 input[matInput] {
-  padding-right: 40px; /* Espaço para o ícone de olho */
+  padding-right: 40px;
   font-size: 16px;
 }
 
@@ -82,17 +84,16 @@ button[mat-icon-button] {
 }
 
 button[mat-icon-button]:hover {
-  color: #1976d2; /* Azul Material */
+  color: #1976d2;
 }
 
-/* Responsivo */
+
 @media (max-width: 600px) {
   mat-form-field {
     width: 100%;
   }
 }
     
-    /* Responsividade */
     @media (max-width: 200px) {
       .grid-alterar-senha {
         margin: 20px;

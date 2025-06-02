@@ -8,15 +8,18 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 import { StatusUsuario } from '../../../Enums/StatusUsuario';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-solicitacao',
   standalone: true,
-  imports: [NavBarComponent,
+  imports: [
+    NavBarComponent,
     MatIconModule,
     MatTableModule, 
     PerfilPipe,
     AngularMaterialModule,
+    CommonModule
     ],
   templateUrl: './solicitacao.component.html',
   styleUrl: './solicitacao.component.css'
