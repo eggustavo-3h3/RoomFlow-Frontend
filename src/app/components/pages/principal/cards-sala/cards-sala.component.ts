@@ -154,11 +154,11 @@ export class CardsSalaComponent implements OnInit {
     this.exibirCard = false;
   }
 
-  corDoCardClass(): string {
-    switch (this.mapa.statusSala) {
-      case Status.Disponivel:
+  corDoCardClass() {
+    switch (this.mapa.statusSala.toString()) {
+      case 'Disponivel':
         return 'card-disponivel';
-      case Status.Indisponivel:
+      case 'Indisponivel':
         return 'card-indisponivel';
       default:
         return 'card-reservado';

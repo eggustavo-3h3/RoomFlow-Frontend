@@ -22,7 +22,7 @@
 
     <p *ngIf="salaDisponivel && isProfessor" class="disponivel-texto">Status: Disponível</p>
 
-    <button mat-raised-button class="reservarSala-button ml-2" (click)="toggleReservaCard()" *ngIf="botaoReservarSala && mapa.statusSala === Status.Disponivel">
+    <button mat-raised-button class="reservarSala-button ml-2" (click)="toggleReservaCard()" *ngIf="botaoReservarSala && mapa.statusSala.toString() === 'Disponivel'">
       Reservar sala
     </button>
 
