@@ -1,6 +1,9 @@
 <app-nav-bar></app-nav-bar>
+
 <form [formGroup]="formTurma" class="form-container">
-  <h2 class="form-title">{{ editando ? 'Editar Turma' : 'Cadastrar Turma' }}</h2>
+  <h2 class="form-title">
+    {{ editando ? 'Editar Turma' : 'Cadastrar Turma' }}
+  </h2>
 
   <div class="form-row">
     <mat-form-field appearance="fill" class="form-field">
@@ -10,7 +13,7 @@
         formControlName="descricao"
         placeholder="Digite a descrição da turma"
       />
-      <mat-error *ngIf="formTurma.controls['descricao'].hasError('required')">
+      <mat-error *ngIf="formTurma.get('descricao')?.hasError('required')">
         Descrição da turma é obrigatória
       </mat-error>
     </mat-form-field>
@@ -25,7 +28,7 @@
           {{ curso.nome }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="formTurma.controls['curso'].hasError('required')">
+      <mat-error *ngIf="formTurma.get('curso')?.hasError('required')">
         Curso é obrigatório
       </mat-error>
     </mat-form-field>
@@ -40,7 +43,7 @@
       (click)="cadastrar()"
       [disabled]="formTurma.invalid"
     >
-    {{ editando ? 'Salvar' : 'Cadastrar' }}
+      {{ editando ? 'Salvar' : 'Cadastrar' }}
     </button>
   </div>
 </form>

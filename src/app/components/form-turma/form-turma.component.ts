@@ -30,11 +30,11 @@ export class FormTurmaComponent implements OnInit {
   turmaService = inject(TurmaService);
   snackBar = inject(MatSnackBar);
   router = inject(Router);
-  editando: boolean = false;
+  editando = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly route: ActivatedRoute,
+    private readonly route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,32 +44,8 @@ export class FormTurmaComponent implements OnInit {
     const turmaParam = this.route.snapshot.paramMap.get('id');
     if (turmaParam) {
       this.editando = true;
-      this.turmaService.getTurmaById(turmaParam).subscribe({
-        next: (turma) => {
-          this.formTurma.patchValue({
-            id: turma.id,
-            descricao: turma.descricao,
-            curso: turma.cursoId,  // pega o cursoId para o select
-          });
-          console.log('ID recebido na rota:', 'id');
-          console.log('Turma carregada e selecionada:', turma);
-        },
-        error: (error) => {
-          console.error('Erro ao buscar turma:', error);
-        }
-      });
+      this.carregarTurma(turmaParam);
     }
-  }
-
-  getCursos() {
-    this.cursoService.getCursos().subscribe({
-      next: (cursos) => {
-        this.cursos = cursos;
-      },
-      error: (error) => {
-        console.error('Erro ao buscar cursos:', error);
-      }
-    });
   }
 
   iniciarForm() {
@@ -77,6 +53,26 @@ export class FormTurmaComponent implements OnInit {
       id: [''],
       descricao: ['', Validators.required],
       curso: ['', Validators.required],
+    });
+  }
+
+  getCursos() {
+    this.cursoService.getCursos().subscribe({
+      next: (cursos) => this.cursos = cursos,
+      error: (error) => console.error('Erro ao buscar cursos:', error)
+    });
+  }
+
+  carregarTurma(id: string) {
+    this.turmaService.getTurmaById(id).subscribe({
+      next: (turma) => {
+        this.formTurma.patchValue({
+          id: turma.id,
+          descricao: turma.descricao,
+          curso: turma.cursoId
+        });
+      },
+      error: (error) => console.error('Erro ao buscar turma:', error)
     });
   }
 
@@ -88,25 +84,25 @@ export class FormTurmaComponent implements OnInit {
         const turmaParaAtualizar: ITurmaAtualizar = {
           id: formValue.id,
           descricao: formValue.descricao,
-          cursoId: formValue.curso,
+          cursoId: formValue.curso
         };
 
         this.turmaService.atualizarTurma(turmaParaAtualizar).subscribe({
           next: () => {
-            this.snackBar.open('Turma editada com sucesso!', 'Ok', { duration: 3000 });
+            this.snackBar.open('Turma atualizada com sucesso!', 'Ok', { duration: 3000 });
             this.formTurma.reset();
             this.router.navigate(['/create']);
           },
           error: (error) => {
-            console.error('Erro ao editar turma:', error);
-            this.snackBar.open('Erro ao editar turma!', 'Fechar', { duration: 3000 });
+            console.error('Erro ao atualizar turma:', error);
+            this.snackBar.open('Erro ao atualizar turma!', 'Fechar', { duration: 3000 });
           }
         });
 
       } else {
         const turmaParaAdicionar: ITurmaAdicionar = {
           descricao: formValue.descricao,
-          cursoId: formValue.curso,
+          cursoId: formValue.curso
         };
 
         this.turmaService.adicionarTurma(turmaParaAdicionar).subscribe({
@@ -122,7 +118,7 @@ export class FormTurmaComponent implements OnInit {
         });
       }
     } else {
-      this.snackBar.open('Formulario inválido!', 'Ok', { duration: 3000 });
+      this.snackBar.open('Formulário inválido!', 'Ok', { duration: 3000 });
     }
   }
 }

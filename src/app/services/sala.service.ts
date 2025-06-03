@@ -22,15 +22,7 @@ export class SalaService {
   };
 
   getSalas(): Observable<ISala[]> {
-    return this.http.get<any[]>(this.url + '/listar').pipe(
-      map(salasApi => 
-        salasApi.map(sala => ({
-          ...sala,
-          id: sala.salaId,
-          statusSala: this.mapStatus[sala.statusSala as keyof typeof this.mapStatus]
-        }))
-      )
-    );
+    return this.http.get<ISala[]>(this.url + '/listar');
   }
 
   getMapa() : Observable<IMapa[]> {
