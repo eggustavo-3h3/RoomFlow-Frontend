@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   iniciaForm() {
     this.formularioDeUsuario = this.formBuilder.group({
       login: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      senha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]],
     });
   }
 
