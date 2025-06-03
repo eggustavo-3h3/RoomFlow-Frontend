@@ -92,15 +92,9 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   atualizarContagens() {
-    this.salasDisponiveis = this.mapa.filter(
-      (s) => s.statusSala === Status.Disponivel
-    ).length;
-    this.salasReservadas = this.mapa.filter(
-      (s) => s.statusSala === Status.Reservada
-    ).length;
-    this.salasIndisponiveis = this.mapa.filter(
-      (s) => s.statusSala === Status.Indisponivel
-    ).length;
+    this.salasDisponiveis = this.mapa.filter(s => s.statusSala.toString() === 'Disponivel').length;
+    this.salasReservadas = this.mapa.filter(s => s.statusSala.toString() === 'Ocupada').length;
+    this.salasIndisponiveis = this.mapa.filter(s => s.statusSala.toString() === 'Indisponivel').length;
   }
 
   getMapa() {
