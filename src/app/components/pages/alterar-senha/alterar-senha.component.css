@@ -51,7 +51,6 @@ body {
     
   }
   
-  /* Responsividade */
   @media (max-width: 200px) {
     .grid-alterar-senha {
       margin: 20px;

@@ -34,12 +34,22 @@
 @media (max-width: 767px) {
 
   .form-container {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    padding: 15px;
   }
 
   .form-field {
     flex: 1 1 100%;
+  }
+
+.form-title {
+  text-align: center;
+}
+}
+@media (max-width: 767px) {
+  .submit-button {
+    padding: 12px 20px;
+    font-size: 14px;
   }
 }
 

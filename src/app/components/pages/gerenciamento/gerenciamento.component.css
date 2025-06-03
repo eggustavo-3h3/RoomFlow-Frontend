@@ -27,3 +27,24 @@ mat-card-content {
   overflow-y: auto; 
   padding-right: 10px;
 }
+@media (max-width: 767px) {
+  .corpo {
+    padding: 20px 10px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  mat-card {
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scrollable-content {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 10px;
+    max-height: 100%;
+  }
+}

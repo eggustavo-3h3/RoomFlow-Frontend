@@ -85,4 +85,33 @@
   background-color: rgb(248, 248, 248);
   transform: translateX(5px);
 }
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 20px;
+    height: auto;
+  }
+  .login-form {
+    margin-left: 0;
+    transform: none;
+    padding: 30px 20px;
+    max-width: 95%;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+    .imagem-fundo {
+    width: 70%;
+    height: 180px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+    transform: none;
+    margin: 0 auto 20px auto;
+  }
+}
 

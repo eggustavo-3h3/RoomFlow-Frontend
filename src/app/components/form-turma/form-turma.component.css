@@ -30,19 +30,6 @@
   flex: 1 1 48%;
   min-width: 0;
 }
-
-@media (max-width: 767px) {
-
-  .form-container {
-    width: 100%;
-    height: 100%;
-  }
-
-  .form-field {
-    flex: 1 1 100%;
-  }
-}
-
 .mat-form-field {
   width: 100%;
 }
@@ -81,4 +68,19 @@
   background-color: #a1d5a5;
   cursor: not-allowed;
   opacity: 0.7;
+}
+@media (max-width: 767px) {
+  .form-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .form-field {
+    flex: 1 1 100%;
+  }
+
+  .submit-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
 }

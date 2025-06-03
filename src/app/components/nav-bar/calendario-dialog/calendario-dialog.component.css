@@ -54,19 +54,16 @@ mat-dialog-content {
     border-radius: 50%; 
     transition: background-color 0.3s, transform 0.3s;
   }
-  
 
   button[mat-icon-button]:hover {
     background-color: rgba(0, 0, 0, 0.1); 
     transform: scale(1.1); 
   }
   
-  
   button[mat-icon-button] mat-icon {
     font-size: 24px;
     color: #333; 
   }
-  
   
   button[mat-icon-button]:disabled {
     color: #b0b0b0; 
@@ -84,7 +81,7 @@ mat-dialog-content {
       font-size: 20px;
     }
   }
- /* Estilização dos botões */
+
 button[mat-raised-button] {
   margin: 8px 8px 0 0;
   padding: 8px 16px;
@@ -95,9 +92,9 @@ button[mat-raised-button] {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Botão "Filtrar" com cor primária (já usa Angular Material color="primary") */
+
 button[mat-raised-button][color="primary"]:not([disabled]) {
-  background-color: #1976d2; /* Azul Material */
+  background-color: #1976d2;
   color: white;
 }
 
@@ -106,7 +103,6 @@ button[mat-raised-button][color="primary"]:hover:not([disabled]) {
   transform: translateY(-1px);
 }
 
-/* Botão "Fechar" personalizado com classe */
 .botao-fechar {
   background-color: rgb(198, 40, 40) !important;
   color: white !important;
@@ -117,7 +113,6 @@ button[mat-raised-button][color="primary"]:hover:not([disabled]) {
   transform: translateY(-1px);
 }
 
-/* Botão desabilitado */
 button[disabled] {
   cursor: not-allowed;
   opacity: 0.6;

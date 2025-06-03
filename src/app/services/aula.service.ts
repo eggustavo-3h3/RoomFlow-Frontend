@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AulaService {
-  adicionar(dadosReserva: { disciplinaId: any; cursoId: any; salaId: string | undefined; turmaId: number | undefined; data: string; professorId: number | undefined; diaSemana: number; dataInicio: string; dataFim: string; bloco: any; }) {
+  adicionar(dadosReserva: { disciplinaId: any; cursoId: any; salaId: string | undefined; turmaId: number | undefined; data: string; 
+    professorId: number | undefined; diaSemana: number; dataInicio: string; dataFim: string; bloco: any; }) {
     throw new Error('Method not implemented.');
   }
 
