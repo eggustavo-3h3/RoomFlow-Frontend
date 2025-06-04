@@ -137,9 +137,9 @@ export class CardsSalaComponent implements OnInit {
     numeroSala: this.mapa.numeroSala,
     descricao: this.mapa.descricao,
     statusSala: this.mapa.statusSala,
-    tipoSala: this.mapa.tipoSala,
+    tipoSala: TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
     flagExibirNumeroSala: this.mapa.flagExibirNumeroSala
-  } as ISala;
+  };
   }
 
   toggleReservaCard() {
@@ -169,7 +169,7 @@ export class CardsSalaComponent implements OnInit {
     this.removerSala.emit(this.mapa.salaId);
   }
 
-  onEditarSala() {
+  onEditarSala(salaId : string) {
     if (this.mapa.salaId) {
       this.editarSala.emit(this.mapa.salaId);
       this.exibirCard = false;

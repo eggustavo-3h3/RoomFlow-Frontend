@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ISala } from '../Interfaces/Sala.interface';
-import { Status } from '../Enums/Status.enum'; // ajuste o caminho conforme sua estrutura
 import { IMapa } from '../Interfaces/Mapa.interface';
 
 @Injectable({
@@ -14,12 +12,6 @@ export class SalaService {
 
   private url = 'https://roomflow-api.tccnapratica.com.br/sala';
 
-  private mapStatus = {
-    Disponivel: Status.Disponivel,
-    Reservada: Status.Reservada,
-    Ocupada: Status.Reservada,
-    Indisponivel: Status.Indisponivel
-  };
 
   getSalas(): Observable<ISala[]> {
     return this.http.get<ISala[]>(this.url + '/listar');

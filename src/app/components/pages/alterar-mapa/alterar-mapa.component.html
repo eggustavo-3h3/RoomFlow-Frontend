@@ -18,6 +18,8 @@
           <app-cards-sala
             [mapa]="map"
             [saladesc]="map.descricao"
+            [mostrarEditarBotao]="true"
+            [mostrarExcluirBotao]="true"
             [botaoReservarSala]="false"
             (removerSala)="removerSala($event)"
             (editarSala)="abrirModalEdicao($event)"
@@ -64,7 +66,7 @@
         <mat-label>Descrição da sala</mat-label>
         <input matInput type="text" formControlName="descricao" maxlength="6" />
         <mat-hint align="end">
-        {{ formularioDeSalas.controls["descricao"].value?.length || 0 }}/6
+          {{ formularioDeSalas.controls["descricao"].value?.length || 0 }}/6
         </mat-hint>
         <mat-error
           *ngIf="formularioDeSalas.controls['descricao'].hasError('required')"
@@ -78,28 +80,25 @@
         </mat-error>
       </mat-form-field>
 
-      <div class="ou-texto">ou</div>
-
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Número da sala</mat-label>
-        <input matInput type="number" formControlName="numero" />
+        <input matInput type="number" formControlName="numeroSala" />
         <mat-error
-          *ngIf="formularioDeSalas.controls['numero'].hasError('required')"
+          *ngIf="formularioDeSalas.controls['numeroSala'].hasError('required')"
         >
           O número é obrigatório.
         </mat-error>
         <mat-error
-          *ngIf="formularioDeSalas.controls['numero'].hasError('maxlength')"
+          *ngIf="formularioDeSalas.controls['numeroSala'].hasError('maxlength')"
         >
           Máximo de 6 caracteres excedido.
         </mat-error>
+        <mat-error
+          *ngIf="formularioDeSalas.controls['numeroSala'].hasError('pattern')"
+        >
+          O número deve conter apenas dígitos.
+        </mat-error>
       </mat-form-field>
-
-      <mat-error
-        *ngIf="formularioDeSalas.errors?.['descricaoOuNumeroObrigatorio']"
-      >
-        É necessário preencher a descrição <strong>ou</strong> o número da sala.
-      </mat-error>
 
       <!-- Tipo -->
       <mat-form-field appearance="outline" class="full-width">
@@ -132,6 +131,10 @@
           O status é obrigatório.
         </mat-error>
       </mat-form-field>
+
+        <mat-checkbox formControlName="flagExibirNumeroSala">
+          Exibir número da sala
+        </mat-checkbox>
 
       <div class="botoes-modal">
         <button

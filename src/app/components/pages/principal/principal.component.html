@@ -23,6 +23,8 @@
     <app-cards-sala 
       [mapa]="map" 
       [saladesc]="map.descricao"
+      [mostrarEditarBotao]="false"
+      [mostrarExcluirBotao]="false"
       [botaoReservarSala]="authService.usuarioEhProfessor() ? true : false"
       >
     </app-cards-sala>

@@ -48,7 +48,7 @@ export class FormCursoComponent implements OnInit {
     if (cursoParam) {
       this.cursoService.getCursoById(cursoParam).subscribe({
         next: (curso) => {
-          // Ajuste aqui se o campo id for _id no backend
+          this.editando = true;
           const cursoParaPatch = {
             id: curso.id || curso.id,
             nome: curso.nome,
@@ -70,6 +70,7 @@ export class FormCursoComponent implements OnInit {
 
   cadastrar() {
     if (this.formCurso.valid) {
+      
       if (this.editando) {
         this.cursoService.atualizarCurso(this.formCurso.value).subscribe({
           next: (curso) => {

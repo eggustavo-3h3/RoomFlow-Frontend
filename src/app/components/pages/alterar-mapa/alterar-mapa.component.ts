@@ -58,7 +58,7 @@ export class AlterarMapaComponent implements OnInit {
   salasDisponiveis = 0;
   salasReservadas = 0;
   salasIndisponiveis = 0;
-  exibirCard: any;
+  exibirCard: boolean = false;
   salaParaEdicao: ISala | null = null;
 
   constructor(
@@ -67,21 +67,19 @@ export class AlterarMapaComponent implements OnInit {
   ) {}
 
   iniciaForm() {
-    this.formularioDeSalas = this.formBuilder.group(
-      {
-        descricao: ['', [Validators.maxLength(6)]],
-        numero: [null],
-        tipoSala: [null, Validators.required],
-        statusSala: [null, Validators.required],
-        flagExibirNumeroSala: [null],
-      },
-      { validators: this.descricaoOuNumeroValidator }
-    );
+    this.formularioDeSalas = this.formBuilder.group({
+      id: [''],
+      descricao: ['', [Validators.maxLength(6), Validators.required]],
+      numeroSala: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
+      tipoSala: [null, Validators.required],
+      statusSala: [null, Validators.required],
+      flagExibirNumeroSala: [false],
+    });
   }
 
   ngOnInit(): void {
-    this.getMapa();
     this.iniciaForm();
+    this.getMapa();
     this.atualizarContagens();
   }
 
@@ -92,9 +90,15 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   atualizarContagens() {
-    this.salasDisponiveis = this.mapa.filter(s => s.statusSala.toString() === 'Disponivel').length;
-    this.salasReservadas = this.mapa.filter(s => s.statusSala.toString() === 'Ocupada').length;
-    this.salasIndisponiveis = this.mapa.filter(s => s.statusSala.toString() === 'Indisponivel').length;
+    this.salasDisponiveis = this.mapa.filter(
+      (s) => s.statusSala.toString() === 'Disponivel'
+    ).length;
+    this.salasReservadas = this.mapa.filter(
+      (s) => s.statusSala.toString() === 'Ocupada'
+    ).length;
+    this.salasIndisponiveis = this.mapa.filter(
+      (s) => s.statusSala.toString() === 'Indisponivel'
+    ).length;
   }
 
   getMapa() {
@@ -116,34 +120,29 @@ export class AlterarMapaComponent implements OnInit {
     });
   }
 
-  descricaoOuNumeroValidator(form: FormGroup) {
-    const descricao = form.get('descricao')?.value;
-    const numero = form.get('numero')?.value;
-
-    if (!descricao && !numero) {
-      return { descricaoOuNumeroObrigatorio: true };
-    }
-
-    return null;
-  }
-
   cadastrarSalas() {
     if (this.formularioDeSalas.invalid) {
       this.formularioDeSalas.markAllAsTouched();
       return;
     }
 
-    const novaSala: ISala = {
-      id: this.salaParaEdicao?.id,
-      descricao: this.formularioDeSalas.value.descricao,
-      statusSala: this.formularioDeSalas.value.statusSala,
-      tipoSala: this.formularioDeSalas.value.tipoSala,
-      numeroSala: this.formularioDeSalas.value.numero,
-      flagExibirNumeroSala: this.formularioDeSalas.value.flagExibirNumeroSala,
-    };
+    const formValue = this.formularioDeSalas.value;
 
     if (this.salaParaEdicao) {
-      this._salaService.atualizarSala(novaSala).subscribe({
+      // Atualização - envia id
+      const salaAtualizada = {
+        id: this.salaParaEdicao.id!,
+        descricao: formValue.descricao,
+        statusSala: formValue.statusSala,
+        tipoSala: Number(formValue.tipoSala),
+        numeroSala: Number(formValue.numeroSala),
+        flagExibirNumeroSala: formValue.flagExibirNumeroSala,
+      };
+
+      console.log(salaAtualizada);
+      
+
+      this._salaService.atualizarSala(salaAtualizada).subscribe({
         next: (retorno) => {
           this.snackBar.open('Sala editada com sucesso', 'Fechar', {
             duration: 3000,
@@ -152,7 +151,7 @@ export class AlterarMapaComponent implements OnInit {
           this.toggleModal();
           this.formularioDeSalas.reset();
         },
-        error: (erro) => {
+        error: () => {
           this.snackBar.open('Erro ao editar sala', 'Fechar', {
             duration: 3000,
           });
@@ -160,6 +159,15 @@ export class AlterarMapaComponent implements OnInit {
         },
       });
     } else {
+      // Criação - não envia id
+      const novaSala = {
+        descricao: formValue.descricao,
+        statusSala: formValue.statusSala,
+        tipoSala: Number(formValue.tipoSala),
+        numeroSala: Number(formValue.numeroSala),
+        flagExibirNumeroSala: formValue.flagExibirNumeroSala,
+      };
+
       this._salaService.cadastrarSala(novaSala).subscribe({
         next: (retorno) => {
           this.salas.push(retorno);
@@ -167,7 +175,7 @@ export class AlterarMapaComponent implements OnInit {
           this.toggleModal();
           this.formularioDeSalas.reset();
         },
-        error: (erro) => {
+        error: () => {
           this.snackBar.open('Erro ao cadastrar sala', 'Fechar', {
             duration: 3000,
           });
@@ -194,25 +202,27 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   abrirModalEdicao(salaId: string) {
-    const sala = this.mapa.find((s) => s.salaId === salaId);
+  const sala = this.mapa.find((m) => m.salaId === salaId);
 
-    if (!sala) {
-      this.snackBar.open('Sala não encontrada!', 'Fechar', {
-        duration: 3000,
-      });
-      return;
-    }
-
-    this.salaParaEdicao = { ...sala };
+  if (sala) {
+    this.salaParaEdicao = {
+      id: sala.salaId,             // converte salaId -> id aqui
+      descricao: sala.descricao,
+      numeroSala: sala.numeroSala,
+      tipoSala: sala.tipoSala,
+      statusSala: sala.statusSala,
+      flagExibirNumeroSala: sala.flagExibirNumeroSala,
+    };
 
     this.formularioDeSalas.patchValue({
+      id: sala.salaId,
       descricao: sala.descricao,
-      numero: sala.numeroSala,
+      numeroSala: sala.numeroSala,
       tipoSala: sala.tipoSala,
       statusSala: sala.statusSala,
       flagExibirNumeroSala: sala.flagExibirNumeroSala,
     });
-
     this.exibirmodal = true;
   }
+}
 }

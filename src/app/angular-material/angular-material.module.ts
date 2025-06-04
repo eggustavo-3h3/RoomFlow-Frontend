@@ -18,6 +18,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -37,6 +38,7 @@ registerLocaleData(localePt);
     MatSelectModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatCheckboxModule
   ],
   exports: [
     MatTableModule,
@@ -52,7 +54,8 @@ registerLocaleData(localePt);
     MatCardModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   
   providers: [{ provide: LOCALE_ID, useValue: 'pt' },

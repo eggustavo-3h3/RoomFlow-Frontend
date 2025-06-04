@@ -16,7 +16,7 @@
     <button mat-raised-button class="removerSala-button ml-2" *ngIf="mostrarExcluirBotao" (click)="onRemoverSala()">
       Remover sala
     </button>
-    <button mat-raised-button class="editarSala-button ml-2 espaco-inferior" *ngIf="mostrarEditarBotao" (click)="onEditarSala()">
+    <button mat-raised-button class="editarSala-button ml-2 espaco-inferior" *ngIf="mostrarEditarBotao" (click)="onEditarSala(mapa.salaId)">
       Editar sala
     </button>
 

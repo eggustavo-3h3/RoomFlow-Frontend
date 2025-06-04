@@ -28,7 +28,6 @@ export class ListaDeUsuariosComponent implements OnChanges {
 
   ngOnChanges(): void {
     console.log(this.usersList);
-    
   }
 
   onUserDelete(user: IUsuario) {
