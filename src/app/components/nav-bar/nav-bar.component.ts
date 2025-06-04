@@ -79,12 +79,11 @@ export class NavBarComponent implements OnInit {
   }
 
   abrirCalendario() {
-  const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '450px' });
+  const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '410px' });
 
   dialogRef.afterClosed().subscribe((salasFiltradas: ISala[]) => {
     if (salasFiltradas) {
       console.log('Salas filtradas recebidas:', salasFiltradas);
-      // Aqui você pode armazenar ou emitir essas salas para outro componente se precisar
     }
   });
 }

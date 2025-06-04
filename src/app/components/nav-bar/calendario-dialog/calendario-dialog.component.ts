@@ -21,7 +21,7 @@ import { ISala } from '../../../Interfaces/Sala.interface';
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
     MatButtonModule,
@@ -69,7 +69,8 @@ abrirBloco() {
 
 aplicarFiltro() {
   if (this.isDataSelecionada() && this.blocoSelecionado) {
-    this.salaService.buscarDadosFiltrados(this.dataSelecionada!, this.blocoSelecionado)
+    const blocoNumerico = this.mapearBlocoParaNumero(this.blocoSelecionado);
+    this.salaService.buscarDadosFiltrados(this.dataSelecionada!, blocoNumerico)
       .subscribe({
         next: (data: ISala[]) => {
           console.log('Salas filtradas:', data);
@@ -81,7 +82,13 @@ aplicarFiltro() {
     console.warn('Selecione uma data e um bloco antes de aplicar o filtro');
   }
 }
-
+mapearBlocoParaNumero(bloco: string): number {
+  const mapa: { [key: string]: number } = {
+    'bloco1': 1,
+    'bloco2': 2
+  };
+  return mapa[bloco] || 1;
+}
 
   isDataSelecionada(): boolean {
     return this.dataSelecionada !== null;

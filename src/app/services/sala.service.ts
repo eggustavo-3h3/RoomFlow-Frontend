@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISala } from '../Interfaces/Sala.interface';
 import { IMapa } from '../Interfaces/Mapa.interface';
+import { IAula } from '../Interfaces/Aula.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,13 +38,8 @@ export class SalaService {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }
 
-  buscarDadosFiltrados(data: Date, bloco: string) {
-  const dataFormatada = data.toISOString().split('T')[0]; // yyyy-MM-dd
-  return this.http.get<ISala[]>(`/api/salas`, {
-    params: {
-      data: dataFormatada,
-      bloco: bloco
-    }
-  });
-}
+  buscarDadosFiltrados(data: Date, bloco: number): Observable<ISala[]> {
+    const dataStr = data.toISOString().split('T')[0]; // formato yyyy-MM-dd
+    return this.http.get<ISala[]>(`/api/salas?data=${dataStr}&bloco=${bloco}`);
+  }
 }
