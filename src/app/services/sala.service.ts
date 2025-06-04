@@ -36,4 +36,14 @@ export class SalaService {
   removerSala(id: string): Observable<void>  {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }
+
+  buscarDadosFiltrados(data: Date, bloco: string) {
+  const dataFormatada = data.toISOString().split('T')[0]; // yyyy-MM-dd
+  return this.http.get<ISala[]>(`/api/salas`, {
+    params: {
+      data: dataFormatada,
+      bloco: bloco
+    }
+  });
+}
 }

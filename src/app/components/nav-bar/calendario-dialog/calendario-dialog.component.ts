@@ -10,6 +10,9 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
+import { SalaService } from '../../../services/sala.service';
+import { ISala } from '../../../Interfaces/Sala.interface';
 
 @Component({
   selector: 'app-calendario-dialog',
@@ -18,7 +21,7 @@ import { MatCardModule } from '@angular/material/card';
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
-  //encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
     MatButtonModule,
@@ -40,7 +43,6 @@ export class CalendarioDialogComponent {
   blocoSelecionado: string = 'bloco1';
   selected: Date | null = null;
   dataService: any;
-  router: any;
   minDate: Date = new Date();
 
 onDateChange(date: Date) {
@@ -49,9 +51,11 @@ onDateChange(date: Date) {
 }
 
   constructor(
-    public dialogRef: MatDialogRef<CalendarioDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  public dialogRef: MatDialogRef<CalendarioDialogComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any,
+  private salaService: SalaService,
+  private router: Router
+) {}
 
 abrirBloco() {
   if (this.blocoSelecionado === 'bloco1') {
@@ -63,18 +67,21 @@ abrirBloco() {
   }
 }
 
- aplicarFiltro() {
+aplicarFiltro() {
   if (this.isDataSelecionada() && this.blocoSelecionado) {
-
-    this.dataService.buscarDadosFiltrados(this.dataSelecionada, this.blocoSelecionado)
-      .subscribe((data: any) => {
-        console.log('Dados filtrados:', data);
-        this.dialogRef.close(data);
+    this.salaService.buscarDadosFiltrados(this.dataSelecionada!, this.blocoSelecionado)
+      .subscribe({
+        next: (data: ISala[]) => {
+          console.log('Salas filtradas:', data);
+          this.dialogRef.close(data);
+        },
+        error: err => console.error('Erro ao buscar salas:', err)
       });
   } else {
     console.warn('Selecione uma data e um bloco antes de aplicar o filtro');
   }
 }
+
 
   isDataSelecionada(): boolean {
     return this.dataSelecionada !== null;

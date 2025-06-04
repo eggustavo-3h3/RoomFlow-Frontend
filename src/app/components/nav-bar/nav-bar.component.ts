@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Perfil } from '../../Enums/Perfil.enum';
 import { PerfilPipe } from "../../Pipes/perfil.pipe";
+import { ISala } from '../../Interfaces/Sala.interface';
 
 @Component({
   selector: 'app-nav-bar',
@@ -78,6 +79,13 @@ export class NavBarComponent implements OnInit {
   }
 
   abrirCalendario() {
-    this.dialog.open(CalendarioDialogComponent, { width: '450px' });
-  }
+  const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '450px' });
+
+  dialogRef.afterClosed().subscribe((salasFiltradas: ISala[]) => {
+    if (salasFiltradas) {
+      console.log('Salas filtradas recebidas:', salasFiltradas);
+      // Aqui você pode armazenar ou emitir essas salas para outro componente se precisar
+    }
+  });
+}
 }

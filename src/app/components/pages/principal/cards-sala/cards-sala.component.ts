@@ -76,6 +76,7 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
   blocoEnum = Bloco;
 
   private subscriptions: Subscription[] = [];
+IUsuario: any;
 
   constructor(
     private readonly formBuilder: FormBuilder,

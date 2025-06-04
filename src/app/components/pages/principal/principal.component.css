@@ -154,4 +154,22 @@ mat-card-header {
   word-break: break-word;
   text-align: center;
 }
+@media (max-width: 400px) {
+  .informacoes {
+    width: 80%;
+    padding: 8px;
+  }
+
+  .informacao-item {
+    font-size: 12px;
+  }
+
+  .informacao-item .valor {
+    font-size: 18px;
+  }
+
+  .informacao-item span {
+    font-size: 14px;
+  }
+}
 

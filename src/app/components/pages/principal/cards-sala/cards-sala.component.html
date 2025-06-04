@@ -12,6 +12,10 @@
       <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
       <p><strong>Status:</strong> {{ salaSeleciona.statusSala  }}</p>
       <p><strong>Mostrar número?</strong> {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}</p>
+
+       <p *ngIf="salaSeleciona.statusSala === statusEnum.Ocupada">
+    <strong>Professor:</strong> {{ nomeDoProfessor }}
+  </p>
     </div>
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">Fechar</button>
