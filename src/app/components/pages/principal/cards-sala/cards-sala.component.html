@@ -1,6 +1,6 @@
 <div>
   <div [ngClass]="corDoCardClass()" class="card" (click)="toggleCard()">
-    {{ saladesc }}
+    {{ mapa.flagExibirNumeroSala ? mapa.numeroSala : mapa.descricao }}
   </div>
 </div>
 
@@ -9,7 +9,9 @@
 
     <div *ngIf="salaSeleciona">
       <h5 class="card-title">{{ salaSeleciona.descricao }}</h5>
-      <p><strong>Tipo:</strong> {{ tipoSalaEnum[salaSeleciona.tipoSala] }}</p>
+      <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
+      <p><strong>Status:</strong> {{ salaSeleciona.statusSala  }}</p>
+      <p><strong>Mostrar número?</strong> {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}</p>
     </div>
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">Fechar</button>
@@ -20,7 +22,7 @@
       Editar sala
     </button>
 
-    <p *ngIf="salaDisponivel && isProfessor" class="disponivel-texto">Status: Disponível</p>
+
 
     <button mat-raised-button class="reservarSala-button ml-2" (click)="toggleReservaCard()" *ngIf="botaoReservarSala && mapa.statusSala.toString() === 'Disponivel'">
       Reservar sala

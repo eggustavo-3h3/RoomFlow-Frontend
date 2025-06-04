@@ -129,7 +129,6 @@ export class AlterarMapaComponent implements OnInit {
     const formValue = this.formularioDeSalas.value;
 
     if (this.salaParaEdicao) {
-      // Atualização - envia id
       const salaAtualizada = {
         id: this.salaParaEdicao.id!,
         descricao: formValue.descricao,
@@ -144,6 +143,8 @@ export class AlterarMapaComponent implements OnInit {
 
       this._salaService.atualizarSala(salaAtualizada).subscribe({
         next: (retorno) => {
+          console.log(formValue.statusSala);
+          
           this.snackBar.open('Sala editada com sucesso', 'Fechar', {
             duration: 3000,
           });
@@ -206,7 +207,7 @@ export class AlterarMapaComponent implements OnInit {
 
   if (sala) {
     this.salaParaEdicao = {
-      id: sala.salaId,             // converte salaId -> id aqui
+      id: sala.salaId,
       descricao: sala.descricao,
       numeroSala: sala.numeroSala,
       tipoSala: sala.tipoSala,

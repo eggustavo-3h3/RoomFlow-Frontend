@@ -21,6 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
+import { TipoPipe } from '../../../../Pipes/tipo.pipe';
+import { ExibirNumPipe } from "../../../../Pipes/exibirNum.pipe";
 
 @Component({
   selector: 'app-cards-sala',
@@ -36,7 +38,9 @@ import { AngularMaterialModule } from '../../../../angular-material/angular-mate
     AngularMaterialModule,
     MatDatepickerModule,
     MatRadioModule,
-  ],
+    TipoPipe,
+    ExibirNumPipe
+],
   templateUrl: './cards-sala.component.html',
   styleUrls: ['./cards-sala.component.css']
 })
@@ -58,8 +62,6 @@ export class CardsSalaComponent implements OnInit {
 
   exibirCard = false;
   mostrarReservaCard = false;
-  isProfessor = false;
-  salaDisponivel = false;
   mostrarConfirmacaoFinal = false;
   minDate = new Date();
   salaSeleciona: ISala | null = null;
@@ -102,8 +104,6 @@ export class CardsSalaComponent implements OnInit {
     if (nome) {
       this.nomeDoProfessor = nome;
     }
-
-    this.isProfessor = this.authService.usuarioEhProfessor();
   }
 
   iniciaForm() {

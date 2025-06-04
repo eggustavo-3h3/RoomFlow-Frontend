@@ -37,7 +37,7 @@
     </div>
     <div class="informacao-item">
       <span class="valor">{{ salasReservadas }}</span>
-      <span>Reservadas</span>
+      <span>Ocupadas</span>
     </div>
     <div class="informacao-item">
       <span class="valor">{{ salasIndisponiveis }}</span>
@@ -142,6 +142,7 @@
           mat-raised-button
           class="botao-adicionar"
           (click)="cadastrarSalas()"
+          [disabled]="formularioDeSalas.invalid"
         >
           {{ salaParaEdicao ? "Editar" : "Cadastrar" }}
         </button>
