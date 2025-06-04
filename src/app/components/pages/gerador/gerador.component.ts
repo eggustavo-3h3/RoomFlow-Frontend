@@ -1,4 +1,4 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { Bloco } from '../../../Enums/Bloco.enum';
-import { AutocompleteHarnessFilters } from '@angular/material/autocomplete/testing';
 import { AulaService } from '../../../services/aula.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -25,6 +24,8 @@ import { ISala } from '../../../Interfaces/Sala.interface';
 import { UsuarioService } from '../../../services/usuario.service';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-gerador',
   standalone: true,
@@ -38,13 +39,12 @@ import { IUsuario } from '../../../Interfaces/Usuario.interface';
     ReactiveFormsModule,
     NavBarComponent,
     AngularMaterialModule
-],
+  ],
   templateUrl: './gerador.component.html',
   styleUrls: ['./gerador.component.css'],
 })
-export class GeradorComponent implements OnInit {
+export class GeradorComponent implements OnInit, OnDestroy {
   form: FormGroup;
-
   minDate: Date = new Date();
 
   salasList: ISala[] = [];
@@ -64,9 +64,11 @@ export class GeradorComponent implements OnInit {
   usuárioService = inject(UsuarioService);
 
   blocoEnum = [
-      { label: 'Bloco 1', value: Bloco.Primeiro },
-      { label: 'Bloco 2', value: Bloco.Segundo }
-    ]
+    { label: 'Bloco 1', value: Bloco.Primeiro },
+    { label: 'Bloco 2', value: Bloco.Segundo }
+  ];
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -74,7 +76,6 @@ export class GeradorComponent implements OnInit {
       cursoId: ['', Validators.required],
       salaId: ['', Validators.required],
       turmaId: ['', Validators.required],
-      //data: [null],
       professorId: ['', Validators.required],
       diaSemana: [null, [Validators.required, Validators.min(0), Validators.max(6)]],
       dataInicio: [null, Validators.required],
@@ -84,7 +85,7 @@ export class GeradorComponent implements OnInit {
   }
 
   getCursos() {
-    this.cursoService.getCursos().subscribe({
+    const sub = this.cursoService.getCursos().subscribe({
       next: (cursos) => {
         this.cursosList = cursos;
       },
@@ -92,10 +93,11 @@ export class GeradorComponent implements OnInit {
         console.log('Não foi possível carregar cursos:', error);
       },
     });
+    this.subscriptions.push(sub);
   }
 
   getTurmas() {
-    this.turmaService.getTurmas().subscribe({
+    const sub = this.turmaService.getTurmas().subscribe({
       next: (turma) => {
         this.turmasList = turma;
       },
@@ -103,10 +105,11 @@ export class GeradorComponent implements OnInit {
         console.log('Não foi possível carregar turmas:', error);
       },
     });
+    this.subscriptions.push(sub);
   }
 
   getDisciplinas() {
-    this.disciplinaService.getDisciplinas().subscribe({
+    const sub = this.disciplinaService.getDisciplinas().subscribe({
       next: (disciplina) => {
         this.disciplinasList = disciplina;
       },
@@ -114,23 +117,24 @@ export class GeradorComponent implements OnInit {
         console.log('Não foi possível carregar disciplinas:', error);
       },
     });
+    this.subscriptions.push(sub);
   }
 
   getSalas() {
-    this.salaService.getSalas().subscribe({
+    const sub = this.salaService.getSalas().subscribe({
       next: (salas) => {
         this.salasList = salas;
         console.log(this.salasList);
-        
       },
       error: (error) => {
         console.log('Não foi possível carregar salas:', error);
       },
     });
+    this.subscriptions.push(sub);
   }
 
   getProfessores() {
-    this.usuárioService.getProfessores().subscribe({
+    const sub = this.usuárioService.getProfessores().subscribe({
       next: (prof) => {
         this.profList = prof;
         console.log('Professores:', this.profList);
@@ -139,6 +143,7 @@ export class GeradorComponent implements OnInit {
         console.log('Não foi possível carregar professores:', error);
       },
     });
+    this.subscriptions.push(sub);
   }
 
   ngOnInit(): void {
@@ -151,22 +156,21 @@ export class GeradorComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-
       this.aulaService.gerador(this.form.value).subscribe({
-        next : ger => {
-          this.snackBar.open('Aulas geradas com sucesso', 'Ok', {
-            duration: 3000
-          });
+        next: () => {
+          this.snackBar.open('Aulas geradas com sucesso', 'Ok', { duration: 3000 });
           this.router.navigate(['/principal']);
-        }, 
-        error : err => {
-          this.snackBar.open('Erro ao gerar aulas', 'Ok', {
-            duration: 3000
-          });
+        },
+        error: () => {
+          this.snackBar.open('Erro ao gerar aulas', 'Ok', { duration: 3000 });
         }
       });
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

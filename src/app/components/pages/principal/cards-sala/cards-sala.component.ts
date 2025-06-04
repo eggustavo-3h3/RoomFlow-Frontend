@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Status } from '../../../../Enums/Status.enum';
 import { ISala } from '../../../../Interfaces/Sala.interface';
 import { IMapa } from '../../../../Interfaces/Mapa.interface';
@@ -23,6 +23,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
 import { TipoPipe } from '../../../../Pipes/tipo.pipe';
 import { ExibirNumPipe } from "../../../../Pipes/exibirNum.pipe";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cards-sala',
@@ -40,11 +41,11 @@ import { ExibirNumPipe } from "../../../../Pipes/exibirNum.pipe";
     MatRadioModule,
     TipoPipe,
     ExibirNumPipe
-],
+  ],
   templateUrl: './cards-sala.component.html',
   styleUrls: ['./cards-sala.component.css']
 })
-export class CardsSalaComponent implements OnInit {
+export class CardsSalaComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) mapa!: IMapa;
   @Input({ required: true }) saladesc!: string;
@@ -74,6 +75,8 @@ export class CardsSalaComponent implements OnInit {
   turmas: ITurma[] = [];
   blocoEnum = Bloco;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
@@ -87,15 +90,14 @@ export class CardsSalaComponent implements OnInit {
   ngOnInit() {
     this.iniciaForm();
 
-    this.formulario.get('bloco')?.disable();
-
-    this.formulario.get('data')?.valueChanges.subscribe(value => {
+    const blocoSub = this.formulario.get('data')?.valueChanges.subscribe(value => {
       if (value) {
         this.formulario.get('bloco')?.enable();
       } else {
         this.formulario.get('bloco')?.disable();
       }
     });
+    if (blocoSub) this.subscriptions.push(blocoSub);
 
     this.carregarDisciplinas();
     this.carregarTurmas();
@@ -116,30 +118,31 @@ export class CardsSalaComponent implements OnInit {
   }
 
   carregarDisciplinas() {
-    this.disciplinaService.getDisciplinas().subscribe({
+    const sub = this.disciplinaService.getDisciplinas().subscribe({
       next: res => this.disciplinas = res,
       error: err => console.error('Erro ao carregar disciplinas:', err)
     });
+    this.subscriptions.push(sub);
   }
 
   carregarTurmas() {
-    this.turmaService.getTurmas().subscribe({
+    const sub = this.turmaService.getTurmas().subscribe({
       next: res => this.turmas = res,
       error: err => console.error('Erro ao carregar turmas:', err)
     });
+    this.subscriptions.push(sub);
   }
 
   toggleCard() {
     this.exibirCard = !this.exibirCard;
-    
     this.salaSeleciona = {
-    id: this.mapa.salaId,
-    numeroSala: this.mapa.numeroSala,
-    descricao: this.mapa.descricao,
-    statusSala: this.mapa.statusSala,
-    tipoSala: TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
-    flagExibirNumeroSala: this.mapa.flagExibirNumeroSala
-  };
+      id: this.mapa.salaId,
+      numeroSala: this.mapa.numeroSala,
+      descricao: this.mapa.descricao,
+      statusSala: this.mapa.statusSala,
+      tipoSala: TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
+      flagExibirNumeroSala: this.mapa.flagExibirNumeroSala
+    };
   }
 
   toggleReservaCard() {
@@ -169,10 +172,14 @@ export class CardsSalaComponent implements OnInit {
     this.removerSala.emit(this.mapa.salaId);
   }
 
-  onEditarSala(salaId : string) {
+  onEditarSala(salaId: string) {
     if (this.mapa.salaId) {
       this.editarSala.emit(this.mapa.salaId);
       this.exibirCard = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

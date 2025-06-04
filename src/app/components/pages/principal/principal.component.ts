@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, OnDestroy, Output, QueryList, ViewChildren } from '@angular/core';
 import { Status } from '../../../Enums/Status.enum';
 import { ISala } from '../../../Interfaces/Sala.interface';
 import { SalaService } from '../../../services/sala.service';
@@ -9,6 +9,7 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../services/auth.service';
 import { IMapa } from '../../../Interfaces/Mapa.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-principal',
@@ -17,13 +18,13 @@ import { IMapa } from '../../../Interfaces/Mapa.interface';
   styleUrl: './principal.component.css',
   imports: [CardsSalaComponent, NavBarComponent, CommonModule, AngularMaterialModule]
 })
-export class PrincipalComponent implements OnInit {
-  
+export class PrincipalComponent implements OnInit, OnDestroy {
+
   @ViewChildren(CardsSalaComponent) cards!: QueryList<CardsSalaComponent>;
 
   salas: ISala[] = [];
 
-  mapa : IMapa[] = [];
+  mapa: IMapa[] = [];
 
   snackBar = inject(MatSnackBar);
   authService = inject(AuthService);
@@ -32,7 +33,9 @@ export class PrincipalComponent implements OnInit {
   salasReservadas: number = 0;
   salasIndisponiveis: number = 0;
 
-  constructor(private readonly _salaService: SalaService) {}
+  private subscriptions: Subscription[] = [];
+
+  constructor(private readonly _salaService: SalaService) { }
 
   @Output() salaAtualizada = new EventEmitter<ISala>();
 
@@ -51,10 +54,10 @@ export class PrincipalComponent implements OnInit {
     const index = this.salas.findIndex(s => s.id === salaReservada.id);
     if (index !== -1) {
       this.salas = [
-      ...this.salas.slice(0, index),
-  salaReservada,
-      ...this.salas.slice(index + 1)
-];
+        ...this.salas.slice(0, index),
+        salaReservada,
+        ...this.salas.slice(index + 1)
+      ];
     }
     this.atualizarContagens();
 
@@ -64,7 +67,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   getMapa() {
-    this._salaService.getMapa().subscribe({
+    const sub = this._salaService.getMapa().subscribe({
       next: lista => {
         console.log(lista);
         this.mapa = lista;
@@ -77,6 +80,7 @@ export class PrincipalComponent implements OnInit {
         });
       },
     });
+    this.subscriptions.push(sub);
   }
 
   fecharTodosCards() {
@@ -85,5 +89,9 @@ export class PrincipalComponent implements OnInit {
       card.mostrarReservaCard = false;
       card.mostrarConfirmacaoFinal = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

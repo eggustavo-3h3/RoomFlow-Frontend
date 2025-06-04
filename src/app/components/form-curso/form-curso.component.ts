@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,7 +27,7 @@ import { CursoService } from '../../services/curso.service';
   templateUrl: './form-curso.component.html',
   styleUrl: './form-curso.component.css',
 })
-export class FormCursoComponent implements OnInit {
+export class FormCursoComponent implements OnInit, OnDestroy { // <-- adiciona OnDestroy
   formCurso: FormGroup = new FormGroup({});
   periodos = [Periodo.MANHA, Periodo.TARDE, Periodo.NOITE];
   snackBar = inject(MatSnackBar);
@@ -60,9 +60,13 @@ export class FormCursoComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    // Aqui você pode colocar cancelamento de subscriptions futuramente se quiser
+  }
+
   iniciarForm() {
     this.formCurso = this.formBuilder.group({
-      id: ['', Validators.required],
+      id: [''],
       nome: ['', Validators.required],
       periodo: [null, Validators.required],
     });
@@ -70,7 +74,6 @@ export class FormCursoComponent implements OnInit {
 
   cadastrar() {
     if (this.formCurso.valid) {
-      
       if (this.editando) {
         this.cursoService.atualizarCurso(this.formCurso.value).subscribe({
           next: (curso) => {

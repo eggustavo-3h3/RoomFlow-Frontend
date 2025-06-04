@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisciplinaService } from '../../services/disciplina.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-disciplina',
@@ -19,13 +20,15 @@ import { DisciplinaService } from '../../services/disciplina.service';
   templateUrl: './form-disciplina.component.html',
   styleUrl: './form-disciplina.component.css'
 })
-export class FormDisciplinaComponent implements OnInit {
+export class FormDisciplinaComponent implements OnInit, OnDestroy {
 
   formDisciplina: FormGroup = new FormGroup({});
   snackBar = inject(MatSnackBar);
   router = inject(Router);
   disciplinaService = inject(DisciplinaService);
   editando: boolean = false;
+
+  private subscription = new Subscription();
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -39,7 +42,7 @@ export class FormDisciplinaComponent implements OnInit {
 
     if (disciplinaParam) {
       this.editando = true; 
-      this.disciplinaService.getDisciplinasPorId(disciplinaParam).subscribe({
+      const sub = this.disciplinaService.getDisciplinasPorId(disciplinaParam).subscribe({
         next: (disciplina) => {
           console.log(disciplinaParam);
           this.formDisciplina.patchValue(disciplina);
@@ -48,8 +51,8 @@ export class FormDisciplinaComponent implements OnInit {
           console.error('Erro ao buscar disciplina:', error);
         }
       });
+      this.subscription.add(sub);
     }
-
   }
 
   iniciarForm() {
@@ -66,7 +69,7 @@ export class FormDisciplinaComponent implements OnInit {
     if (this.formDisciplina.valid) {
 
       if (this.editando) {
-        this.disciplinaService.atualizarDisciplina(this.formDisciplina.value).subscribe({
+        const sub = this.disciplinaService.atualizarDisciplina(this.formDisciplina.value).subscribe({
           next: (disciplina) => {
             this.snackBar.open('Disciplina atualizada com sucesso!', 'Ok', { duration: 3000 });
             this.formDisciplina.reset();
@@ -78,9 +81,10 @@ export class FormDisciplinaComponent implements OnInit {
             this.formDisciplina.reset();
           }
         });
+        this.subscription.add(sub);
         return;
       } else {
-        this.disciplinaService.adicionarDisciplina(this.formDisciplina.value).subscribe({
+        const sub = this.disciplinaService.adicionarDisciplina(this.formDisciplina.value).subscribe({
           next: (disciplina) => {
             this.snackBar.open('Disciplina cadastrada com sucesso!', 'Ok', { duration: 3000 });
             this.formDisciplina.reset();
@@ -92,10 +96,15 @@ export class FormDisciplinaComponent implements OnInit {
             this.formDisciplina.reset();
           }
         });
+        this.subscription.add(sub);
       }
     } else {
       this.snackBar.open('Formulario inválido!', 'Ok', { duration: 3000 });
       this.formDisciplina.reset();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

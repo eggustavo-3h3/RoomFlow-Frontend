@@ -1,4 +1,5 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { MatCardModule } from '@angular/material/card';
 import { CardsSalaComponent } from '../principal/cards-sala/cards-sala.component';
@@ -33,7 +34,7 @@ import { IMapa } from '../../../Interfaces/Mapa.interface';
   templateUrl: './alterar-mapa.component.html',
   styleUrl: './alterar-mapa.component.css',
 })
-export class AlterarMapaComponent implements OnInit {
+export class AlterarMapaComponent implements OnInit, OnDestroy {
   salas: ISala[] = [];
   exibirmodal: boolean = false;
   snackBar = inject(MatSnackBar);
@@ -61,6 +62,8 @@ export class AlterarMapaComponent implements OnInit {
   exibirCard: boolean = false;
   salaParaEdicao: ISala | null = null;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(
     private readonly _salaService: SalaService,
     private readonly formBuilder: FormBuilder
@@ -83,6 +86,10 @@ export class AlterarMapaComponent implements OnInit {
     this.atualizarContagens();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   toggleModal() {
     this.formularioDeSalas.reset();
     this.salaParaEdicao = null;
@@ -102,7 +109,7 @@ export class AlterarMapaComponent implements OnInit {
   }
 
   getMapa() {
-    this._salaService.getMapa().subscribe({
+    const sub = this._salaService.getMapa().subscribe({
       next: (lista) => {
         this.mapa = lista;
         this.atualizarContagens();
@@ -118,6 +125,7 @@ export class AlterarMapaComponent implements OnInit {
         );
       },
     });
+    this.subscriptions.add(sub);
   }
 
   cadastrarSalas() {
@@ -138,13 +146,8 @@ export class AlterarMapaComponent implements OnInit {
         flagExibirNumeroSala: formValue.flagExibirNumeroSala,
       };
 
-      console.log(salaAtualizada);
-      
-
-      this._salaService.atualizarSala(salaAtualizada).subscribe({
+      const sub = this._salaService.atualizarSala(salaAtualizada).subscribe({
         next: (retorno) => {
-          console.log(formValue.statusSala);
-          
           this.snackBar.open('Sala editada com sucesso', 'Fechar', {
             duration: 3000,
           });
@@ -159,6 +162,7 @@ export class AlterarMapaComponent implements OnInit {
           this.toggleModal();
         },
       });
+      this.subscriptions.add(sub);
     } else {
       // Criação - não envia id
       const novaSala = {
@@ -169,7 +173,7 @@ export class AlterarMapaComponent implements OnInit {
         flagExibirNumeroSala: formValue.flagExibirNumeroSala,
       };
 
-      this._salaService.cadastrarSala(novaSala).subscribe({
+      const sub = this._salaService.cadastrarSala(novaSala).subscribe({
         next: (retorno) => {
           this.salas.push(retorno);
           this.getMapa();
@@ -182,11 +186,12 @@ export class AlterarMapaComponent implements OnInit {
           });
         },
       });
+      this.subscriptions.add(sub);
     }
   }
 
   removerSala(id: string) {
-    this._salaService.removerSala(id).subscribe({
+    const sub = this._salaService.removerSala(id).subscribe({
       next: () => {
         this.snackBar.open('Sala removida com sucesso!', 'Fechar', {
           duration: 3000,
@@ -200,30 +205,31 @@ export class AlterarMapaComponent implements OnInit {
         console.error(erro);
       },
     });
+    this.subscriptions.add(sub);
   }
 
   abrirModalEdicao(salaId: string) {
-  const sala = this.mapa.find((m) => m.salaId === salaId);
+    const sala = this.mapa.find((m) => m.salaId === salaId);
 
-  if (sala) {
-    this.salaParaEdicao = {
-      id: sala.salaId,
-      descricao: sala.descricao,
-      numeroSala: sala.numeroSala,
-      tipoSala: sala.tipoSala,
-      statusSala: sala.statusSala,
-      flagExibirNumeroSala: sala.flagExibirNumeroSala,
-    };
+    if (sala) {
+      this.salaParaEdicao = {
+        id: sala.salaId,
+        descricao: sala.descricao,
+        numeroSala: sala.numeroSala,
+        tipoSala: sala.tipoSala,
+        statusSala: sala.statusSala,
+        flagExibirNumeroSala: sala.flagExibirNumeroSala,
+      };
 
-    this.formularioDeSalas.patchValue({
-      id: sala.salaId,
-      descricao: sala.descricao,
-      numeroSala: sala.numeroSala,
-      tipoSala: sala.tipoSala,
-      statusSala: sala.statusSala,
-      flagExibirNumeroSala: sala.flagExibirNumeroSala,
-    });
-    this.exibirmodal = true;
+      this.formularioDeSalas.patchValue({
+        id: sala.salaId,
+        descricao: sala.descricao,
+        numeroSala: sala.numeroSala,
+        tipoSala: sala.tipoSala,
+        statusSala: sala.statusSala,
+        flagExibirNumeroSala: sala.flagExibirNumeroSala,
+      });
+      this.exibirmodal = true;
+    }
   }
-}
 }

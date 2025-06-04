@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TurmaService } from '../../services/turma.service';
 import { ITurmaAtualizar, ITurmaAdicionar } from '../../Interfaces/Turma.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-turma',
@@ -22,7 +23,7 @@ import { ITurmaAtualizar, ITurmaAdicionar } from '../../Interfaces/Turma.interfa
   templateUrl: './form-turma.component.html',
   styleUrl: './form-turma.component.css'
 })
-export class FormTurmaComponent implements OnInit {
+export class FormTurmaComponent implements OnInit, OnDestroy {
 
   formTurma: FormGroup = new FormGroup({});
   cursos: ICurso[] = [];
@@ -31,6 +32,8 @@ export class FormTurmaComponent implements OnInit {
   snackBar = inject(MatSnackBar);
   router = inject(Router);
   editando = false;
+
+  private subscription = new Subscription();
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -57,14 +60,15 @@ export class FormTurmaComponent implements OnInit {
   }
 
   getCursos() {
-    this.cursoService.getCursos().subscribe({
+    const sub = this.cursoService.getCursos().subscribe({
       next: (cursos) => this.cursos = cursos,
       error: (error) => console.error('Erro ao buscar cursos:', error)
     });
+    this.subscription.add(sub);
   }
 
   carregarTurma(id: string) {
-    this.turmaService.getTurmaById(id).subscribe({
+    const sub = this.turmaService.getTurmaById(id).subscribe({
       next: (turma) => {
         this.formTurma.patchValue({
           id: turma.id,
@@ -74,6 +78,7 @@ export class FormTurmaComponent implements OnInit {
       },
       error: (error) => console.error('Erro ao buscar turma:', error)
     });
+    this.subscription.add(sub);
   }
 
   cadastrar() {
@@ -87,7 +92,7 @@ export class FormTurmaComponent implements OnInit {
           cursoId: formValue.curso
         };
 
-        this.turmaService.atualizarTurma(turmaParaAtualizar).subscribe({
+        const sub = this.turmaService.atualizarTurma(turmaParaAtualizar).subscribe({
           next: () => {
             this.snackBar.open('Turma atualizada com sucesso!', 'Ok', { duration: 3000 });
             this.formTurma.reset();
@@ -98,6 +103,7 @@ export class FormTurmaComponent implements OnInit {
             this.snackBar.open('Erro ao atualizar turma!', 'Fechar', { duration: 3000 });
           }
         });
+        this.subscription.add(sub);
 
       } else {
         const turmaParaAdicionar: ITurmaAdicionar = {
@@ -105,7 +111,7 @@ export class FormTurmaComponent implements OnInit {
           cursoId: formValue.curso
         };
 
-        this.turmaService.adicionarTurma(turmaParaAdicionar).subscribe({
+        const sub = this.turmaService.adicionarTurma(turmaParaAdicionar).subscribe({
           next: () => {
             this.snackBar.open('Turma cadastrada com sucesso!', 'Ok', { duration: 3000 });
             this.formTurma.reset();
@@ -116,9 +122,14 @@ export class FormTurmaComponent implements OnInit {
             this.snackBar.open('Erro ao cadastrar turma!', 'Fechar', { duration: 3000 });
           }
         });
+        this.subscription.add(sub);
       }
     } else {
       this.snackBar.open('Formulário inválido!', 'Ok', { duration: 3000 });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

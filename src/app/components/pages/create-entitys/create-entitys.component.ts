@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import { ICurso } from '../../../Interfaces/Curso.interface';
@@ -10,10 +10,10 @@ import { DisciplinaService } from '../../../services/disciplina.service';
 import { Router } from '@angular/router';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { PeriodoPipe } from '../../../Pipes/periodo.pipe';
-import { IUsuario } from '../../../Interfaces/Usuario.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-entitys',
@@ -22,8 +22,7 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
   templateUrl: './create-entitys.component.html',
   styleUrl: './create-entitys.component.css',
 })
-export class CreateEntitysComponent implements OnInit {
-  
+export class CreateEntitysComponent implements OnInit, OnDestroy {
   cursoSelected: ICurso | null = null;
   turmaSelected: ITurma | null = null;
   disciplinaSelected: IDisciplina | null = null;
@@ -37,14 +36,13 @@ export class CreateEntitysComponent implements OnInit {
   cursoService = inject(CursoService);
   disciplinaService = inject(DisciplinaService);
 
+  private subscription = new Subscription();
+
   displayedColumnsCursos = ['nome', 'periodo', 'acoes'];
   displayedColumnsTurmas = ['descricao', 'curso', 'acoes'];
   displayedColumnsDisciplinas = ['nome', 'descricao', 'acoes'];
 
-  constructor(
-    private readonly router: Router,
-    private readonly dialog: MatDialog
-  ) { }
+  constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getCursos();
@@ -52,12 +50,15 @@ export class CreateEntitysComponent implements OnInit {
     this.getDisciplinas();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getCursos() {
     this.cursoService.getCursos().subscribe({
       next: (cursos) => {
         this.cursosList = cursos;
         console.log(cursos);
-        
       },
       error: (error) => {
         console.log('Não foi possível carregar cursos:', error);
@@ -112,9 +113,7 @@ export class CreateEntitysComponent implements OnInit {
 
   selecionarDisciplina(disciplina: IDisciplina) {
     this.disciplinaSelected = disciplina;
-    this.router.navigate([
-      '/formDisciplina', disciplina.id
-    ]);
+    this.router.navigate(['/formDisciplina', disciplina.id]);
   }
 
   onCursoDelete(curso: ICurso) {
@@ -125,25 +124,23 @@ export class CreateEntitysComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    const sub = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.cursoService.removerCurso(curso.id!).subscribe({
-          next: (deletado) => {
-            this.snackbar.open('Curso deletado', 'Ok', {
-              duration: 3000,
-            });
+          next: () => {
+            this.snackbar.open('Curso deletado', 'Ok', { duration: 3000 });
             this.getCursos();
             this.getDisciplinas();
             this.getTurmas();
           },
-          error: (erro) => {
-            this.snackbar.open('Erro ao deletar curso', 'Ok', {
-              duration: 3000,
-            });
+          error: () => {
+            this.snackbar.open('Erro ao deletar curso', 'Ok', { duration: 3000 });
           },
         });
       }
     });
+
+    this.subscription.add(sub);
   }
 
   onTurmaDelete(turma: ITurma) {
@@ -154,25 +151,23 @@ export class CreateEntitysComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    const sub = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.turmaService.removerTurma(turma.id!).subscribe({
-          next: (deletado) => {
-            this.snackbar.open('Turma deletada', 'Ok', {
-              duration: 3000,
-            });
+          next: () => {
+            this.snackbar.open('Turma deletada', 'Ok', { duration: 3000 });
             this.getCursos();
             this.getDisciplinas();
             this.getTurmas();
           },
-          error: (erro) => {
-            this.snackbar.open('Erro ao deletar turma', 'Ok', {
-              duration: 3000,
-            });
+          error: () => {
+            this.snackbar.open('Erro ao deletar turma', 'Ok', { duration: 3000 });
           },
         });
       }
     });
+
+    this.subscription.add(sub);
   }
 
   onDisciplinaDelete(disciplina: IDisciplina) {
@@ -183,24 +178,22 @@ export class CreateEntitysComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    const sub = dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.disciplinaService.removerDisciplina(disciplina.id!).subscribe({
-          next: (deletado) => {
-            this.snackbar.open('Disciplina deletada', 'Ok', {
-              duration: 3000,
-            });
+          next: () => {
+            this.snackbar.open('Disciplina deletada', 'Ok', { duration: 3000 });
             this.getCursos();
             this.getDisciplinas();
             this.getTurmas();
           },
-          error: (erro) => {
-            this.snackbar.open('Erro ao deletar Disciplina', 'Ok', {
-              duration: 3000,
-            });
+          error: () => {
+            this.snackbar.open('Erro ao deletar Disciplina', 'Ok', { duration: 3000 });
           },
         });
       }
     });
+
+    this.subscription.add(sub);
   }
 }

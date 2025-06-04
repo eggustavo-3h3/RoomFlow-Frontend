@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -13,8 +13,8 @@ import { AngularMaterialModule } from '../../../angular-material/angular-materia
 import { MatRadioModule } from '@angular/material/radio';
 import { Perfil } from '../../../Enums/Perfil.enum';
 import { UsuarioService } from '../../../services/usuario.service';
-import { StatusUsuario } from '../../../Enums/StatusUsuario';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro',
@@ -29,8 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.css',
 })
-export class CadastroComponent implements OnInit {
-  
+export class CadastroComponent implements OnInit, OnDestroy {
   usuarios: IUsuario[] = [];
   isMobile: boolean = false;
   snackBar = inject(MatSnackBar);
@@ -42,6 +41,8 @@ export class CadastroComponent implements OnInit {
 
   formularioDeUsuario: FormGroup = new FormGroup({});
   usuarioService = inject(UsuarioService);
+
+  private subscription = new Subscription();
 
   constructor(private formbuilder: FormBuilder, private router: Router) {}
 
@@ -57,19 +58,24 @@ export class CadastroComponent implements OnInit {
           Validators.maxLength(50),
         ],
       ],
-      perfil: [null, [Validators.required]]
+      perfil: [null, [Validators.required]],
     });
   }
 
- 
-
   ngOnInit(): void {
     this.inicializaFormulario();
-     window.addEventListener('resize', this.checkMobileMode.bind(this));
+    window.addEventListener('resize', this.checkMobileMode.bind(this));
+    this.checkMobileMode(); // Para setar o estado inicial correto
   }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.checkMobileMode.bind(this));
+    this.subscription.unsubscribe();
+  }
+
   checkMobileMode() {
-  this.isMobile = window.innerWidth <= 768;
-}
+    this.isMobile = window.innerWidth <= 768;
+  }
 
   voltar() {
     this.router.navigate(['/']);
@@ -81,11 +87,15 @@ export class CadastroComponent implements OnInit {
 
       console.log(novoUsuario);
 
-      this.usuarioService.criarUsuario(novoUsuario).subscribe({
+      const sub = this.usuarioService.criarUsuario(novoUsuario).subscribe({
         next: () => {
-          this.snackBar.open('Cadastro concluído. Aguarde a autorização do Administrador', 'Ok', {
-            duration: 5000
-          });
+          this.snackBar.open(
+            'Cadastro concluído. Aguarde a autorização do Administrador',
+            'Ok',
+            {
+              duration: 5000,
+            }
+          );
           this.router.navigate(['/']);
           this.formularioDeUsuario.reset();
         },
@@ -93,6 +103,8 @@ export class CadastroComponent implements OnInit {
           console.log('Erro ao cadastrar usuário:', err);
         },
       });
+
+      this.subscription.add(sub);
     }
   }
 }
