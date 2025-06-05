@@ -78,6 +78,7 @@
   width: 50%;
   height: 100%;
   background-image: url(../../../../../public/icons/img_inicial.png);
+  background-color: rgb(212, 25, 25);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -91,7 +92,6 @@
   font-size: 28px;
 }
 
-/* Responsividade */
 @media (max-width: 900px) {
   .login-container {
     flex-direction: column;

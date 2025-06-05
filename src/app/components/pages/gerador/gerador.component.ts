@@ -88,6 +88,11 @@ export class GeradorComponent implements OnInit, OnDestroy {
     });
   }
 
+  voltar() {
+    this.router.navigate(['/principal']);
+  }
+
+
   getCursos() {
     const sub = this.cursoService.getCursos().subscribe({
       next: (cursos) => {

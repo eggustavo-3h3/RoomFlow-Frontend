@@ -39,6 +39,10 @@ export class FormCursoComponent implements OnInit, OnDestroy { // <-- adiciona O
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute
   ) {}
+  
+  voltar() {
+    this.router.navigate(['/create']);
+  }
 
   ngOnInit(): void {
     this.iniciarForm();

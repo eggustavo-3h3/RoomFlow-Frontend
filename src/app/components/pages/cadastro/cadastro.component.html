@@ -33,27 +33,34 @@
       <mat-form-field appearance="fill" class="input-full">
         <mat-label>Senha</mat-label>
         <input
-          matInput
-          type="password"
-          formControlName="senha"
-          placeholder="Senha"
-        />
-        <mat-error
-          *ngIf="formularioDeUsuario.controls['senha'].hasError('required')"
-        >
+        matInput
+        [type]="passwordAppears ? 'text' : 'password'"
+        formControlName="senha"
+        placeholder="Senha"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility()"
+        tabindex="-1"
+      >
+        <mat-icon>
+          {{ passwordAppears ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+        </button>
+      
+        <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('required')">
           A Senha é obrigatória
         </mat-error>
-        <mat-error
-          *ngIf="formularioDeUsuario.controls['senha'].hasError('minlength')"
-        >
+        <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('minlength')">
           A senha precisa ter no <strong>mínimo</strong> 8 caracteres!
         </mat-error>
-        <mat-error
-          *ngIf="formularioDeUsuario.controls['senha'].hasError('maxlength')"
-        >
+        <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('maxlength')">
           A senha pode ter no <strong>máximo</strong> 50 caracteres!
         </mat-error>
       </mat-form-field>
+      
 
 
       <h3 class="perfil-titulo titulo-centralizado">Perfil</h3>

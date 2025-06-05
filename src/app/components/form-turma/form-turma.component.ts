@@ -39,6 +39,11 @@ export class FormTurmaComponent implements OnInit, OnDestroy {
     private readonly formBuilder: FormBuilder,
     private readonly route: ActivatedRoute
   ) { }
+  
+  voltar() {
+    this.router.navigate(['/create']);
+  }
+
 
   ngOnInit(): void {
     this.iniciarForm();

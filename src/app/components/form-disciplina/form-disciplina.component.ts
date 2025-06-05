@@ -35,6 +35,10 @@ export class FormDisciplinaComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
   ) { }
 
+  voltar() {
+    this.router.navigate(['/create']);
+  }
+
   ngOnInit(): void {
     this.iniciarForm();
 

@@ -33,6 +33,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   usuarios: IUsuario[] = [];
   isMobile: boolean = false;
   snackBar = inject(MatSnackBar);
+  passwordAppears = false;
 
   perfil = [
     { label: 'Administrador', value: Perfil.Administrador },
@@ -43,6 +44,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   usuarioService = inject(UsuarioService);
 
   private subscription = new Subscription();
+  esconderSenha: boolean = true;
 
   constructor(private formbuilder: FormBuilder, private router: Router) {}
 
@@ -62,10 +64,14 @@ export class CadastroComponent implements OnInit, OnDestroy {
     });
   }
 
+  togglePasswordVisibility() {
+    this.esconderSenha = !this.esconderSenha;
+  }
+
   ngOnInit(): void {
     this.inicializaFormulario();
     window.addEventListener('resize', this.checkMobileMode.bind(this));
-    this.checkMobileMode(); // Para setar o estado inicial correto
+    this.checkMobileMode();
   }
 
   ngOnDestroy(): void {
