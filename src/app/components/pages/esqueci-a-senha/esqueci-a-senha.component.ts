@@ -24,12 +24,12 @@ import { SegurancaService, ISolicitarResetSenha } from '../../../services/segura
 })
 export class EsqueciASenhaComponent {
   formularioDeRecuperacao: FormGroup;
-  esqueciSenhaService: any;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private segurancaService: SegurancaService
     ) {
     this.formularioDeRecuperacao = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -45,13 +45,13 @@ export class EsqueciASenhaComponent {
       const email = this.formularioDeRecuperacao.value.email as string;
       const dados: ISolicitarResetSenha = { email };
 
-      this.esqueciSenhaService.solicitarResetSenha(dados).subscribe({
-        next: (res: any) => {
-            this.snackBar.open('Link enviado com sucesso!', 'Fechar', { duration: 3000 });
-
+      this.segurancaService.solicitarResetSenha(dados).subscribe({
+        next: () => {
+          this.snackBar.open('Link enviado com sucesso!', 'Fechar', { duration: 3000 });
+          this.router.navigate(['/']);
         },
         error: () => {
-           this.snackBar.open('Erro ao enviar link. Verifique o e-mail informado.', 'Fechar', { duration: 3000 });
+          this.snackBar.open('Erro ao enviar link. Verifique o e-mail informado.', 'Fechar', { duration: 3000 });
         }
       });
     }

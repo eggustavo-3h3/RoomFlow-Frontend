@@ -5,9 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IResetarSenha, SegurancaService } from '../../../services/seguranca.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-redefinir-senha',
   standalone: true,
@@ -33,11 +35,19 @@ export class RedefinirSenhaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-     private esqueciSenhaService: SegurancaService,
+    private esqueciSenhaService: SegurancaService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.form = this.fb.group(
       {
-        novaSenha: ['', Validators.required],
+        novaSenha: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8)
+          ]
+        ],
         confirmarSenha: ['', Validators.required]
       },
       { validators: this.validarSenhasIguais }
@@ -62,10 +72,17 @@ export class RedefinirSenhaComponent implements OnInit {
         novaSenha,
         confirmarNovaSenha: confirmarSenha
       };
-
+  
       this.esqueciSenhaService.resetarSenha(dados).subscribe({
-        next: (res: any) => console.log('Senha redefinida com sucesso', res),
-        error: (err: any) => console.error('Erro ao redefinir senha', err)
+        next: () => {
+          this.snackBar.open('Senha redefinida com sucesso!', 'Fechar', { duration: 3000 });
+          this.form.reset();
+          this.router.navigate(['/login']); 
+        },
+        error: (err) => {
+          const msg = err.error?.mensagem || 'Erro ao redefinir senha. Verifique o link.';
+          this.snackBar.open(msg, 'Fechar', { duration: 3000 });
+        }
       });
     }
   }

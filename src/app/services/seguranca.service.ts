@@ -17,6 +17,9 @@ export interface IAlterarSenha {
   novaSenha: string;
   confirmarNovaSenha: string;
 }
+export interface IRespostaMensagem {
+  mensagem: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +31,8 @@ export class SegurancaService {
   constructor(private http: HttpClient) {}
 
 
-  solicitarResetSenha(dados: ISolicitarResetSenha): Observable<any> {
-    return this.http.post(`${this.url}/gerar-chave-reset-senha`, dados);
+  solicitarResetSenha(dados: ISolicitarResetSenha): Observable<IRespostaMensagem> {
+    return this.http.post<IRespostaMensagem>(`${this.url}/gerar-chave-reset-senha`, dados);
   }
 
   resetarSenha(dados: IResetarSenha): Observable<any> {
