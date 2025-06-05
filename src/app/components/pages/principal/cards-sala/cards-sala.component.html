@@ -50,7 +50,7 @@
               {{ disciplina.nome }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="formulario.get('disciplina')?.hasError('required') && formulario.get('disciplina')?.touched">
+          <mat-error *ngIf="formulario.controls['disciplina'].hasError('required') && formulario.controls['disciplina'].touched">
             A disciplina é obrigatória
           </mat-error>
         </mat-form-field>
@@ -62,7 +62,7 @@
               {{ turma.descricao }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="formulario.get('turma')?.hasError('required') && formulario.get('turma')?.touched">
+          <mat-error *ngIf="formulario.controls['turma'].hasError('required') && formulario.controls['turma'].touched">
             A turma é obrigatória
           </mat-error>
         </mat-form-field>
@@ -73,7 +73,7 @@
           <mat-hint>DD/MM/AAAA</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="formulario.get('data')?.hasError('required') && formulario.get('data')?.touched">
+          <mat-error *ngIf="formulario.controls['data'].hasError('required') && formulario.controls['data'].touched">
             A data é obrigatória
           </mat-error>
         </mat-form-field>
@@ -83,7 +83,7 @@
           <mat-radio-button [value]="blocoEnum.Primeiro">Bloco 1</mat-radio-button>
           <mat-radio-button [value]="blocoEnum.Segundo">Bloco 2</mat-radio-button>
         </mat-radio-group>
-        <mat-error *ngIf="formulario.get('bloco')?.hasError('required') && formulario.get('bloco')?.touched" style="color: red; font-size: 12px;">
+        <mat-error *ngIf="formulario.controls['bloco'].hasError('required') && formulario.controls['bloco'].touched" style="color: red; font-size: 12px;">
           Escolha do bloco é obrigatória
         </mat-error>
 
