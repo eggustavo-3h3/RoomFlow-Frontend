@@ -8,7 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { IAlterarSenha, SegurancaService } from '../../../services/seguranca.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-alterar-senha',
@@ -19,7 +20,7 @@ import { MatIcon } from '@angular/material/icon';
     ReactiveFormsModule,
     MatInputModule,
     CommonModule,
-    MatIcon
+    MatIconModule
   ],
   templateUrl: './alterar-senha.component.html',
   styleUrls: ['./alterar-senha.component.css']
@@ -37,15 +38,14 @@ export class AlterarSenhaComponent {
     private fb: FormBuilder,
     private segurancaService: SegurancaService
     ) {
-    this.form = this.fb.group(
-      {
-        senhaAtual: ['', Validators.required],
-        novaSenha: ['', Validators.required],
-        confirmarSenha: ['', Validators.required],
-
-      },
-      { validators: this.validarSenhasIguais }
-    );
+      this.form = this.fb.group(
+        {
+          senhaAtual: ['', Validators.required],
+          novaSenha: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)]],
+          confirmarSenha: ['', Validators.required]
+        },
+        { validators: this.validarSenhasIguais }
+      );
   }
 
   validarSenhasIguais(group: FormGroup) {

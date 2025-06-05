@@ -58,7 +58,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50),
-          Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)
         ],
       ],
       perfil: [null, [Validators.required]],

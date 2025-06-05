@@ -234,8 +234,8 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
         id: sala.salaId,
         descricao: sala.descricao,
         numeroSala: sala.numeroSala,
-        tipoSala: sala.tipoSala,
-        statusSala: sala.statusSala,
+        tipoSala: TipoSala[sala.tipoSala as keyof unknown],
+        statusSala: Status[sala.statusSala as keyof unknown],
         flagExibirNumeroSala: sala.flagExibirNumeroSala,
       });
       this.exibirmodal = true;

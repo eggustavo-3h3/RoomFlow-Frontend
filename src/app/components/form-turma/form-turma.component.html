@@ -13,7 +13,7 @@
         formControlName="descricao"
         placeholder="Digite a descrição da turma"
       />
-      <mat-error *ngIf="formTurma.get('descricao')?.hasError('required')">
+      <mat-error *ngIf="formTurma.controls['descricao'].hasError('required')">
         Descrição da turma é obrigatória
       </mat-error>
     </mat-form-field>
@@ -28,7 +28,7 @@
           {{ curso.nome }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="formTurma.get('curso')?.hasError('required')">
+      <mat-error *ngIf="formTurma.controls['curso'].hasError('required')">
         Curso é obrigatório
       </mat-error>
     </mat-form-field>

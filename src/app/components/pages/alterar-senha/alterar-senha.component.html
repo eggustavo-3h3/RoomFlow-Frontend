@@ -53,6 +53,9 @@
       <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
         Campo obrigatório
       </mat-error>
+      <mat-error *ngIf="form.controls['novaSenha'].hasError('pattern')">
+        A senha deve conter pelo menos uma <strong>letra maiúscula, um número e um símbolo</strong>.
+        </mat-error>
     </mat-form-field>
     
 <mat-form-field appearance="fill" class="full-width">
@@ -82,6 +85,9 @@
       >
         As senhas não coincidem
       </mat-error>
+      <mat-error *ngIf="form.controls['novaSenha'].hasError('pattern')">
+        A senha deve conter pelo menos uma <strong>letra maiúscula, um número e um símbolo</strong>.
+        </mat-error>
     </mat-form-field>
     
     <button
