@@ -45,7 +45,8 @@ export class RedefinirSenhaComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.minLength(8)
+            Validators.minLength(8),
+            Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)
           ]
         ],
         confirmarSenha: ['', Validators.required]

@@ -50,6 +50,11 @@ body {
     border: 1px solid #dedede;
     
   }
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
   
   @media (max-width: 200px) {
     .grid-alterar-senha {
@@ -61,4 +66,27 @@ body {
       font-size: 20px;
     }
   }
+
+  mat-form-field.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-form-field button.mat-icon-button {
+  margin-right: -8px; /* Ajuste fino do botão no campo */
+  padding: 0;
+  height: 40px;
+  width: 40px;
+}
+
+mat-icon {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.54);
+  transition: color 0.3s;
+}
+
+mat-icon:hover {
+  color: #3f51b5; /* Cor de destaque ao passar o mouse */
+}
+
   

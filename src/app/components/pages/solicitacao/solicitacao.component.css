@@ -69,6 +69,17 @@ table.mat-table {
   margin: 0 6px;
 }
 
+.acoes-cell, .acoes-header {
+  text-align: center;
+}
+
+.icones-centralizados {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* espaçamento entre os ícones */
+}
+
 @media screen and (max-width: 768px) {
   .corpo {
     padding: 20px 10px;

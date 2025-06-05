@@ -58,16 +58,16 @@ export class CadastroComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50),
+          Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)
         ],
       ],
       perfil: [null, [Validators.required]],
     });
   }
 
-  togglePasswordVisibility() {
-    this.esconderSenha = !this.esconderSenha;
-  }
-
+  togglePasswordVisibility(): void {
+  this.passwordAppears = !this.passwordAppears;
+}
   ngOnInit(): void {
     this.inicializaFormulario();
     window.addEventListener('resize', this.checkMobileMode.bind(this));
