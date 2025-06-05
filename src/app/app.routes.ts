@@ -26,6 +26,7 @@ export const routes: Routes = [
     { path: 'cadastro', component: CadastroComponent },
     { path: 'redefinir', component: RedefinirSenhaComponent},
     { path: 'gerador-de-aula', component:GeradorComponent},
+    { path: "reset-senha/:chavereset", component: EsqueciASenhaComponent },
 
     {
         path: 'create', component: CreateEntitysComponent,

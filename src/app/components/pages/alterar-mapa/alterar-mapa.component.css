@@ -59,7 +59,7 @@
   justify-content: center;
   align-items: center;
   padding: 16px;
-  flex-wrap: wrap; /* permite que os botões quebrem linha em telas pequenas */
+  flex-wrap: wrap;
 }
 
 .custom-button {
@@ -241,6 +241,14 @@
 
 .full-width {
   width: 100%;
+}
+.botao-adicionar:disabled {
+  background-color: #b0b0b0 !important;
+  color: #666666 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  pointer-events: none;
 }
 
 

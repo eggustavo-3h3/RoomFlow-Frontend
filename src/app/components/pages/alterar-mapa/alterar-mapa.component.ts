@@ -91,7 +91,14 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
   }
 
   toggleModal() {
-    this.formularioDeSalas.reset();
+    this.formularioDeSalas.reset({
+      id: '',
+      descricao: '',
+      numeroSala: null,
+      tipoSala: null,
+      statusSala: null,
+      flagExibirNumeroSala: false 
+    });
     this.salaParaEdicao = null;
     this.exibirmodal = !this.exibirmodal;
   }
@@ -141,8 +148,8 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
         id: this.salaParaEdicao.id!,
         descricao: formValue.descricao,
         statusSala: formValue.statusSala,
-        tipoSala: Number(formValue.tipoSala),
-        numeroSala: Number(formValue.numeroSala),
+        tipoSala: formValue.tipoSala,
+        numeroSala: formValue.numeroSala,
         flagExibirNumeroSala: formValue.flagExibirNumeroSala,
       };
 
@@ -164,17 +171,19 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
       });
       this.subscriptions.add(sub);
     } else {
-      // Criação - não envia id
       const novaSala = {
         descricao: formValue.descricao,
         statusSala: formValue.statusSala,
-        tipoSala: Number(formValue.tipoSala),
-        numeroSala: Number(formValue.numeroSala),
+        tipoSala: formValue.tipoSala,
+        numeroSala: formValue.numeroSala,
         flagExibirNumeroSala: formValue.flagExibirNumeroSala,
       };
 
       const sub = this._salaService.cadastrarSala(novaSala).subscribe({
         next: (retorno) => {
+            this.snackBar.open('Sala cadastrada com sucesso', 'Fechar', {
+              duration: 3000,
+            });
           this.salas.push(retorno);
           this.getMapa();
           this.toggleModal();

@@ -73,16 +73,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Dia da Semana (0=Domingo, 6=Sábado)</mat-label>
-      <input type="number" matInput formControlName="diaSemana" />
-      <mat-error *ngIf="form.controls['diaSemana'].hasError('required')">
-        Obrigatório
-      </mat-error>
-      <mat-error *ngIf="form.controls['diaSemana'].hasError('min') || form.controls['diaSemana'].hasError('max')">
-        Entre 0 e 6
-      </mat-error>
-    </mat-form-field>
+    
   </div>
 
   <div class="form-row">
@@ -96,9 +87,18 @@
       </mat-error>
     </mat-form-field>
 
+    <div *ngIf="diaDaSemana">
+      Dia da semana selecionado: <strong>{{ diaDaSemana | diaSemana }}</strong>
+    </div>
+
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>Data Fim</mat-label>
-      <input matInput [matDatepicker]="pickerFim" formControlName="dataFim" />
+      <input 
+      matInput 
+      [matDatepicker]="pickerFim" 
+      formControlName="dataFim"  
+      [min]="form.controls['dataInicio'].value"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
       <mat-datepicker #pickerFim></mat-datepicker>
       <mat-error *ngIf="form.controls['dataFim'].hasError('required')">

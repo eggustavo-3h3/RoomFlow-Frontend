@@ -25,27 +25,31 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { IUsuario } from '../../../Interfaces/Usuario.interface';
 
 import { Subscription } from 'rxjs';
+import { DiaSemanaPipe } from '../../../Pipes/diaSemana.pipe';
 
 @Component({
-  selector: 'app-gerador',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    NavBarComponent,
-    AngularMaterialModule
-  ],
-  templateUrl: './gerador.component.html',
-  styleUrls: ['./gerador.component.css'],
+    selector: 'app-gerador',
+    standalone: true,
+    templateUrl: './gerador.component.html',
+    styleUrls: ['./gerador.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        NavBarComponent,
+        AngularMaterialModule,
+        DiaSemanaPipe
+    ]
 })
 export class GeradorComponent implements OnInit, OnDestroy {
   form: FormGroup;
   minDate: Date = new Date();
+
+  diaDaSemana: number | null = null;
 
   salasList: ISala[] = [];
   cursosList: ICurso[] = [];
@@ -77,9 +81,9 @@ export class GeradorComponent implements OnInit, OnDestroy {
       salaId: ['', Validators.required],
       turmaId: ['', Validators.required],
       professorId: ['', Validators.required],
-      diaSemana: [null, [Validators.required, Validators.min(0), Validators.max(6)]],
+      diaSemana: [null],
       dataInicio: [null, Validators.required],
-      dataFim: [null, Validators.required],
+      dataFim: [{ value: null, disabled: true }, Validators.required],
       bloco: [null, Validators.required],
     });
   }
@@ -152,11 +156,28 @@ export class GeradorComponent implements OnInit, OnDestroy {
     this.getDisciplinas();
     this.getSalas();
     this.getProfessores();
+
+    this.form.get('dataInicio')?.valueChanges.subscribe((dataInicio: Date | null) => {
+      this.diaDaSemana = dataInicio ? dataInicio.getDay() : null;
+    
+      const dataFimControl = this.form.get('dataFim');
+    
+      if (dataInicio) {
+        dataFimControl?.enable();
+      } else {
+        dataFimControl?.disable();
+        dataFimControl?.reset(); // opcional: limpa o campo ao desabilitar
+      }
+    });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      this.aulaService.gerador(this.form.value).subscribe({
+      const formValue = {
+        ...this.form.value,
+        diaSemana: this.diaDaSemana,
+      };
+      this.aulaService.gerador(formValue).subscribe({
         next: () => {
           this.snackBar.open('Aulas geradas com sucesso', 'Ok', { duration: 3000 });
           this.router.navigate(['/principal']);
@@ -173,4 +194,4 @@ export class GeradorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
-}
+} 
