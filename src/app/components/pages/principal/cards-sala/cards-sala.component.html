@@ -13,8 +13,11 @@
       <p><strong>Status:</strong> {{ salaSeleciona.statusSala  }}</p>
       <p><strong>Mostrar número?</strong> {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}</p>
 
-       <p *ngIf="salaSeleciona.statusSala === statusEnum.Ocupada">
-    <strong>Professor:</strong> {{ nomeDoProfessor }}
+       <p *ngIf="mapa.aula">
+    <strong>Professor:</strong> {{ mapa.aula.professor!.nome }}
+    <strong>Curso:</strong> {{ mapa.aula.curso!.nome }}
+    <strong>Turma:</strong> {{ mapa.aula.turma!.descricao }}
+    <strong>Disciplina:</strong> {{ mapa.aula.disciplina!.nome }}
   </p>
     </div>
 

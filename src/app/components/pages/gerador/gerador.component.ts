@@ -91,6 +91,9 @@ export class GeradorComponent implements OnInit, OnDestroy {
   voltar() {
     this.router.navigate(['/principal']);
   }
+  irParaListaAulas() {
+    this.router.navigate(['/lista-aula']);
+  }
 
 
   getCursos() {

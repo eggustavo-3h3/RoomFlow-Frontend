@@ -1,0 +1,44 @@
+.corpo {
+    margin-top: 5%; 
+  }
+  .header-bold {
+    font-weight: bold;
+    font-size: 18px;
+  }
+.lista-aula-container {
+    overflow-x: auto;
+    margin-top: auto;
+  }
+  
+  .mat-table {
+    width: 100%;
+    background-color: white;
+  }
+  
+  .acoes-header,
+  .acoes-cell {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .icones-centralizados {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start !important;
+  }
+ 
+  
+  .icone-vermelho {
+    color: red;
+  }
+  mat-card {
+    background-color: white;
+    box-shadow: none;   
+    border: none;        
+    max-width: 1000px;  
+    margin: 20px auto;  
+    padding: 16px;      
+    border-radius: 8px; 
+  }

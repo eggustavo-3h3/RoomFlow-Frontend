@@ -121,13 +121,18 @@
     </mat-form-field>
   </div>
 
-  <div class="button-container">
+  <div class="buttons-row">
+    <button mat-stroked-button color="warn" type="button" (click)="voltar()" class="back-button">
+      <mat-icon class="back-icon">arrow_back</mat-icon>
+      Voltar
+    </button>
+
     <button mat-raised-button color="primary" type="submit" class="submit-button" [disabled]="form.invalid">
       Enviar
     </button>
+
+    <button mat-stroked-button type="button" class="blue-button" (click)="irParaListaAulas()">
+      Lista de aulas
+    </button>
   </div>
-  <button mat-stroked-button color="warn" type="button" (click)="voltar()" class="back-button">
-    <mat-icon class="back-icon">arrow_back</mat-icon>
-    Voltar
-  </button>
 </form>

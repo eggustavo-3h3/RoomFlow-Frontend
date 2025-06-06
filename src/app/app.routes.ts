@@ -16,6 +16,7 @@ import { FormDisciplinaComponent } from './components/form-disciplina/form-disci
 import { FormTurmaComponent } from './components/form-turma/form-turma.component';
 import { RedefinirSenhaComponent } from './components/pages/redefinir-senha/redefinir-senha.component';
 import { GeradorComponent } from './components/pages/gerador/gerador.component';
+import { ListaAulaComponent } from './components/pages/lista-aula/lista-aula.component';
 
 export const routes: Routes = [
 
@@ -70,6 +71,10 @@ export const routes: Routes = [
     },
     {
         path: 'alterar-mapa', component: AlterarMapaComponent,
+        canActivate: [perfilGuard([Perfil.Administrador])]
+    },
+    {
+        path: 'lista-aula', component: ListaAulaComponent,
         canActivate: [perfilGuard([Perfil.Administrador])]
     },
 

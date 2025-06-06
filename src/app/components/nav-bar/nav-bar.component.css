@@ -140,7 +140,7 @@ mat-toolbar {
 
   .perfil-link {
     font-size: 22px;
-    margin-right: 16px;
+    margin-right: auto;
     flex-basis: auto;
   }
 

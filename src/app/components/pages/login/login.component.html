@@ -43,9 +43,7 @@
           <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('required') && formularioDeUsuario.controls['senha'].dirty">
             A Senha é <strong>obrigatória</strong>
           </mat-error>
-          <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('minlength')">
-            A senha precisa ter no <strong>mínimo</strong> 8 caracteres!
-          </mat-error>
+          
           <mat-error *ngIf="formularioDeUsuario.controls['senha'].hasError('maxlength')">
             A senha pode ter no <strong>máximo</strong> 50 caracteres!
           </mat-error>

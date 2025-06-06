@@ -1,0 +1,37 @@
+<app-nav-bar [textoNav]="'Lista de aulas'"></app-nav-bar>
+<div class="corpo">
+    <mat-card>
+      <mat-card-content>
+        <div class="lista-aula-container">
+          <table mat-table [dataSource]="aulas" class="mat-table" *ngIf="aulas.length">
+  
+            <ng-container matColumnDef="curso">
+              <th mat-header-cell *matHeaderCellDef class="header-bold">Curso</th>
+              <td mat-cell *matCellDef="let aula">{{ aula.curso }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="disciplina">
+              <th mat-header-cell *matHeaderCellDef class="header-bold">Disciplina</th>
+              <td mat-cell *matCellDef="let aula">{{ aula.disciplina }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef class="header-bold">Ações</th>
+              <td mat-cell *matCellDef="let aula" class="acoes-cell">
+                <div class="icones-centralizados">
+                  <button mat-icon-button matTooltip="Excluir" (click)="excluirAula(aula.id)">
+                    <mat-icon class="icone-vermelho">delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+  
+          <p *ngIf="aulas.length === 0">Nenhuma aula encontrada.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
