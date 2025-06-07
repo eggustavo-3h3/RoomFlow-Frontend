@@ -21,7 +21,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatCardModule,
     NavBarComponent,
     MatIconModule,
-
   ],
   templateUrl: './esqueci-senha.component.html',
   styleUrls: ['./esqueci-senha.component.css']
@@ -35,19 +34,13 @@ export class EsqueciSenhaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private esqueciSenhaService: SegurancaService,
+    private segurancaService: SegurancaService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
     this.form = this.fb.group(
       {
-        novaSenha: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-          ]
-        ],
+        novaSenha: ['', [Validators.required, Validators.minLength(8)]],
         confirmarSenha: ['', Validators.required]
       },
       { validators: this.validarSenhasIguais }
@@ -55,7 +48,7 @@ export class EsqueciSenhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chaveResetSenha = this.route.snapshot.queryParamMap.get('chave') || '';
+  this.chaveResetSenha = this.route.snapshot.paramMap.get('chavereset') || '';
   }
 
   validarSenhasIguais(group: FormGroup) {
@@ -72,12 +65,11 @@ export class EsqueciSenhaComponent implements OnInit {
         novaSenha,
         confirmarNovaSenha: confirmarSenha
       };
-  
-      this.esqueciSenhaService.resetarSenha(dados).subscribe({
+
+      this.segurancaService.resetarSenha(dados).subscribe({
         next: () => {
           this.snackBar.open('Senha redefinida com sucesso!', 'Fechar', { duration: 3000 });
-          this.form.reset();
-          this.router.navigate(['/login']); 
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           const msg = err.error?.mensagem || 'Erro ao redefinir senha. Verifique o link.';

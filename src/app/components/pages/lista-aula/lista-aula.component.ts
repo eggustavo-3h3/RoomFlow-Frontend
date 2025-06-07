@@ -39,19 +39,19 @@ export class ListaAulaComponent implements OnInit {
       });
   }
 
-  excluirAula(id: number) {
-    if (!confirm('Tem certeza que deseja excluir esta aula?')) return;
+  excluirAula(id: string) {
+  if (!confirm('Tem certeza que deseja excluir esta aula?')) return;
 
-    this.http.delete(`https://roomflow-api.tccnapratica.com.br/aula/${id}`)
-      .subscribe({
-        next: () => {
-          this.snackBar.open('Aula excluída com sucesso', 'Fechar', { duration: 3000 });
-          this.carregarAulas();
-        },
-        error: (erro) => {
-          console.error('Erro ao excluir aula:', erro);
-          this.snackBar.open('Erro ao excluir aula', 'Fechar', { duration: 3000 });
-        }
-      });
-  }
+  this.http.delete(`https://roomflow-api.tccnapratica.com.br/aula/remover/${id}`)
+    .subscribe({
+      next: () => {
+        this.snackBar.open('Aula excluída com sucesso', 'Fechar', { duration: 3000 });
+        this.carregarAulas();
+      },
+      error: (erro) => {
+        console.error('Erro ao excluir aula:', erro);
+        this.snackBar.open('Erro ao excluir aula', 'Fechar', { duration: 3000 });
+      }
+    });
+}
 }
