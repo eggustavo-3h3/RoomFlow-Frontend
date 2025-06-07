@@ -14,20 +14,20 @@ import { CreateEntitysComponent } from './components/pages/create-entitys/create
 import { FormCursoComponent } from './components/form-curso/form-curso.component';
 import { FormDisciplinaComponent } from './components/form-disciplina/form-disciplina.component';
 import { FormTurmaComponent } from './components/form-turma/form-turma.component';
-import { RedefinirSenhaComponent } from './components/pages/redefinir-senha/redefinir-senha.component';
 import { GeradorComponent } from './components/pages/gerador/gerador.component';
 import { ListaAulaComponent } from './components/pages/lista-aula/lista-aula.component';
+import { EsqueciSenhaComponent } from './components/pages/esqueci-senha/esqueci-senha.component';
 
 export const routes: Routes = [
 
-    { path: '', component: InicialComponent },
-    { path: 'login', component: LoginComponent },
+    { path: '', component: InicialComponent},
+    { path: 'login', component: LoginComponent},
     { path: 'principal', component: PrincipalComponent },
-    { path: 'esqueci', component: EsqueciASenhaComponent },
+    { path: 'esqueci', component: EsqueciASenhaComponent},
     { path: 'cadastro', component: CadastroComponent },
-    { path: 'esqueci-senha', component: RedefinirSenhaComponent},
+    { path: 'esqueci-senha', component: EsqueciSenhaComponent},
     { path: 'gerador-de-aula', component:GeradorComponent},
-    { path: "reset-senha/:chavereset", component: RedefinirSenhaComponent },
+    { path: "reset-senha/:chavereset", component: EsqueciSenhaComponent},
 
     {
         path: 'create', component: CreateEntitysComponent,

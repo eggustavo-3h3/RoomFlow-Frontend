@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-redefinir-senha',
+  selector: 'app-esqueci-senha',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatIconModule,
 
   ],
-  templateUrl: './redefinir-senha.component.html',
-  styleUrls: ['./redefinir-senha.component.css']
+  templateUrl: './esqueci-senha.component.html',
+  styleUrls: ['./esqueci-senha.component.css']
 })
-export class RedefinirSenhaComponent implements OnInit {
+export class EsqueciSenhaComponent implements OnInit {
   form: FormGroup;
   chaveResetSenha: string = '';
   esconderNovaSenha: boolean = true;
@@ -46,7 +46,6 @@ export class RedefinirSenhaComponent implements OnInit {
           [
             Validators.required,
             Validators.minLength(8),
-            Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)
           ]
         ],
         confirmarSenha: ['', Validators.required]
