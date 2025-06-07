@@ -23,7 +23,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ListaAulaComponent implements OnInit {
   aulas: any[] = [];
-  displayedColumns: string[] = ['curso', 'disciplina', 'acoes'];
+  displayedColumns: string[] = ['curso', 'disciplina',  'descricao', 'bloco', 'data', 'professor' ,'acoes'];
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
