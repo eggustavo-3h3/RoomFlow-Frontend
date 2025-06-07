@@ -39,7 +39,7 @@ export class SalaService {
   }
 
   buscarDadosFiltrados(data: Date, bloco: number): Observable<ISala[]> {
-    const dataStr = data.toISOString().split('T')[0]; // formato yyyy-MM-dd
-    return this.http.get<ISala[]>(`/api/salas?data=${dataStr}&bloco=${bloco}`);
-  }
+  const dataStr = data.toISOString().split('T')[0]; // formato yyyy-MM-dd
+  return this.http.get<ISala[]>(`https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataStr}&bloco=${bloco}`);
+}
 }

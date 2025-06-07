@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { SalaService } from '../../../services/sala.service';
 import { ISala } from '../../../Interfaces/Sala.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-calendario-dialog',
@@ -54,7 +55,8 @@ onDateChange(date: Date) {
   public dialogRef: MatDialogRef<CalendarioDialogComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any,
   private salaService: SalaService,
-  private router: Router
+  private router: Router,
+  private snackBar: MatSnackBar
 ) {}
 
 abrirBloco() {
@@ -75,11 +77,22 @@ aplicarFiltro() {
         next: (data: ISala[]) => {
           console.log('Salas filtradas:', data);
           this.dialogRef.close(data);
+          this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
+            duration: 3000,
+          });
         },
-        error: err => console.error('Erro ao buscar salas:', err)
+        error: err => {
+          console.error('Erro ao buscar salas:', err);
+          this.snackBar.open('Erro ao carregar salas, tente novamente.', 'Fechar', {
+            duration: 3000,
+          });
+        }
       });
   } else {
     console.warn('Selecione uma data e um bloco antes de aplicar o filtro');
+    this.snackBar.open('Selecione uma data e um bloco antes de aplicar o filtro.', 'Fechar', {
+      duration: 3000,
+    });
   }
 }
 mapearBlocoParaNumero(bloco: string): number {
