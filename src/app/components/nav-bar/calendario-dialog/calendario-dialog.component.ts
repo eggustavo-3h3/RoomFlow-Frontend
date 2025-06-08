@@ -84,51 +84,25 @@ export class CalendarioDialogComponent {
   blocoEnum = [
     { label: 'Bloco 1', value: Bloco.Primeiro },
     { label: 'Bloco 2', value: Bloco.Segundo },
-    { label: 'Ambos', value: 'ambos' },
+    { label: 'Ambos', value: 0 },
   ];
 
   async aplicarFiltro() {
-  const data = this.form.get('data')?.value;
-  const bloco = this.form.get('bloco')?.value;
+    const data = this.form.get('data')?.value;
+    const bloco = this.form.get('bloco')?.value;
 
-  if (data && bloco !== null) {
-    if (bloco === 'ambos') {
-      try {
-        const [salas1, salas2] = await Promise.all([
-          firstValueFrom(this.salaService.buscarDadosFiltrados(data, Bloco.Primeiro)),
-          firstValueFrom(this.salaService.buscarDadosFiltrados(data, Bloco.Segundo)),
-        ]);
-
-        const salas = [...(salas1 ?? []), ...(salas2 ?? [])];
-
+    this.salaService.buscarDadosFiltrados(data, bloco).subscribe({
+      next: (salas: IMapa[]) => {
         this.dialogRef.close(salas);
         this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
           duration: 3000,
         });
-      } catch (error) {
+      },
+      error: () => {
         this.snackBar.open('Erro ao carregar salas.', 'Fechar', {
           duration: 3000,
         });
-      }
-    } else {
-      this.salaService.buscarDadosFiltrados(data, bloco).subscribe({
-        next: (salas: IMapa[]) => {
-          this.dialogRef.close(salas);
-          this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
-            duration: 3000,
-          });
-        },
-        error: () => {
-          this.snackBar.open('Erro ao carregar salas.', 'Fechar', {
-            duration: 3000,
-          });
-        },
-      });
-    }
-  } else {
-    this.snackBar.open('Selecione uma data e um bloco.', 'Fechar', {
-      duration: 3000,
+      },
     });
   }
-}
 }

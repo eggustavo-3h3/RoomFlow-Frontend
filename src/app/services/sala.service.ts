@@ -40,9 +40,10 @@ export class SalaService {
   buscarDadosFiltrados(data: Date, bloco?: number): Observable<IMapa[]> {
     const dataFormatada = data.toISOString().split('T')[0]; // Formato yyyy-MM-dd
 
-    let url = `https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataFormatada}`;
+    //let url = `https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataFormatada}`;
+    let url = `https://localhost:52967/mapa/listar?data=${dataFormatada}`; //Eduardo
 
-    if (bloco !== undefined) {
+    if (bloco !== undefined && bloco !== 0) {
         url += `&bloco=${bloco}`;
     }
 

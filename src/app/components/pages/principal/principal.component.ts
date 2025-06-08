@@ -90,7 +90,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
   getMapa() {
     const data = new Date();
-    const bloco = undefined; // Pode ser definido conforme a lógica do seu aplicativo
+    const bloco = 0; // Pode ser definido conforme a lógica do seu aplicativo
 
     const sub = this._salaService.buscarDadosFiltrados(data, bloco).subscribe({
       next: lista => {
