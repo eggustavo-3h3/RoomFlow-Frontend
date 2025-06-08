@@ -22,11 +22,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { SalaService } from '../../../services/sala.service';
-import { ISala } from '../../../Interfaces/Sala.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Bloco } from '../../../Enums/Bloco.enum';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
+import { IMapa } from '../../../Interfaces/Mapa.interface';
 
 @Component({
   selector: 'app-calendario-dialog',
@@ -91,15 +91,13 @@ export class CalendarioDialogComponent {
 
     if (data && bloco !== null) {
       this.salaService.buscarDadosFiltrados(data, bloco).subscribe({
-        next: (salas: ISala[]) => {
-          console.log('Salas filtradas:', salas);
+        next: (salas: IMapa[]) => {
           this.dialogRef.close(salas);
           this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
             duration: 3000,
           });
         },
         error: (err) => {
-          console.error('Erro ao buscar salas:', err);
           this.snackBar.open(
             'Erro ao carregar salas, tente novamente.',
             'Fechar',

@@ -90,8 +90,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
     if (this.formularioDeUsuario.valid) {
       const novoUsuario = this.formularioDeUsuario.value;
 
-      console.log(novoUsuario);
-
       const sub = this.usuarioService.criarUsuario(novoUsuario).subscribe({
         next: () => {
           this.snackBar.open(

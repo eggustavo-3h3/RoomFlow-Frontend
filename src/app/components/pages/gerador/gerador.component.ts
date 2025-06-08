@@ -137,7 +137,6 @@ export class GeradorComponent implements OnInit, OnDestroy {
     const sub = this.salaService.getSalas().subscribe({
       next: (salas) => {
         this.salasList = salas;
-        console.log(this.salasList);
       },
       error: (error) => {
         console.log('Não foi possível carregar salas:', error);
@@ -150,7 +149,6 @@ export class GeradorComponent implements OnInit, OnDestroy {
     const sub = this.usuárioService.getProfessores().subscribe({
       next: (prof) => {
         this.profList = prof;
-        console.log('Professores:', this.profList);
       },
       error: (error) => {
         console.log('Não foi possível carregar professores:', error);

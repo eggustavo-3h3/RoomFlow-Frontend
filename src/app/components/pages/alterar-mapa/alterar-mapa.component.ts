@@ -128,7 +128,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
         this.atualizarContagens();
       },
       error: (erro) => {
-        console.log(erro.message);
         this.snackBar.open(
           'Erro ao carregar salas, volte novamente mais tarde!',
           'Fechar',

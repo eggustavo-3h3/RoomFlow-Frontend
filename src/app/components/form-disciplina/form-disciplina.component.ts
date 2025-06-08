@@ -48,7 +48,6 @@ export class FormDisciplinaComponent implements OnInit, OnDestroy {
       this.editando = true; 
       const sub = this.disciplinaService.getDisciplinasPorId(disciplinaParam).subscribe({
         next: (disciplina) => {
-          console.log(disciplinaParam);
           this.formDisciplina.patchValue(disciplina);
         },
         error: (error) => {

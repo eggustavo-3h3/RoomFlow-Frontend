@@ -59,8 +59,6 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     if (salasFiltradas) {
       this.mapa = salasFiltradas;
       this.atualizarContagens();
-      console.log(salasFiltradas);
-      
     }
   });
 }
@@ -88,27 +86,32 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   }
 
   getMapa() {
+    const data = new Date();
+    const bloco = undefined; // Pode ser definido conforme a lógica do seu aplicativo
 
-    const hoje = new Date();
-
-    const bloco : Bloco | undefined = undefined;
-
-    const sub = this._salaService.buscarDadosFiltrados(hoje, bloco).subscribe({
+    const sub = this._salaService.buscarDadosFiltrados(data, bloco).subscribe({
       next: lista => {
-        console.log(lista);
         this.mapa = lista;
-        this.atualizarContagens();
-        console.log('data carregada:', hoje);
-        
+        this.atualizarContagens();       
       },
       error: erro => {
-        console.log(erro.message);
         this.snackBar.open('Erro ao carregar salas, volte novamente mais tarde!', 'Fechar', {
           duration: 3000,
         });
       },
     });
     this.subscriptions.push(sub);
+  }
+
+  abrirCalendario() {
+    const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '410px' });
+
+    dialogRef.afterClosed().subscribe((salasFiltradas: IMapa[]) => {
+      if (salasFiltradas) {
+        this.mapa = salasFiltradas;
+        this.atualizarContagens();
+      }
+    });
   }
 
   fecharTodosCards() {

@@ -11,9 +11,7 @@
         <div class="status-item">
           <span class="status-icon reservado"></span> Ocupada
         </div>
-        <div class="status-item">
-          <span class="status-icon indisponível"></span> Indisponível
-        </div>
+        <button (click)="abrirCalendario()">Filtro</button>
       </div>
     </mat-card-header>
 
@@ -40,10 +38,6 @@
     <div class="informacao-item">
       <span class="valor">{{ salasReservadas }}</span>
       <span>Ocupadas</span>
-    </div>
-    <div class="informacao-item">
-      <span class="valor">{{ salasIndisponiveis }}</span>
-      <span>Indisponíveis</span>
     </div>
     <div class="informacao-item">
       <span class="valor">{{ mapa.length }}</span>

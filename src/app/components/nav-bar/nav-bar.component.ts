@@ -79,12 +79,14 @@ export class NavBarComponent implements OnInit {
   }
 
   abrirCalendario() {
-  const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '410px' });
+    const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '410px' });
 
-  dialogRef.afterClosed().subscribe((salasFiltradas: ISala[]) => {
-    if (salasFiltradas) {
-      console.log('Salas filtradas recebidas:', salasFiltradas);
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe((salasFiltradas: ISala[]) => {
+      if (salasFiltradas) {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(["principal"]);        
+        }
+      )};
+    })    
+  }
 }

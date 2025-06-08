@@ -97,8 +97,6 @@ export class FormCursoComponent implements OnInit, OnDestroy { // <-- adiciona O
         });
         return;
       } else {
-        console.log(this.formCurso.value);
-
         this.cursoService.adicionarCurso(this.formCurso.value).subscribe({
           next: (curso) => {
             this.snackBar.open('Curso cadastrado com sucesso!', 'Ok', {

@@ -37,19 +37,15 @@ export class SalaService {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }
 
-      buscarDadosFiltrados(data: Date, bloco?: number): Observable<IMapa[]> {
-      // Formata a data no formato yyyy-MM-dd que é compatível com DateOnly
-      const year = data.getFullYear();
-      const month = (data.getMonth() + 1).toString().padStart(2, '0');
-      const day = data.getDate().toString().padStart(2, '0');
-      const dataStr = `${year}-${month}-${day}`;
+  buscarDadosFiltrados(data: Date, bloco?: number): Observable<IMapa[]> {
+    const dataFormatada = data.toISOString().split('T')[0]; // Formato yyyy-MM-dd
 
-      let url = `https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataStr}`;
+    let url = `https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataFormatada}`;
 
-      if (bloco !== undefined) {
-          url += `&bloco=${bloco}`;
-      }
+    if (bloco !== undefined) {
+        url += `&bloco=${bloco}`;
+    }
 
-      return this.http.get<IMapa[]>(url);
+    return this.http.get<IMapa[]>(url);
   }
 }

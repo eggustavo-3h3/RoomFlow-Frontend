@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
         if (token) {
           this.authService.addToken(token);
           this.router.navigate(['principal']);
-          console.log('logado');
         }
       },
       error: erro => {
