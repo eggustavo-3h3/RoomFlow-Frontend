@@ -3,9 +3,8 @@
   flex-direction: row;
   height: 100vh;
   width: 100vw;
-  background-color:rgb(248, 248, 248);
+  background-color: rgb(248, 248, 248);
   overflow-x: hidden;
-  
 }
 
 .login-form {
@@ -16,7 +15,6 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
-
 }
 
 .form-wrapper {
@@ -24,14 +22,11 @@
   flex-direction: column;
   width: 100%;
   max-width: 420px;
-  transform: translateX(233px);
-  
 }
 
 .titulo-centralizado {
   text-align: center;
   letter-spacing: 2px;
-  transform: translateX(1px);
 }
 
 .input-full {
@@ -43,7 +38,6 @@
   font-size: 20px;
   margin: 15px 0 5px 0;
   color: #222;
-  transform: translateX(-13px);
 }
 
 .perfil-opcoes {
@@ -52,14 +46,12 @@
   justify-content: center;
   align-items: flex-start;
   margin: 0 auto 25px auto;
-  transform: translateX(-18px);
 }
 
 .botao-container {
   display: flex;
   justify-content: center;
   gap: 10px;
-  transform: translateX(-10px);
 }
 
 .botao-container button {
@@ -70,7 +62,6 @@
   text-transform: none !important;
   box-shadow: none !important;
   border-radius: 6px;
-  
 }
 
 .imagem-fundo {
@@ -80,53 +71,35 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transform: translateX(-100px);
 }
 
 .titulo-centralizado1 {
   text-align: center;
   letter-spacing: 2px;
-  transform: translateX(235px);
   font-size: 28px;
 }
 
 @media (max-width: 900px) {
   .login-container {
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
   }
 
-   .imagem-fundo {
-    width: 55%;
-    height: 200px;
-    order: -1;
-    align-self: flex-end;
-    background-position: right center;
-    background-size: cover;
-  }
 
- .login-form {
+
+  .login-form {
     width: 90%;
-    padding: 10px;
+    padding: 0px;
   }
 
   .login-form h2.titulo-centralizado1 {
     font-size: 28px;
     margin-bottom: 20px;
-    transform: none;
   }
 
   .form-wrapper {
     max-width: 100%;
     padding: 0 10px;
-    transform: none;
-  }
-
-  .perfil-titulo,
-  .perfil-opcoes,
-  .botao-container {
-    transform: none;
-    align-items: center;
   }
 
   .botao-container {

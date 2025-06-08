@@ -1,44 +1,71 @@
-body {
-    background-color: #0606e5;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
-  .grid-alterar-senha {
-    max-width: 400px;
-    margin-top: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    
-  }
-    
-    .card-title {
-      font-size: 24px;
-      font-weight: 600;
-      text-align: center;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    mat-form-field {
-      width: 100%;
-      background-color: transparent !important;
-    }
-    
-   button[type="submit"] {
+.esqueci-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(248, 248, 248);
+  flex-direction: row-reverse;
+}
+
+.imagem-fundo {
+  width: 50%;
+  height: 100%;
+  background-image: url(../../../../../public/icons/img_inicial.png);
+  background-position: center;
+  background-size: cover;
+  transform: translateX(-100px);
+}
+
+.imagem-fundo-card {
+  display: none;
+}
+
+.esqueci-form-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  background-color: rgb(248, 248, 248);
+}
+
+.grid-alterar-senha {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: rgb(202, 67, 67);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  background-color: transparent !important;
+  margin-bottom: 20px;
+}
+
+input[matInput] {
+  font-size: 16px;
+  padding-right: 40px;
+}
+
+button[type="submit"] {
   align-self: center;
   padding: 10px 24px;
   font-size: 16px;
@@ -47,17 +74,15 @@ body {
   color: white;
   background-color: #1976d2;
   border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
-
 
 button[type="submit"]:hover:not(:disabled) {
   background-color: #1565c0;
 }
-
 
 button[type="submit"]:disabled {
   background-color: #b0bec5;
@@ -65,19 +90,7 @@ button[type="submit"]:disabled {
   color: #eceff1;
   box-shadow: none;
 }
-mat-form-field {
-  background-color: transparent !important;
-  width: 100%;
-  margin-bottom: 20px;
-}
 
-
-input[matInput] {
-  padding-right: 40px;
-  font-size: 16px;
-}
-
-/* Botão de olho */
 button[mat-icon-button] {
   color: #555;
   transition: color 0.3s ease;
@@ -87,21 +100,43 @@ button[mat-icon-button]:hover {
   color: #1976d2;
 }
 
+/* Responsivo */
+@media (max-width: 1100px) {
+  .esqueci-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+  }
 
-@media (max-width: 600px) {
-  mat-form-field {
+  .imagem-fundo {
+    display: none;
+  }
+
+  .imagem-fundo-card {
+    display: block;
     width: 100%;
+    height: 200px;
+    background-image: url(../../../../../public/icons/img_inicial.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  .esqueci-form-card {
+    width: 90%;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .grid-alterar-senha {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 22px;
   }
 }
-    
-    @media (max-width: 200px) {
-      .grid-alterar-senha {
-        margin: 20px;
-        padding: 20px;
-      }
-    
-      .card-title {
-        font-size: 20px;
-      }
-    }
-    
