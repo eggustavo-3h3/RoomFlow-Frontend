@@ -226,6 +226,6 @@ mat-radio-group {
 .usuario-info .value {
   word-break: break-word;
   white-space: normal;
-  max-width: 220px; /* ou o que couber bem visualmente */
+  max-width: 220px;
   display: inline-block;
 }

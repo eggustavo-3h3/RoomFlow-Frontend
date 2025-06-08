@@ -27,6 +27,7 @@ import { Bloco } from '../../../Enums/Bloco.enum';
 import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
 import { IMapa } from '../../../Interfaces/Mapa.interface';
+import { firstValueFrom, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-calendario-dialog',
@@ -83,13 +84,33 @@ export class CalendarioDialogComponent {
   blocoEnum = [
     { label: 'Bloco 1', value: Bloco.Primeiro },
     { label: 'Bloco 2', value: Bloco.Segundo },
+    { label: 'Ambos', value: 'ambos' },
   ];
 
-  aplicarFiltro() {
-    const data = this.form.get('data')?.value;
-    const bloco = this.form.get('bloco')?.value;
+  async aplicarFiltro() {
+  const data = this.form.get('data')?.value;
+  const bloco = this.form.get('bloco')?.value;
 
-    if (data && bloco !== null) {
+  if (data && bloco !== null) {
+    if (bloco === 'ambos') {
+      try {
+        const [salas1, salas2] = await Promise.all([
+          firstValueFrom(this.salaService.buscarDadosFiltrados(data, Bloco.Primeiro)),
+          firstValueFrom(this.salaService.buscarDadosFiltrados(data, Bloco.Segundo)),
+        ]);
+
+        const salas = [...(salas1 ?? []), ...(salas2 ?? [])];
+
+        this.dialogRef.close(salas);
+        this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
+          duration: 3000,
+        });
+      } catch (error) {
+        this.snackBar.open('Erro ao carregar salas.', 'Fechar', {
+          duration: 3000,
+        });
+      }
+    } else {
       this.salaService.buscarDadosFiltrados(data, bloco).subscribe({
         next: (salas: IMapa[]) => {
           this.dialogRef.close(salas);
@@ -97,28 +118,17 @@ export class CalendarioDialogComponent {
             duration: 3000,
           });
         },
-        error: (err) => {
-          this.snackBar.open(
-            'Erro ao carregar salas, tente novamente.',
-            'Fechar',
-            {
-              duration: 3000,
-            }
-          );
+        error: () => {
+          this.snackBar.open('Erro ao carregar salas.', 'Fechar', {
+            duration: 3000,
+          });
         },
       });
-    } else {
-      this.snackBar.open(
-        'Selecione uma data e um bloco antes de aplicar o filtro.',
-        'Fechar',
-        {
-          duration: 3000,
-        }
-      );
     }
+  } else {
+    this.snackBar.open('Selecione uma data e um bloco.', 'Fechar', {
+      duration: 3000,
+    });
   }
-
-  isDataSelecionada(): boolean {
-    return !!this.form.get('data')?.value;
-  }
+}
 }

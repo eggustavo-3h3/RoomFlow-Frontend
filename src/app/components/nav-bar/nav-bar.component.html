@@ -13,16 +13,6 @@
   <span class="toolbar-title">{{ textoNav }}</span>
 
   <span class="spacer"></span>
-
-
-  <mat-icon
-    *ngIf="router.url === '/principal' || router.url === '/alterar-mapa'"
-    (click)="abrirCalendario()"
-    style="cursor: pointer; font-size: 24px;"
-  >
-    calendar_month
-  </mat-icon>
-
   <a
     *ngIf="!estaLogado"
     routerLink="/login"

@@ -11,7 +11,10 @@
         <div class="status-item">
           <span class="status-icon reservado"></span> Ocupada
         </div>
-        <button (click)="abrirCalendario()">Filtro</button>
+<button mat-button (click)="abrirCalendario()" class="botao-filtro">
+  <mat-icon>calendar_month</mat-icon>
+  Filtro
+</button>
       </div>
     </mat-card-header>
 

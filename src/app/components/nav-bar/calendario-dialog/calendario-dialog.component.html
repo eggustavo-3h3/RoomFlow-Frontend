@@ -21,8 +21,8 @@
     </mat-radio-group>
   </form>
 
-  <div>
-    <button mat-raised-button color="primary" (click)="aplicarFiltro()" [disabled]="!form.valid">Filtrar</button>
-    <button mat-raised-button class="botao-fechar" (click)="dialogRef.close()">Fechar</button>
-  </div>
+ <div class="botoes-dialogo">
+  <button mat-raised-button color="primary" (click)="aplicarFiltro()" [disabled]="!form.valid">Filtrar</button>
+  <button mat-raised-button class="botao-fechar" (click)="dialogRef.close()">Fechar</button>
+</div>
 </mat-dialog-content>

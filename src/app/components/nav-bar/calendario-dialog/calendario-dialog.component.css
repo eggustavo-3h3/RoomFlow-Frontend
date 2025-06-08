@@ -29,6 +29,7 @@ mat-dialog-content {
     align-self: center;
   }
   
+  
 
   mat-calendar {
     font-size: 14px; 
@@ -109,4 +110,13 @@ button[mat-raised-button][color="primary"]:hover:not([disabled]) {
 button[disabled] {
   cursor: not-allowed;
   opacity: 0.6;
+}
+.botoes-dialogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  width: 100%;
+  flex-wrap: wrap;
 }

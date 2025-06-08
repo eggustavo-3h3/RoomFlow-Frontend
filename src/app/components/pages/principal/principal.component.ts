@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Bloco } from '../../../Enums/Bloco.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarioDialogComponent } from '../../nav-bar/calendario-dialog/calendario-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-principal',
@@ -28,6 +29,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   salas: ISala[] = [];
 
   mapa: IMapa[] = [];
+  
 
   snackBar = inject(MatSnackBar);
   authService = inject(AuthService);
@@ -40,6 +42,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
   constructor(private readonly _salaService: SalaService,
     private dialog: MatDialog
+    
   ) { }
 
   @Output() salaAtualizada = new EventEmitter<ISala>();

@@ -172,4 +172,23 @@ mat-card-header {
     font-size: 14px;
   }
 }
+.botao-filtro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 30px;
+  font-weight: bold;
+  color: black !important;
+  padding: 8px 16px;
+  line-height: normal;
+  min-height: 48px;
+}
+
+.botao-filtro mat-icon {
+  font-size: 28px;
+  color: black;
+  line-height: 1; 
+  height: auto;
+  width: auto;
+}
 

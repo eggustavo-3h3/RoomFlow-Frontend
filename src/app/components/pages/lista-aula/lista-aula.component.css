@@ -42,3 +42,16 @@
     padding: 16px;      
     border-radius: 8px; 
   }
+ mat-card-content {
+  max-height: 650px; /* altura fixa ou máxima para scroll aparecer */
+  overflow-y: auto;
+  overflow-x: auto;  /* caso a tabela seja larga */
+  padding: 0 8px 8px 8px; /* um pouco de padding interno */
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.lista-aula-container {
+  width: 100%;
+  min-width: 600px; /* evita a tabela encolher demais */
+}

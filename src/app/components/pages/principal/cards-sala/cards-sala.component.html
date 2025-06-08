@@ -8,19 +8,24 @@
   <div class="modal-card" (click)="$event.stopPropagation()">
     <div *ngIf="salaSeleciona">
       <h5 class="card-title">{{ salaSeleciona.descricao }}</h5>
-      <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
-      <p *ngIf="mostrarNumSala">
-        <strong>Mostrar número?</strong>
-        {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}
-      </p>
 
-      <p *ngIf="mapa.aula">
-        <strong>Professor:</strong> {{ mapa.aula.professor!.nome }}
-        <strong>Curso:</strong> {{ mapa.aula.curso!.nome }}
-        <strong>Turma:</strong> {{ mapa.aula.turma!.descricao }}
-        <strong>Disciplina:</strong> {{ mapa.aula.disciplina!.nome }}
-      </p>
+      <div class="texto-esquerda">
+        <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
+
+        <p *ngIf="mostrarNumSala">
+          <strong>Mostrar número?</strong>
+          {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}
+        </p>
+
+        <div *ngIf="mapa.aula">
+          <p><strong>Professor:</strong> {{ mapa.aula.professor!.nome }}</p>
+          <p><strong>Curso:</strong> {{ mapa.aula.curso!.nome }}</p>
+          <p><strong>Turma:</strong> {{ mapa.aula.turma!.descricao }}</p>
+          <p><strong>Disciplina:</strong> {{ mapa.aula.disciplina!.nome }}</p>
+        </div>
+      </div>
     </div>
+
 
     <button mat-raised-button class="fechar-button" (click)="toggleCard()">
       Fechar
