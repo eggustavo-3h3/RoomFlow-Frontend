@@ -130,9 +130,10 @@
             matInput
             [matDatepicker]="picker"
             formControlName="data"
-            readonly
+            [min]="minDate"
           />
           <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         </mat-form-field>
 
         <p class="bloco-label">Escolha o bloco desejado</p>

@@ -240,7 +240,7 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
         });
       },
       error: (err) => {
-        this.snackBar.open( 'Erro ao cadastrar aula', 'Ok', {
+        this.snackBar.open( 'Erro ao cadastrar aula, talvez já tenha uma aula cadastrada nessa data e bloco', 'Ok', {
           duration: 3000
         });
         console.error('Erro ao confirmar reserva:', err);
