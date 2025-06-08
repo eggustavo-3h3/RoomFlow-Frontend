@@ -43,12 +43,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
 
   formularioDeSalas: FormGroup = new FormGroup({});
 
-  statusEnum = Status;
-  statusOptions = [
-    { label: 'Disponível', value: Status.Disponivel },
-    { label: 'Indisponível', value: Status.Indisponivel },
-  ];
-
   tipoOptions = [
     { label: 'Lab. Informatica', value: TipoSala.LabInformatica },
     { label: 'Lab. Quimica', value: TipoSala.LabQuimica },
@@ -76,7 +70,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
       descricao: ['', [Validators.maxLength(6), Validators.required]],
       numeroSala: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
       tipoSala: [null, Validators.required],
-      statusSala: [null, Validators.required],
       flagExibirNumeroSala: [false],
     });
   }
@@ -97,7 +90,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
       descricao: '',
       numeroSala: null,
       tipoSala: null,
-      statusSala: null,
       flagExibirNumeroSala: false 
     });
     this.salaParaEdicao = null;
@@ -231,7 +223,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
         descricao: sala.descricao,
         numeroSala: sala.numeroSala,
         tipoSala: sala.tipoSala,
-        statusSala: sala.statusSala,
         flagExibirNumeroSala: sala.flagExibirNumeroSala,
       };
 
@@ -240,7 +231,6 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
         descricao: sala.descricao,
         numeroSala: sala.numeroSala,
         tipoSala: TipoSala[sala.tipoSala as keyof unknown],
-        statusSala: Status[sala.statusSala as keyof unknown],
         flagExibirNumeroSala: sala.flagExibirNumeroSala,
       });
       this.exibirmodal = true;

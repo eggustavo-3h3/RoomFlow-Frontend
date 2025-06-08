@@ -60,7 +60,9 @@ export class CreateEntitysComponent implements OnInit, OnDestroy {
         this.cursosList = cursos;
       },
       error: (error) => {
-        console.log('Não foi possível carregar cursos:', error);
+        this.snackbar.open('Não foi possível carregar cursos:', 'Ok', {
+          duration: 3000
+        });
       },
     });
   }
@@ -71,7 +73,9 @@ export class CreateEntitysComponent implements OnInit, OnDestroy {
         this.turmasList = turma;
       },
       error: (error) => {
-        console.log('Não foi possível carregar turmas:', error);
+        this.snackbar.open('Não foi possível carregar turmas:', 'Ok', {
+          duration: 3000
+        });
       },
     });
   }
@@ -82,7 +86,9 @@ export class CreateEntitysComponent implements OnInit, OnDestroy {
         this.disciplinasList = disciplina;
       },
       error: (error) => {
-        console.log('Não foi possível carregar disciplinas:', error);
+       this.snackbar.open('Não foi possível carregar disciplinas:', 'Ok', {
+          duration: 3000
+        });
       },
     });
   }

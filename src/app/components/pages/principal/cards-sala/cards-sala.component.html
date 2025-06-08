@@ -9,8 +9,7 @@
     <div *ngIf="salaSeleciona">
       <h5 class="card-title">{{ salaSeleciona.descricao }}</h5>
       <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
-      <p><strong>Status:</strong> {{ salaSeleciona.statusSala }}</p>
-      <p>
+      <p *ngIf="mostrarNumSala">
         <strong>Mostrar número?</strong>
         {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}
       </p>
@@ -57,7 +56,7 @@
     <mat-card *ngIf="mostrarReservaCard" class="reserva-card">
       <mat-card-title class="card-title">
         Reserva de Sala
-        <span class="num-sala">Sala {{ saladesc }}</span>
+        <span class="num-sala">Sala {{ mapa.descricao }}</span>
       </mat-card-title>
 
       <p>

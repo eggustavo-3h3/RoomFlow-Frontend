@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { PerfilPipe } from '../../../Pipes/perfil.pipe';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IAula } from '../../../Interfaces/Aula.interface';
 
 @Component({
   selector: 'app-lista-aula',
@@ -22,8 +23,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './lista-aula.component.css'
 })
 export class ListaAulaComponent implements OnInit {
-  aulas: any[] = [];
+  
+  aulas: IAula[] = [];
   displayedColumns: string[] = ['curso', 'disciplina',  'descricao', 'bloco', 'data', 'professor' ,'acoes'];
+
+
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
@@ -35,7 +39,9 @@ export class ListaAulaComponent implements OnInit {
     this.http.get<any[]>('https://roomflow-api.tccnapratica.com.br/aula/listar')
       .subscribe({
         next: (dados) => this.aulas = dados,
-        error: (erro) => console.error('Erro ao carregar aulas:', erro)
+        error: (erro) => this.snackBar.open('Erro ao carregar aulas:', 'Ok', {
+          duration: 3000
+        })
       });
   }
 

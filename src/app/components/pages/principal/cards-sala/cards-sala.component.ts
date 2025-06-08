@@ -60,7 +60,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CardsSalaComponent implements OnInit, OnDestroy {
   @Input({ required: true }) mapa!: IMapa;
-  @Input({ required: true }) saladesc!: string;
+  @Input({ required: true }) mostrarNumSala: boolean = false;
 
   @Input() mostrarExcluirBotao = false;
   @Input() mostrarEditarBotao = false;
@@ -144,7 +144,9 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
   carregarDisciplinas() {
     const sub = this.disciplinaService.getDisciplinas().subscribe({
       next: (res) => (this.disciplinas = res),
-      error: (err) => console.error('Erro ao carregar disciplinas:', err),
+      error: (err) => this.snackBar.open( 'Erro ao carregar Disciplinas', 'Ok', {
+          duration: 3000
+        })
     });
     this.subscriptions.push(sub);
   }
@@ -152,7 +154,9 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
   carregarTurmas() {
     const sub = this.turmaService.getTurmas().subscribe({
       next: (res) => (this.turmas = res),
-      error: (err) => console.error('Erro ao carregar turmas:', err),
+      error: (err) => this.snackBar.open( 'Erro ao carregar Turmas', 'Ok', {
+          duration: 3000
+        })
     });
     this.subscriptions.push(sub);
   }
@@ -160,7 +164,9 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
   carregarCursos() {
     const sub = this.cursoService.getCursos().subscribe({
       next: (res) => (this.cursos = res),
-      error: (err) => console.error('Erro ao carregar cursos:', err),
+      error: (err) => this.snackBar.open( 'Erro ao carregar Cursos', 'Ok', {
+          duration: 3000
+        })
     });
     this.subscriptions.push(sub);
   }
@@ -171,7 +177,6 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
       id: this.mapa.salaId,
       numeroSala: this.mapa.numeroSala,
       descricao: this.mapa.descricao,
-      statusSala: this.mapa.statusSala,
       tipoSala:
         TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
       flagExibirNumeroSala: this.mapa.flagExibirNumeroSala,

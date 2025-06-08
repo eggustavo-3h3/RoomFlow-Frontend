@@ -81,7 +81,9 @@ export class FormTurmaComponent implements OnInit, OnDestroy {
           curso: turma.cursoId
         });
       },
-      error: (error) => console.error('Erro ao buscar turma:', error)
+      error: (error) => this.snackBar.open('Erro ao buscar turmas:', 'Ok', {
+        duration: 3000
+      })
     });
     this.subscription.add(sub);
   }

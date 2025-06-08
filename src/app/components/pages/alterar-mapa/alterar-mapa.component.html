@@ -17,9 +17,9 @@
         <div *ngFor="let map of mapa">
           <app-cards-sala
             [mapa]="map"
-            [saladesc]="map.descricao"
             [mostrarEditarBotao]="true"
             [mostrarExcluirBotao]="true"
+            [mostrarNumSala]="true"
             [botaoReservarSala]="false"
             (removerSala)="removerSala($event)"
             (editarSala)="abrirModalEdicao($event)"
@@ -38,10 +38,6 @@
     <div class="informacao-item">
       <span class="valor">{{ salasReservadas }}</span>
       <span>Ocupadas</span>
-    </div>
-    <div class="informacao-item">
-      <span class="valor">{{ salasIndisponiveis }}</span>
-      <span>Indisponíveis</span>
     </div>
     <div class="informacao-item">
       <span class="valor">{{ mapa.length }}</span>
@@ -109,23 +105,6 @@
           *ngIf="formularioDeSalas.controls['tipoSala'].hasError('required')"
         >
           O tipo é obrigatório.
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Status da Sala</mat-label>
-        <mat-select formControlName="statusSala">
-          <mat-option
-            *ngFor="let option of statusOptions"
-            [value]="option.value"
-          >
-            {{ option.label }}
-          </mat-option>
-        </mat-select>
-        <mat-error
-          *ngIf="formularioDeSalas.controls['statusSala'].hasError('required')"
-        >
-          O status é obrigatório.
         </mat-error>
       </mat-form-field>
 

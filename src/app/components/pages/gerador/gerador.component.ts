@@ -103,7 +103,9 @@ export class GeradorComponent implements OnInit, OnDestroy {
         this.cursosList = cursos;
       },
       error: (error) => {
-        console.log('Não foi possível carregar cursos:', error);
+       this.snackBar.open('Não foi possível carregar cursos:', 'Ok', {
+          duration: 3000
+        });
       },
     });
     this.subscriptions.push(sub);

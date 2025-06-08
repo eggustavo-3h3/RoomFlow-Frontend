@@ -38,7 +38,9 @@ export class GerenciamentoComponent implements OnInit, OnDestroy {
         this.usuarios = list;
       },
       error: erro => {
-        console.log(erro);
+        this.snackBar.open('Erro ao carregar usuários', 'Ok', {
+          duration: 3000
+        });
       }
     });
     this.subscriptions.push(sub);

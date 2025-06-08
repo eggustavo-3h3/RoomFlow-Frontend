@@ -20,8 +20,8 @@
   <div *ngFor="let map of mapa">
     <app-cards-sala 
       [mapa]="map" 
-      [saladesc]="map.descricao"
       [mostrarEditarBotao]="false"
+      [mostrarNumSala]="false"
       [mostrarExcluirBotao]="false"
       [botaoReservarSala]="authService.usuarioEhProfessor() ? true : false"
       >
