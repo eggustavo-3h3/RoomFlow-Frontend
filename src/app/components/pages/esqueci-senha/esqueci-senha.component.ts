@@ -49,7 +49,7 @@ export class EsqueciSenhaComponent implements OnInit {
 
   ngOnInit(): void {
   this.chaveResetSenha = this.route.snapshot.paramMap.get('chavereset') || '';
-  }
+}
 
   validarSenhasIguais(group: FormGroup) {
     const nova = group.get('novaSenha')?.value;

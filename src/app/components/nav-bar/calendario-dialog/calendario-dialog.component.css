@@ -116,7 +116,6 @@ button[disabled] {
   justify-content: center;
   align-items: center;
   gap: 16px;
-  margin-top: 24px;
   width: 100%;
   flex-wrap: wrap;
 }

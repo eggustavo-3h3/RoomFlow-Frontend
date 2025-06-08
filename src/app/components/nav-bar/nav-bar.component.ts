@@ -79,7 +79,7 @@ export class NavBarComponent implements OnInit {
   }
 
   abrirCalendario() {
-    const dialogRef = this.dialog.open(CalendarioDialogComponent, { width: '410px' });
+    const dialogRef = this.dialog.open(CalendarioDialogComponent,);
 
     dialogRef.afterClosed().subscribe((salasFiltradas: ISala[]) => {
       if (salasFiltradas) {

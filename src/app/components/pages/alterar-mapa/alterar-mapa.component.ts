@@ -47,7 +47,15 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
     { label: 'Lab. Informatica', value: TipoSala.LabInformatica },
     { label: 'Lab. Quimica', value: TipoSala.LabQuimica },
     { label: 'Sala Comum', value: TipoSala.SalaComum },
+    { label: 'Lab. Enfermagem', value:TipoSala.LabEnfermagem},
+    { label: 'Lab. Elétrica', value:TipoSala.LabEletrica},
+    { label: 'Lab. Mecatrônica', value:TipoSala.LabMecatronica},
+    { label: 'Oficina', value:TipoSala.Oficina},
+    { label: 'Quadra', value:TipoSala.Quadra},
+    { label: 'Sala Maker', value:TipoSala.SalaMaker},
+    { label: 'Biblioteca', value:TipoSala.Biblioteca},
   ];
+
 
   mostrarExcluirBotao: boolean = false;
 

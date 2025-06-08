@@ -23,7 +23,7 @@ export const routes: Routes = [
     { path: '', component: InicialComponent},
     { path: 'login', component: LoginComponent},
     { path: 'principal', component: PrincipalComponent },
-    { path: 'esqueci', component: EsqueciASenhaComponent},
+    { path: 'esqueci-a-senha', component: EsqueciASenhaComponent},
     { path: 'cadastro', component: CadastroComponent },
     { path: 'esqueci-senha', component: EsqueciSenhaComponent},
     { path: 'gerador-de-aula', component:GeradorComponent},
