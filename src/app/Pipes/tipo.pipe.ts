@@ -23,8 +23,8 @@ export class TipoPipe implements PipeTransform {
       return 'Laboratório de Enfermagem';
     } else if (tipo === TipoSala.LabEletrica) { 
       return 'Laboratório de Elétrica';
-    } else if (tipo === TipoSala.LabMecatronica) { 
-      return 'Laboratório de Mecatrônica';
+    } else if (tipo === TipoSala.LabRoboticaAutomacao) { 
+      return 'Laboratório de Robotica e Automação';
     } else if (tipo === TipoSala.Oficina) { 
       return 'Oficina Mecânica';
     } else if (tipo === TipoSala.Quadra) { 
@@ -33,6 +33,18 @@ export class TipoPipe implements PipeTransform {
       return 'Sala Maker';
     } else if (tipo === TipoSala.Biblioteca) { 
       return 'Biblioteca';
+    }
+    else if (tipo === TipoSala.Auditorio) { 
+      return 'Auditório';
+    }
+    else if (tipo === TipoSala.LabPneumaticaHidraulica) { 
+      return 'Lab. Pneumatica Hidraulica';
+    }
+    else if (tipo === TipoSala.LabMetrologia) { 
+      return 'Lab. Metrologia';
+    }
+    else if (tipo === TipoSala.LabUsinagemCNC) { 
+      return 'Lab. Usinagem CNC';
     } else {
       return 'Tipo inválido';
     }
