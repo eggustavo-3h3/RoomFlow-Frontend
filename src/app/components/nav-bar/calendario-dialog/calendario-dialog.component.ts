@@ -1,8 +1,18 @@
 import { Component, Inject, LOCALE_ID, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,15 +24,13 @@ import { Router } from '@angular/router';
 import { SalaService } from '../../../services/sala.service';
 import { ISala } from '../../../Interfaces/Sala.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Bloco } from '../../../Enums/Bloco.enum';
+import { AngularMaterialModule } from '../../../angular-material/angular-material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calendario-dialog',
   standalone: true,
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pt' },
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-  ],
-  //encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
     MatButtonModule,
@@ -35,75 +43,84 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatMenuModule,
     MatIconModule,
     MatCardModule,
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    CommonModule,
   ],
   templateUrl: './calendario-dialog.component.html',
   styleUrls: ['./calendario-dialog.component.css'],
 })
 export class CalendarioDialogComponent {
-  dataSelecionada: Date | null = null;
-  blocoSelecionado: string = 'bloco1';
-  selected: Date | null = null;
   dataService: any;
   minDate: Date = new Date();
 
-onDateChange(date: Date) {
-  this.dataSelecionada = date;
-  console.log('Data selecionada:', this.dataSelecionada);
-}
+  form: FormGroup;
 
   constructor(
-  public dialogRef: MatDialogRef<CalendarioDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any,
-  private salaService: SalaService,
-  private router: Router,
-  private snackBar: MatSnackBar
-) {}
+    public dialogRef: MatDialogRef<CalendarioDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private salaService: SalaService,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      data: [null, Validators.required],
+      bloco: [{ value: null, disabled: true }, Validators.required],
+    });
 
-abrirBloco() {
-  if (this.blocoSelecionado === 'bloco1') {
-    this.router.navigate(['/bloco1']);
-  } else if (this.blocoSelecionado === 'bloco2') {
-    this.router.navigate(['/bloco2']);
-  } else {
-    console.warn('Nenhum bloco selecionado');
+    this.form.get('data')?.valueChanges.subscribe((data: Date | null) => {
+      const blocoControl = this.form.get('bloco');
+      if (data) {
+        blocoControl?.enable();
+      } else {
+        blocoControl?.disable();
+      }
+    });
   }
-}
 
-aplicarFiltro() {
-  if (this.isDataSelecionada() && this.blocoSelecionado) {
-    const blocoNumerico = this.mapearBlocoParaNumero(this.blocoSelecionado);
-    this.salaService.buscarDadosFiltrados(this.dataSelecionada!, blocoNumerico)
-      .subscribe({
-        next: (data: ISala[]) => {
-          console.log('Salas filtradas:', data);
-          this.dialogRef.close(data);
+  blocoEnum = [
+    { label: 'Bloco 1', value: Bloco.Primeiro },
+    { label: 'Bloco 2', value: Bloco.Segundo },
+  ];
+
+  aplicarFiltro() {
+    const data = this.form.get('data')?.value;
+    const bloco = this.form.get('bloco')?.value;
+
+    if (data && bloco !== null) {
+      this.salaService.buscarDadosFiltrados(data, bloco).subscribe({
+        next: (salas: ISala[]) => {
+          console.log('Salas filtradas:', salas);
+          this.dialogRef.close(salas);
           this.snackBar.open('Filtros aplicados com sucesso!', 'Fechar', {
             duration: 3000,
           });
         },
-        error: err => {
+        error: (err) => {
           console.error('Erro ao buscar salas:', err);
-          this.snackBar.open('Erro ao carregar salas, tente novamente.', 'Fechar', {
-            duration: 3000,
-          });
-        }
+          this.snackBar.open(
+            'Erro ao carregar salas, tente novamente.',
+            'Fechar',
+            {
+              duration: 3000,
+            }
+          );
+        },
       });
-  } else {
-    console.warn('Selecione uma data e um bloco antes de aplicar o filtro');
-    this.snackBar.open('Selecione uma data e um bloco antes de aplicar o filtro.', 'Fechar', {
-      duration: 3000,
-    });
+    } else {
+      this.snackBar.open(
+        'Selecione uma data e um bloco antes de aplicar o filtro.',
+        'Fechar',
+        {
+          duration: 3000,
+        }
+      );
+    }
   }
-}
-mapearBlocoParaNumero(bloco: string): number {
-  const mapa: { [key: string]: number } = {
-    'bloco1': 1,
-    'bloco2': 2
-  };
-  return mapa[bloco] || 1;
-}
 
   isDataSelecionada(): boolean {
-    return this.dataSelecionada !== null;
+    return !!this.form.get('data')?.value;
   }
 }

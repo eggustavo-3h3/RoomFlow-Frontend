@@ -6,32 +6,49 @@
 
 <div class="overlay" *ngIf="exibirCard" (click)="toggleCard()">
   <div class="modal-card" (click)="$event.stopPropagation()">
-
     <div *ngIf="salaSeleciona">
       <h5 class="card-title">{{ salaSeleciona.descricao }}</h5>
       <p><strong>Tipo:</strong> {{ salaSeleciona.tipoSala | tipo }}</p>
-      <p><strong>Status:</strong> {{ salaSeleciona.statusSala  }}</p>
-      <p><strong>Mostrar número?</strong> {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}</p>
+      <p><strong>Status:</strong> {{ salaSeleciona.statusSala }}</p>
+      <p>
+        <strong>Mostrar número?</strong>
+        {{ salaSeleciona.flagExibirNumeroSala | exibirNum }}
+      </p>
 
-       <p *ngIf="mapa.aula">
-    <strong>Professor:</strong> {{ mapa.aula.professor!.nome }}
-    <strong>Curso:</strong> {{ mapa.aula.curso!.nome }}
-    <strong>Turma:</strong> {{ mapa.aula.turma!.descricao }}
-    <strong>Disciplina:</strong> {{ mapa.aula.disciplina!.nome }}
-  </p>
+      <p *ngIf="mapa.aula">
+        <strong>Professor:</strong> {{ mapa.aula.professor!.nome }}
+        <strong>Curso:</strong> {{ mapa.aula.curso!.nome }}
+        <strong>Turma:</strong> {{ mapa.aula.turma!.descricao }}
+        <strong>Disciplina:</strong> {{ mapa.aula.disciplina!.nome }}
+      </p>
     </div>
 
-    <button mat-raised-button class="fechar-button" (click)="toggleCard()">Fechar</button>
-    <button mat-raised-button class="removerSala-button ml-2" *ngIf="mostrarExcluirBotao" (click)="onRemoverSala()">
+    <button mat-raised-button class="fechar-button" (click)="toggleCard()">
+      Fechar
+    </button>
+    <button
+      mat-raised-button
+      class="removerSala-button ml-2"
+      *ngIf="mostrarExcluirBotao"
+      (click)="onRemoverSala()"
+    >
       Remover sala
     </button>
-    <button mat-raised-button class="editarSala-button ml-2 espaco-inferior" *ngIf="mostrarEditarBotao" (click)="onEditarSala(mapa.salaId)">
+    <button
+      mat-raised-button
+      class="editarSala-button ml-2 espaco-inferior"
+      *ngIf="mostrarEditarBotao"
+      (click)="onEditarSala(mapa.salaId)"
+    >
       Editar sala
     </button>
 
-
-
-    <button mat-raised-button class="reservarSala-button ml-2" (click)="toggleReservaCard()" *ngIf="botaoReservarSala && mapa.statusSala.toString() === 'Disponivel'">
+    <button
+      mat-raised-button
+      class="reservarSala-button ml-2"
+      (click)="toggleReservaCard()"
+      *ngIf="botaoReservarSala && mapa.statusSala.toString() === 'Disponivel'"
+    >
       Reservar sala
     </button>
 
@@ -43,17 +60,27 @@
         <span class="num-sala">Sala {{ saladesc }}</span>
       </mat-card-title>
 
-      <p><strong>Professor: {{ nomeDoProfessor }}</strong></p>
+      <p>
+        <strong>Professor: {{ nomeDoProfessor }}</strong>
+      </p>
 
       <form [formGroup]="formulario">
         <mat-form-field appearance="fill">
           <mat-label><strong>Disciplina</strong></mat-label>
           <mat-select formControlName="disciplina" required>
-            <mat-option *ngFor="let disciplina of disciplinas" [value]="disciplina.id">
+            <mat-option
+              *ngFor="let disciplina of disciplinas"
+              [value]="disciplina.id"
+            >
               {{ disciplina.nome }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="formulario.controls['disciplina'].hasError('required') && formulario.controls['disciplina'].touched">
+          <mat-error
+            *ngIf="
+              formulario.controls['disciplina'].hasError('required') &&
+              formulario.controls['disciplina'].touched
+            "
+          >
             A disciplina é obrigatória
           </mat-error>
         </mat-form-field>
@@ -65,50 +92,86 @@
               {{ turma.descricao }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="formulario.controls['turma'].hasError('required') && formulario.controls['turma'].touched">
+          <mat-error
+            *ngIf="
+              formulario.controls['turma'].hasError('required') &&
+              formulario.controls['turma'].touched
+            "
+          >
             A turma é obrigatória
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Data da Reserva</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="data" [min]="minDate" />
-          <mat-hint>DD/MM/AAAA</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="formulario.controls['data'].hasError('required') && formulario.controls['data'].touched">
-            A data é obrigatória
+        <mat-form-field appearance="fill">
+          <mat-label><strong>Curso</strong></mat-label>
+          <mat-select formControlName="curso" required>
+            <mat-option *ngFor="let curso of cursos" [value]="curso.id">
+              {{ curso.nome }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              formulario.controls['turma'].hasError('required') &&
+              formulario.controls['turma'].touched
+            "
+          >
+            A turma é obrigatória
           </mat-error>
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+          <mat-label><strong>Data da Reserva</strong></mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="data"
+            readonly
+          />
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
         <p class="bloco-label">Escolha o bloco desejado</p>
-        <mat-radio-group formControlName="bloco" style="display: flex; gap: 16px; margin-top: 8px;">
-          <mat-radio-button [value]="blocoEnum.Primeiro">Bloco 1</mat-radio-button>
-          <mat-radio-button [value]="blocoEnum.Segundo">Bloco 2</mat-radio-button>
+        <mat-radio-group
+          formControlName="bloco"
+          style="display: flex; gap: 16px; margin-top: 8px"
+        >
+          <mat-radio-button [value]="blocoEnum.Primeiro"
+            >Bloco 1</mat-radio-button
+          >
+          <mat-radio-button [value]="blocoEnum.Segundo"
+            >Bloco 2</mat-radio-button
+          >
         </mat-radio-group>
-        <mat-error *ngIf="formulario.controls['bloco'].hasError('required') && formulario.controls['bloco'].touched" style="color: red; font-size: 12px;">
+        <mat-error
+          *ngIf="
+            formulario.controls['bloco'].hasError('required') &&
+            formulario.controls['bloco'].touched
+          "
+          style="color: red; font-size: 12px"
+        >
           Escolha do bloco é obrigatória
         </mat-error>
 
-        <mat-card-content>
-          <div *ngIf="!mostrarConfirmacaoFinal">
-            <p>Você está prestes a reservar a sala {{ saladesc }}.</p>
-            <button mat-raised-button class="fechar-button" (click)="closeReservaCard()">Fechar</button>
-            <button mat-raised-button class="button-reservar ml-2" [disabled]="formulario.invalid">
-              Confirmar Reserva
-            </button>
-          </div>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="confirmarReserva()"
+          [disabled]="formulario.invalid"
+          class="mt-3"
+          type="button"
+        >
+          Confirmar Reserva
+        </button>
 
-          <mat-card *ngIf="mostrarConfirmacaoFinal" class="confirmacao-final-card subir-card">
-            <div class="confirmacao-container">
-              <p class="confirmacao-texto">Deseja realmente reservar a sala {{ saladesc }}?</p>
-              <div class="botoes-confirmacao">
-                <button mat-raised-button color="primary">OK</button>
-                <button mat-raised-button color="warn">Cancelar</button>
-              </div>
-            </div>
-          </mat-card>
-        </mat-card-content>
+        <!-- botão cancelar reserva -->
+        <button
+          mat-button
+          (click)="toggleReservaCard()"
+          class="mt-1"
+          type="button"
+        >
+          Cancelar
+        </button>
       </form>
     </mat-card>
   </div>

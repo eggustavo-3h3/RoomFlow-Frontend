@@ -24,6 +24,14 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  getIdDoUsuarioLogado(): string | null {
+    const payload = this.decodeToken();
+    if (!payload) return null;
+
+    // Verifica os possíveis nomes de campo para o ID
+    return payload.sub || payload.id || payload.Id || null;
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
@@ -35,8 +43,11 @@ export class AuthService {
   private decodeToken(): any | null {
     const token = this.getToken();
     if (!token) return null;
+
     try {
-      return JSON.parse(atob(token.split('.')[1]));
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      return JSON.parse(payloadJson);
     } catch (error) {
       console.error('Erro ao decodificar token:', error);
       return null;

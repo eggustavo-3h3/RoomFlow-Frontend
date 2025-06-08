@@ -91,6 +91,7 @@ export class GeradorComponent implements OnInit, OnDestroy {
   voltar() {
     this.router.navigate(['/principal']);
   }
+  
   irParaListaAulas() {
     this.router.navigate(['/lista-aula']);
   }
@@ -174,7 +175,7 @@ export class GeradorComponent implements OnInit, OnDestroy {
         dataFimControl?.enable();
       } else {
         dataFimControl?.disable();
-        dataFimControl?.reset(); // opcional: limpa o campo ao desabilitar
+        dataFimControl?.reset(); 
       }
     });
   }

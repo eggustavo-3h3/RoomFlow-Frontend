@@ -1,23 +1,28 @@
 <h2 mat-dialog-title>Selecione o dia desejado</h2>
+
 <mat-dialog-content style="display: flex; flex-direction: column; gap: 20px;">
+  <form [formGroup]="form">
+    <mat-card class="demo-inline-calendar-card" style="background-color: transparent; box-shadow: none;">
+      <mat-calendar
+        [selected]="form.get('data')?.value"
+        (selectedChange)="form.get('data')?.setValue($event)"
+        [minDate]="minDate">
+      </mat-calendar>
+    </mat-card>
 
+    <h2 style="font-weight: normal;">Escolha o bloco</h2>
 
-  <mat-card class="demo-inline-calendar-card" style="background-color: transparent; box-shadow: none;">
-    <mat-calendar
-  [(selected)]="selected"
-  (selectedChange)="onDateChange($event)"
-  [minDate]="minDate">
-</mat-calendar>
+    <mat-radio-group
+      formControlName="bloco"
+    >
+      <mat-radio-button *ngFor="let bloco of blocoEnum" [value]="bloco.value">
+        {{ bloco.label }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
 
-  <h2 style="font-weight: normal;">Escolha o bloco</h2>
-  <mat-radio-group [(ngModel)]="blocoSelecionado" (change)="abrirBloco()" [disabled]="!isDataSelecionada()">
-    <mat-radio-button value="bloco1">Bloco 1</mat-radio-button>
-    <mat-radio-button value="bloco2">Bloco 2</mat-radio-button>
-  </mat-radio-group>
-
-  <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
-    <button mat-raised-button color="primary" (click)="aplicarFiltro()" [disabled]="!isDataSelecionada()">Filtrar</button>
+  <div>
+    <button mat-raised-button color="primary" (click)="aplicarFiltro()" [disabled]="!form.valid">Filtrar</button>
     <button mat-raised-button class="botao-fechar" (click)="dialogRef.close()">Fechar</button>
   </div>
-  
-
+</mat-dialog-content>

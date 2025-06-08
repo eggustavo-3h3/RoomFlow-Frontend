@@ -18,6 +18,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TipoSala } from '../../../Enums/TipoSala.enum';
 import { IMapa } from '../../../Interfaces/Mapa.interface';
+import { Bloco } from '../../../Enums/Bloco.enum';
 
 @Component({
   selector: 'app-alterar-mapa',
@@ -116,7 +117,12 @@ export class AlterarMapaComponent implements OnInit, OnDestroy {
   }
 
   getMapa() {
-    const sub = this._salaService.getMapa().subscribe({
+
+    const hoje = new Date();
+    
+        const bloco : Bloco | undefined = undefined;
+
+    const sub = this._salaService.buscarDadosFiltrados(hoje, bloco).subscribe({
       next: (lista) => {
         this.mapa = lista;
         this.atualizarContagens();

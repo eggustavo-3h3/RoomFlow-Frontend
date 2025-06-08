@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { Status } from '../../../../Enums/Status.enum';
 import { ISala } from '../../../../Interfaces/Sala.interface';
 import { IMapa } from '../../../../Interfaces/Mapa.interface';
@@ -22,8 +30,13 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../../../../angular-material/angular-material.module';
 import { TipoPipe } from '../../../../Pipes/tipo.pipe';
-import { ExibirNumPipe } from "../../../../Pipes/exibirNum.pipe";
+import { ExibirNumPipe } from '../../../../Pipes/exibirNum.pipe';
 import { Subscription } from 'rxjs';
+import { IReserva } from '../../../../Interfaces/reserva.interface';
+import { CursoService } from '../../../../services/curso.service';
+import { IDisciplina } from '../../../../Interfaces/Disciplina.interface';
+import { ICurso } from '../../../../Interfaces/Curso.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cards-sala',
@@ -40,13 +53,12 @@ import { Subscription } from 'rxjs';
     MatDatepickerModule,
     MatRadioModule,
     TipoPipe,
-    ExibirNumPipe
+    ExibirNumPipe,
   ],
   templateUrl: './cards-sala.component.html',
-  styleUrls: ['./cards-sala.component.css']
+  styleUrls: ['./cards-sala.component.css'],
 })
 export class CardsSalaComponent implements OnInit, OnDestroy {
-
   @Input({ required: true }) mapa!: IMapa;
   @Input({ required: true }) saladesc!: string;
 
@@ -56,27 +68,31 @@ export class CardsSalaComponent implements OnInit, OnDestroy {
 
   @Output() removerSala = new EventEmitter<string>();
   @Output() editarSala = new EventEmitter<string>();
-  @Output() reservaConfirmada = new EventEmitter<ISala>();
+  @Output() reservaConfirmada = new EventEmitter<IReserva>();
 
   formulario: FormGroup = new FormGroup({});
   nomeDoProfessor = '';
 
+  data = new Date();
+
   exibirCard = false;
   mostrarReservaCard = false;
-  mostrarConfirmacaoFinal = false;
   minDate = new Date();
   salaSeleciona: ISala | null = null;
+
+  snackBar = inject(MatSnackBar);
 
   Status = Status;
   tipoSalaEnum = TipoSala;
   statusEnum = Status;
 
-  disciplinas: any[] = [];
+  disciplinas: IDisciplina[] = [];
   turmas: ITurma[] = [];
+  cursos: ICurso[] = [];
   blocoEnum = Bloco;
 
   private subscriptions: Subscription[] = [];
-IUsuario: any;
+  IUsuario: any;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -85,23 +101,27 @@ IUsuario: any;
     private readonly salaService: SalaService,
     private readonly disciplinaService: DisciplinaService,
     private readonly turmaService: TurmaService,
-    private readonly aulaService: AulaService
-  ) { }
+    private readonly aulaService: AulaService,
+    private readonly cursoService: CursoService
+  ) {}
 
   ngOnInit() {
     this.iniciaForm();
 
-    const blocoSub = this.formulario.get('data')?.valueChanges.subscribe(value => {
-      if (value) {
-        this.formulario.get('bloco')?.enable();
-      } else {
-        this.formulario.get('bloco')?.disable();
-      }
-    });
+    const blocoSub = this.formulario
+      .get('data')
+      ?.valueChanges.subscribe((value) => {
+        if (value) {
+          this.formulario.get('bloco')?.enable();
+        } else {
+          this.formulario.get('bloco')?.disable();
+        }
+      });
     if (blocoSub) this.subscriptions.push(blocoSub);
 
     this.carregarDisciplinas();
     this.carregarTurmas();
+    this.carregarCursos();
 
     const nome = this.authService.getNomeDoUsuarioLogado();
     if (nome) {
@@ -112,24 +132,35 @@ IUsuario: any;
   iniciaForm() {
     this.formulario = this.formBuilder.group({
       disciplina: [null, Validators.required],
+      curso: [null, Validators.required],
+      sala: [null],
+      data: [{ value: new Date(), disabled: false }],
       turma: [null, Validators.required],
-      data: [null, Validators.required],
-      bloco: [null, Validators.required],
+      professor: [null],
+      bloco: [{ value: null, disabled: true }, Validators.required],
     });
   }
 
   carregarDisciplinas() {
     const sub = this.disciplinaService.getDisciplinas().subscribe({
-      next: res => this.disciplinas = res,
-      error: err => console.error('Erro ao carregar disciplinas:', err)
+      next: (res) => (this.disciplinas = res),
+      error: (err) => console.error('Erro ao carregar disciplinas:', err),
     });
     this.subscriptions.push(sub);
   }
 
   carregarTurmas() {
     const sub = this.turmaService.getTurmas().subscribe({
-      next: res => this.turmas = res,
-      error: err => console.error('Erro ao carregar turmas:', err)
+      next: (res) => (this.turmas = res),
+      error: (err) => console.error('Erro ao carregar turmas:', err),
+    });
+    this.subscriptions.push(sub);
+  }
+
+  carregarCursos() {
+    const sub = this.cursoService.getCursos().subscribe({
+      next: (res) => (this.cursos = res),
+      error: (err) => console.error('Erro ao carregar cursos:', err),
     });
     this.subscriptions.push(sub);
   }
@@ -141,8 +172,9 @@ IUsuario: any;
       numeroSala: this.mapa.numeroSala,
       descricao: this.mapa.descricao,
       statusSala: this.mapa.statusSala,
-      tipoSala: TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
-      flagExibirNumeroSala: this.mapa.flagExibirNumeroSala
+      tipoSala:
+        TipoSala[this.mapa.tipoSala as unknown as keyof typeof TipoSala],
+      flagExibirNumeroSala: this.mapa.flagExibirNumeroSala,
     };
   }
 
@@ -150,6 +182,7 @@ IUsuario: any;
     this.mostrarReservaCard = !this.mostrarReservaCard;
     if (this.mostrarReservaCard) {
       this.formulario.reset();
+      this.formulario.patchValue({ data: new Date() });
     }
   }
 
@@ -180,7 +213,41 @@ IUsuario: any;
     }
   }
 
+  confirmarReserva() {
+  if (this.formulario.valid && this.salaSeleciona) {
+    const reservaPayload: IReserva = {
+      disciplinaId: this.formulario.value.disciplina,
+      cursoId: this.formulario.value.curso,
+      salaId: this.salaSeleciona.id,
+      data: this.formulario.value.data,
+      turmaId: this.formulario.value.turma,
+      professorId: this.authService.getIdDoUsuarioLogado(),
+      bloco: this.formulario.value.bloco,
+    };
+
+    this.aulaService.criarAula(reservaPayload).subscribe({
+      next: (res) => {
+        this.reservaConfirmada.emit(res);
+        this.mostrarReservaCard = false;
+        this.exibirCard = false;
+        this.snackBar.open( 'Aula cadastrada com sucesso', 'Ok', {
+          duration: 3000
+        });
+      },
+      error: (err) => {
+        this.snackBar.open( 'Erro ao cadastrar aula', 'Ok', {
+          duration: 3000
+        });
+        console.error('Erro ao confirmar reserva:', err);
+      },
+    });
+  } else {
+    this.formulario.markAllAsTouched();
+  }
+}
+
+
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

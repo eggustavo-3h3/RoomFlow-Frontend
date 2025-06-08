@@ -10,6 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../services/auth.service';
 import { IMapa } from '../../../Interfaces/Mapa.interface';
 import { Subscription } from 'rxjs';
+import { Bloco } from '../../../Enums/Bloco.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { CalendarioDialogComponent } from '../../nav-bar/calendario-dialog/calendario-dialog.component';
 
 @Component({
   selector: 'app-principal',
@@ -35,7 +38,9 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private readonly _salaService: SalaService) { }
+  constructor(private readonly _salaService: SalaService,
+    private dialog: MatDialog
+  ) { }
 
   @Output() salaAtualizada = new EventEmitter<ISala>();
 
@@ -43,6 +48,22 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this.getMapa();
     this.atualizarContagens();
   }
+
+  abrirDialogFiltro(): void {
+  const dialogRef = this.dialog.open(CalendarioDialogComponent, {
+    width: '400px',
+    data: {},
+  });
+
+  dialogRef.afterClosed().subscribe((salasFiltradas: IMapa[] | undefined) => {
+    if (salasFiltradas) {
+      this.mapa = salasFiltradas;
+      this.atualizarContagens();
+      console.log(salasFiltradas);
+      
+    }
+  });
+}
 
   atualizarContagens() {
     this.salasDisponiveis = this.mapa.filter(s => s.statusSala.toString() === 'Disponivel').length;
@@ -67,11 +88,18 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   }
 
   getMapa() {
-    const sub = this._salaService.getMapa().subscribe({
+
+    const hoje = new Date();
+
+    const bloco : Bloco | undefined = undefined;
+
+    const sub = this._salaService.buscarDadosFiltrados(hoje, bloco).subscribe({
       next: lista => {
         console.log(lista);
         this.mapa = lista;
         this.atualizarContagens();
+        console.log('data carregada:', hoje);
+        
       },
       error: erro => {
         console.log(erro.message);
@@ -87,7 +115,6 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     this.cards.forEach(card => {
       card.exibirCard = false;
       card.mostrarReservaCard = false;
-      card.mostrarConfirmacaoFinal = false;
     });
   }
 

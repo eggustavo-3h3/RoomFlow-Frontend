@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAula } from '../Interfaces/Aula.interface';
 import { Observable } from 'rxjs';
+import { IReserva } from '../Interfaces/reserva.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,10 @@ export class AulaService {
 
   constructor(private http: HttpClient) {}
 
-  criarAula(aula: IAula): Observable<IAula> {
-    return this.http.post<IAula>(this.url, aula);
+  criarAula(reserva: IReserva): Observable<IReserva> {
+    return this.http.post<IReserva>(this.url + '/adicionar', reserva);
   }
+
   getAulasPorSalaEData(salaId: string, data: string): Observable<IAula[]> {
   const url = `${this.url}?salaId=${salaId}&data=${data}`;
   return this.http.get<IAula[]>(url);

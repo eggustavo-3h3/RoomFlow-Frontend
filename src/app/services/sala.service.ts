@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ISala } from '../Interfaces/Sala.interface';
 import { IMapa } from '../Interfaces/Mapa.interface';
-import { IAula } from '../Interfaces/Aula.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +37,19 @@ export class SalaService {
     return this.http.delete<void>(`${this.url}/remover/${id}`)
   }
 
-  buscarDadosFiltrados(data: Date, bloco: number): Observable<ISala[]> {
-  const dataStr = data.toISOString().split('T')[0]; // formato yyyy-MM-dd
-  return this.http.get<ISala[]>(`https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataStr}&bloco=${bloco}`);
-}
+      buscarDadosFiltrados(data: Date, bloco?: number): Observable<IMapa[]> {
+      // Formata a data no formato yyyy-MM-dd que é compatível com DateOnly
+      const year = data.getFullYear();
+      const month = (data.getMonth() + 1).toString().padStart(2, '0');
+      const day = data.getDate().toString().padStart(2, '0');
+      const dataStr = `${year}-${month}-${day}`;
+
+      let url = `https://roomflow-api.tccnapratica.com.br/mapa/listar?data=${dataStr}`;
+
+      if (bloco !== undefined) {
+          url += `&bloco=${bloco}`;
+      }
+
+      return this.http.get<IMapa[]>(url);
+  }
 }
