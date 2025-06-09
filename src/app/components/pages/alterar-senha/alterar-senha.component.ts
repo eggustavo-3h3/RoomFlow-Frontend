@@ -41,7 +41,7 @@ export class AlterarSenhaComponent {
       this.form = this.fb.group(
         {
           senhaAtual: ['', Validators.required],
-          novaSenha: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/)]],
+          novaSenha: ['', Validators.required],
           confirmarSenha: ['', Validators.required]
         },
         { validators: this.validarSenhasIguais }
