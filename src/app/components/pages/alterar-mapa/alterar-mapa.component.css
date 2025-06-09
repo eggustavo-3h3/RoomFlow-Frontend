@@ -62,6 +62,12 @@
   flex-wrap: wrap;
 }
 
+.scrollable-content {
+  max-height: 600px;
+  overflow-y: auto; 
+  padding-right: 10px;
+}
+
 .custom-button {
   padding: 10px 20px;
   font-size: 16px;

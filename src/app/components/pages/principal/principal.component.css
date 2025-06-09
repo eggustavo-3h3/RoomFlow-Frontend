@@ -31,6 +31,12 @@
   width: 100%;
 }
 
+.scrollable-content {
+  max-height: 600px;
+  overflow-y: auto; 
+  padding-right: 10px;
+}
+
 @media (max-width: 1200px) {
   .cards-container {
     grid-template-columns: repeat(8, 1fr); 
