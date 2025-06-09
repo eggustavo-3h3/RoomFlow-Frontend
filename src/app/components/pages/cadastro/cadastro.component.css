@@ -73,6 +73,10 @@
   background-repeat: no-repeat;
 }
 
+.imagem-fundo-card {
+  display: none;
+}
+
 .titulo-centralizado1 {
   text-align: center;
   letter-spacing: 2px;
@@ -111,11 +115,43 @@
     width: 100% !important;
     max-width: none !important;
   }
+
+  .imagem-fundo {
+    display: none;
+  }
+
+  .imagem-fundo-card {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-image: url(../../../../../public/icons/img_inicial.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
 }
 
 @media (max-width: 480px) {
   .login-form {
     padding: 20px 10px;
+  }
+
+  .imagem-fundo {
+    display: none;
+  }
+
+  .imagem-fundo-card {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-image: url(../../../../../public/icons/img_inicial.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
   }
 
   .login-form h2.titulo-centralizado1 {
