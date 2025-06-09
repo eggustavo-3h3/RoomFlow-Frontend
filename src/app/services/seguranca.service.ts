@@ -26,7 +26,7 @@ export interface IRespostaMensagem {
 })
 export class SegurancaService {
 
-  private readonly url = 'https://roomflow-api.tccnapratica.com.br';
+    private readonly url = 'http://localhost:4200';
 
   constructor(private http: HttpClient) {}
 

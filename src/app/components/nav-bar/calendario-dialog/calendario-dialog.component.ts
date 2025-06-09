@@ -54,7 +54,7 @@ import { firstValueFrom, forkJoin } from 'rxjs';
 })
 export class CalendarioDialogComponent {
   dataService: any;
-  minDate: Date = new Date();
+  minDate: Date = new Date(new Date().setDate(new Date().getDate() - 7));
 
   form: FormGroup;
 
