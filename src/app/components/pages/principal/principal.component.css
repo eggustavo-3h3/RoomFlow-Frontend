@@ -178,6 +178,18 @@ mat-card-header {
     font-size: 14px;
   }
 }
+@media (max-width: 600px) {
+  mat-card {
+    height: 730px;
+    overflow: hidden;
+    font-size: 12px;
+  }
+
+  mat-card .mat-card-header,
+  mat-card .mat-card-content {
+    padding: 8px;
+  }
+}
 .botao-filtro {
   display: flex;
   align-items: center;
