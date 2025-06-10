@@ -162,7 +162,7 @@ mat-card-header {
 }
 @media (max-width: 400px) {
   .informacoes {
-    width: 80%;
+    width: 60%;
     padding: 8px;
   }
 
@@ -180,7 +180,7 @@ mat-card-header {
 }
 @media (max-width: 600px) {
   mat-card {
-    height: 730px;
+    height: 630px;
     overflow: hidden;
     font-size: 12px;
   }
